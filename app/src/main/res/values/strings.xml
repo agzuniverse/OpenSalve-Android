@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">OpenSalve</string>
+    <string name="button_placeholder">Loading…</string>
+    <string name="campname_placeholder">Loading…</string>
 </resources>
