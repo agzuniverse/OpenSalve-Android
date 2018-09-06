@@ -15,12 +15,19 @@
             <ImageView
                 android:id="@+id/camp_image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:src="@drawable/shelter"
+                android:scaleType="centerCrop"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/campname_placeholder"
                 android:textSize="24sp"
+                android:textColor="@color/textColorOverlay"
+                android:shadowColor="@color/textShadowColorForOverlay"
+                android:shadowRadius="0.01"
+                android:shadowDx="-2"
+                android:shadowDy="2"
                 android:paddingLeft="16dp"
                 android:layout_alignBottom="@id/camp_image"/>
         </RelativeLayout>

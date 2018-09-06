@@ -1,17 +1,13 @@
 package com.agzuniverse.agz.opensalve;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-public class HomeActivity extends AppCompatActivity {
+public class CampMgmtScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
-        Intent debug = new Intent(this, CampMgmtScreen.class);
-        this.startActivity(debug);
+        setContentView(R.layout.camp_mgmt_home);
     }
 }
