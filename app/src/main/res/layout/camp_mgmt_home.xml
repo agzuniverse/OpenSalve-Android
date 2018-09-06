@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
@@ -16,25 +17,30 @@
                 android:id="@+id/camp_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/shelter"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/shelter" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/campname_placeholder"
-                android:textSize="24sp"
-                android:textColor="@color/textColorOverlay"
-                android:shadowColor="@color/textShadowColorForOverlay"
-                android:shadowRadius="0.01"
-                android:shadowDx="-2"
-                android:shadowDy="2"
+                android:layout_alignBottom="@id/camp_image"
+                android:background="@drawable/top_fake_drop_shadow"
                 android:paddingLeft="16dp"
-                android:layout_alignBottom="@id/camp_image"/>
+                android:text="@string/campname_placeholder"
+                android:textColor="@color/textColorOverlay"
+                android:textSize="24sp" />
         </RelativeLayout>
-        <TextView
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.75"/>
+            android:layout_weight="0.75"
+            android:elevation="5dp">
+
+            <com.agzuniverse.agz.opensalve.components.CustomButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

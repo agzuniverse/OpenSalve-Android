@@ -9,16 +9,13 @@
 
         <Button
             android:id="@+id/btn"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
             android:layout_margin="8dp"
-            android:layout_weight="1"
             android:background="@drawable/rounded_button"
-            android:padding="8dp"
             android:text="@string/button_placeholder"
             android:textColor="@color/textColorAccent"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 </merge>
