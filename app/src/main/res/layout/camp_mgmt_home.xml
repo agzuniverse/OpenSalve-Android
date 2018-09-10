@@ -35,24 +35,27 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.75"
-            android:elevation="5dp"
-            android:orientation="vertical"
-            android:paddingVertical="52dp">
+            android:orientation="vertical">
 
-            <com.agzuniverse.agz.opensalve.components.CustomButton
+            <TextView
+                style="@style/label"
+                android:text="@string/camp_manager" />
+
+            <TextView
+                style="@style/label"
+                android:text="@string/contact" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1">
 
-            <com.agzuniverse.agz.opensalve.components.CustomButton
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                <Button
+                    style="@style/opensalve_button"
+                    android:text="@string/list_of_inhabitants"
+                    android:layout_alignParentBottom="true" />
+            </RelativeLayout>
 
-            <com.agzuniverse.agz.opensalve.components.CustomButton
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
 
         </LinearLayout>
     </LinearLayout>
