@@ -21,6 +21,7 @@
                 android:src="@drawable/shelter" />
 
             <TextView
+                android:id="@+id/camp_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/camp_image"
@@ -38,24 +39,34 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/camp_manager"
                 style="@style/label"
                 android:text="@string/camp_manager" />
 
             <TextView
+                android:id="@+id/camp_contact"
                 style="@style/label"
                 android:text="@string/contact" />
 
-            <RelativeLayout
+            <View style="@style/divider_full" />
+
+            <TextView
+                style="@style/label"
+                android:text="@string/supplies_needed" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/camp_supplies"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_weight="2"
+                android:scrollbars="vertical" />
 
-                <Button
-                    style="@style/opensalve_button"
-                    android:text="@string/list_of_inhabitants"
-                    android:layout_alignParentBottom="true" />
-            </RelativeLayout>
 
+            <View style="@style/divider_full" />
+
+            <Button
+                style="@style/opensalve_button"
+                android:text="@string/list_of_inhabitants" />
 
         </LinearLayout>
     </LinearLayout>
