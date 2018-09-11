@@ -1,6 +1,7 @@
 package com.agzuniverse.agz.opensalve.Modals;
 
 public class Person {
-    public String name;
+    public String firstName;
+    public String secondName;
     public Integer age;
 }
