@@ -1,9 +1,11 @@
 package com.agzuniverse.agz.opensalve;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.agzuniverse.agz.opensalve.Modals.SupplyNeededModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
@@ -37,5 +39,10 @@ public class CampMgmtScreen extends AppCompatActivity {
         list.setAdapter(listAdapter);
         list.setLayoutManager(listManager);
 
+    }
+
+    public void goToListOfInhabitants(View v) {
+        Intent listOfInhabs = new Intent(this, ListOfInhabitants.class);
+        this.startActivity(listOfInhabs);
     }
 }

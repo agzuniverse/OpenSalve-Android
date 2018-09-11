@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.agzuniverse.agz.opensalve.Modals.Person;
+import com.agzuniverse.agz.opensalve.adapters.ListOfInhabsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
