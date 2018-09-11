@@ -7,4 +7,6 @@
     <string name="list_of_inhabitants">List of inhabitants</string>
     <string name="supplies_needed">Supplies Needed: </string>
     <string name="search_inhabitants_hint">Search for a person</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
 </resources>
