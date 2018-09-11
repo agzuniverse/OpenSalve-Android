@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="44dp">
+
+    <TextView
+        android:id="@+id/person_name"
+        style="@style/persons_list"
+        android:layout_weight="0.7" />
+
+    <TextView
+        android:id="@+id/person_age"
+        style="@style/persons_list"
+        android:layout_weight="0.3" />
+
+</LinearLayout>
