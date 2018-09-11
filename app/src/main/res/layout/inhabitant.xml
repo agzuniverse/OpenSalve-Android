@@ -11,6 +11,7 @@
     <TextView
         android:id="@+id/person_age"
         style="@style/persons_list"
-        android:layout_weight="0.3" />
+        android:layout_weight="0.3"
+        android:gravity="center" />
 
 </LinearLayout>
