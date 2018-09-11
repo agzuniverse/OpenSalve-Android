@@ -2,6 +2,8 @@ package com.agzuniverse.agz.opensalve;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.agzuniverse.agz.opensalve.Modals.Person;
 
@@ -26,5 +28,11 @@ public class ListOfInhabitants extends AppCompatActivity {
             current.age = ages[i];
             persons.add(current);
         }
+
+        RecyclerView inhabs = findViewById(R.id.listOfInhabitants);
+        RecyclerView.LayoutManager inhabManager = new LinearLayoutManager(this);
+        RecyclerView.Adapter inhabAdapter = new ListOfInhabsAdapter(this, persons);
+        inhabs.setLayoutManager(inhabManager);
+        inhabs.setAdapter(inhabAdapter);
     }
 }
