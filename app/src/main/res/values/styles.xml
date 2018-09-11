@@ -16,6 +16,8 @@
         <item name="windowActionBar">false</item>
     </style>
 
+    <style name="ListOfInhabitantsScreenTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar"></style>
+
     <style name="label">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">44dp</item>

@@ -23,6 +23,11 @@
             android:label="Camp Management"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/CampMgmtScreenTheme" />
+        <activity
+            android:name=".ListOfInhabitants"
+            android:label="List of Inhabitants"
+            android:parentActivityName=".CampMgmtScreen"
+            android:theme="@style/ListOfInhabitantsScreenTheme" />
     </application>
 
 </manifest>
