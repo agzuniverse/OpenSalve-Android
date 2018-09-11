@@ -27,7 +27,7 @@
             android:textSize="16sp" />
 
     </LinearLayout>
-    
+
     <View style="@style/divider_full" />
 
     <android.support.v7.widget.RecyclerView
