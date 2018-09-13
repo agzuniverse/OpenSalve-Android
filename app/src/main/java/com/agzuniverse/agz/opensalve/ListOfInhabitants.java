@@ -17,6 +17,12 @@ public class ListOfInhabitants extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_of_inhabitants);
 
+        //Set EditText field for searching in Action Bar
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(R.layout.action_bar_edit_text);
+        actionBar.setDisplayShowCustomEnabled(true);
+
+
         //TODO replace this dummy data with data fetched from API
         List<Person> persons = new ArrayList<>();
         String[] fnames = {"Tony", "Steve", "Peter", "Natasha", "Peter", "Bruce", "Dead", "Steven"};
