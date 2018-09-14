@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
 
 import com.agzuniverse.agz.opensalve.Modals.Person;
 import com.agzuniverse.agz.opensalve.adapters.ListOfInhabsAdapter;
@@ -12,6 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListOfInhabitants extends AppCompatActivity {
+
+    private String query;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +28,21 @@ public class ListOfInhabitants extends AppCompatActivity {
         actionBar.setCustomView(R.layout.action_bar_edit_text);
         actionBar.setDisplayShowCustomEnabled(true);
 
+        EditText search = actionBar.getCustomView().findViewById(R.id.appbar_search_field);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                query = charSequence.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
 
         //TODO replace this dummy data with data fetched from API
         List<Person> persons = new ArrayList<>();
