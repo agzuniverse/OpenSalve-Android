@@ -11,7 +11,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Intent debug = new Intent(this, CampMgmtScreen.class);
+        Intent debug = new Intent(this, CollectionCentreScreen.class);
         this.startActivity(debug);
     }
 }

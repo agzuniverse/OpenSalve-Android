@@ -3,6 +3,7 @@
     <string name="button_placeholder">Loading…</string>
     <string name="name_placeholder">Loading…</string>
     <string name="camp_manager">Camp In-Charge: </string>
+    <string name="collection_manager">Centre In-Charge: </string>
     <string name="contact">Contact: </string>
     <string name="list_of_inhabitants">List of inhabitants</string>
     <string name="supplies_needed">Supplies Needed: </string>

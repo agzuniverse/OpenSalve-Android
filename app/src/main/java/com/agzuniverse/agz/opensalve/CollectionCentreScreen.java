@@ -1,13 +1,11 @@
 package com.agzuniverse.agz.opensalve;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,15 +17,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CampMgmtScreen extends AppCompatActivity {
+public class CollectionCentreScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.camp_mgmt_home);
+        setContentView(R.layout.collection_center);
 
-        //TODO Set camp name, image, contact and camp manager's name
-        //TODO fetch list of supplies needed for camp and display it
         List<SupplyNeededModel> supplies = new ArrayList<>();
         String[] data = {"Snacks", "Drinking Water", "Clothes", "Paracetamol", "First Aid kits"};
         for (int i = 0; i < data.length; i++) {
@@ -36,30 +32,23 @@ public class CampMgmtScreen extends AppCompatActivity {
             supplies.add(current);
         }
 
-
-        RecyclerView list = findViewById(R.id.camp_supplies);
+        RecyclerView list = findViewById(R.id.collection_supplies);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager listManager = new LinearLayoutManager(this);
         RecyclerView.Adapter listAdapter = new SuppliesNeededAdapter(this, supplies);
-        list.setAdapter(listAdapter);
         list.setLayoutManager(listManager);
-
+        list.setAdapter(listAdapter);
     }
 
-    public void setCampMetadata(CampMetadata data) throws IOException {
-        TextView campName = findViewById(R.id.camp_name);
-        campName.setText(data.campName);
-        TextView campManager = findViewById(R.id.camp_manager);
-        campManager.setText(data.campManager);
-        TextView campContact = findViewById(R.id.camp_contact);
-        campContact.setText(data.campContact);
-        ImageView campImage = findViewById(R.id.camp_image);
+    public void setCollectionMetadata(CampMetadata data) throws IOException {
+        TextView collectionName = findViewById(R.id.collection_name);
+        collectionName.setText(data.campName);
+        TextView collectionManager = findViewById(R.id.collection_manager);
+        collectionManager.setText(data.campManager);
+        TextView collectionContact = findViewById(R.id.collection_contact);
+        collectionContact.setText(data.campContact);
+        ImageView collectionImage = findViewById(R.id.collection_image);
         Bitmap imageBitmap = BitmapFactory.decodeStream(data.campImageUrl.openConnection().getInputStream());
-        campImage.setImageBitmap(imageBitmap);
-    }
-
-    public void goToListOfInhabitants(View v) {
-        Intent listOfInhabs = new Intent(this, ListOfInhabitants.class);
-        this.startActivity(listOfInhabs);
+        collectionImage.setImageBitmap(imageBitmap);
     }
 }

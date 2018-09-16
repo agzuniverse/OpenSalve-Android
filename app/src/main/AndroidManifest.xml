@@ -22,7 +22,12 @@
             android:name=".CampMgmtScreen"
             android:label="Camp Management"
             android:parentActivityName=".HomeActivity"
-            android:theme="@style/CampMgmtScreenTheme" />
+            android:theme="@style/CampAndCollectionScreenTheme" />
+        <activity
+            android:name=".CollectionCentreScreen"
+            android:label="Collection Centre"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/CampAndCollectionScreenTheme" />
         <activity
             android:name=".ListOfInhabitants"
             android:label="List of Inhabitants"

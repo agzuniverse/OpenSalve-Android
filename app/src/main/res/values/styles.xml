@@ -11,7 +11,7 @@
         <item name="windowActionBar">false</item>
     </style>
 
-    <style name="CampMgmtScreenTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+    <style name="CampAndCollectionScreenTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>
