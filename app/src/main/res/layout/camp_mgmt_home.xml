@@ -27,7 +27,7 @@
                 android:layout_alignBottom="@id/camp_image"
                 android:background="@drawable/top_fake_drop_shadow"
                 android:paddingLeft="16dp"
-                android:text="@string/campname_placeholder"
+                android:text="@string/name_placeholder"
                 android:textColor="@color/textColorOverlay"
                 android:textSize="24sp" />
         </RelativeLayout>
