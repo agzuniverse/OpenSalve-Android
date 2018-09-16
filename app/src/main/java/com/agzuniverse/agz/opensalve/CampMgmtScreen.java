@@ -1,15 +1,21 @@
 package com.agzuniverse.agz.opensalve;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
 import com.agzuniverse.agz.opensalve.Modals.SupplyNeededModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +45,18 @@ public class CampMgmtScreen extends AppCompatActivity {
         list.setAdapter(listAdapter);
         list.setLayoutManager(listManager);
 
+    }
+
+    public void setCampMetadata(CampMetadata data) throws IOException {
+        TextView campName = findViewById(R.id.camp_name);
+        campName.setText(data.campName);
+        TextView campManager = findViewById(R.id.camp_manager);
+        campManager.setText(data.campManager);
+        TextView campContact = findViewById(R.id.camp_contact);
+        campContact.setText(data.campContact);
+        ImageView campImage = findViewById(R.id.camp_image);
+        Bitmap imageBitmap = BitmapFactory.decodeStream(data.campImageUrl.openConnection().getInputStream());
+        campImage.setImageBitmap(imageBitmap);
     }
 
     public void goToListOfInhabitants(View v) {
