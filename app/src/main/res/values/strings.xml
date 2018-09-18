@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">OpenSalve</string>
+    <string name="mapbox_api_token">pk.eyJ1IjoiYWd6dW5pdmVyc2UiLCJhIjoiY2ptNm01d3p0MW14NzNrbXVzZzNxZGVsdyJ9.fTN7Y8Af1_AWtj_YtTqn5Q</string>
     <string name="button_placeholder">Loading…</string>
     <string name="name_placeholder">Loading…</string>
     <string name="camp_manager">Camp In-Charge: </string>

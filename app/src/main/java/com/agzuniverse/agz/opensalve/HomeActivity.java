@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.mapbox.mapboxsdk.Mapbox;
+
 public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Mapbox.getInstance(this, getString(R.string.mapbox_api_token));
 
         Intent debug = new Intent(this, CollectionCentreScreen.class);
         this.startActivity(debug);
