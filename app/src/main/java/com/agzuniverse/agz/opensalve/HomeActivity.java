@@ -18,6 +18,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        android.support.v7.widget.Toolbar bar = findViewById(R.id.homeToolbar);
+        setSupportActionBar(bar);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(R.layout.action_bar_edit_text);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+
         Mapbox.getInstance(this, getString(R.string.mapbox_api_token));
 
         mapView = (MapView) findViewById(R.id.mapView);

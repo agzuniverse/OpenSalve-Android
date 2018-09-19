@@ -8,7 +8,7 @@
     <string name="contact">Contact: </string>
     <string name="list_of_inhabitants">List of inhabitants</string>
     <string name="supplies_needed">Supplies Needed: </string>
-    <string name="search_inhabitants_hint">Search for a person</string>
+    <string name="search_hint">Search Here</string>
     <string name="want_help">I want help</string>
     <string name="give_help">I want to help</string>
     <string name="name">Name</string>

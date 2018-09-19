@@ -9,5 +9,6 @@
     <color name="brand_color">#d3cccc</color>
     <color name="brand_color_light">#79d3cccc</color>
     <color name="divider_color">#c9ced5</color>
-    <color name="transparentOverlay">#7f000000</color>
+    <color name="transparentDarkOverlay">#7f000000</color>
+    <color name="transparentLightOverlay">#7fffffff</color>
 </resources>

@@ -1,37 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".HomeActivity">
+    android:orientation="vertical">
 
-    <com.mapbox.mapboxsdk.maps.MapView
-        android:id="@+id/mapView"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/homeToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignTop="@id/mapView"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        mapbox:mapbox_cameraTargetLat="9.9312"
-        mapbox:mapbox_cameraTargetLng="76.2673"
-        mapbox:mapbox_cameraZoom="12"
-        mapbox:mapbox_styleUrl="mapbox://styles/mapbox/dark-v9" />
+        android:orientation="vertical"
+        tools:context=".HomeActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/mapView"
-        android:background="@color/transparentOverlay"
-        android:orientation="vertical">
+        <com.mapbox.mapboxsdk.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            mapbox:mapbox_cameraTargetLat="9.9312"
+            mapbox:mapbox_cameraTargetLng="76.2673"
+            mapbox:mapbox_cameraZoom="12"
+            mapbox:mapbox_styleUrl="mapbox://styles/mapbox/dark-v9" />
 
-        <Button
-            style="@style/opensalve_button"
-            android:onClick="goToGetHelpScreen"
-            android:text="@string/want_help" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/mapView"
+            android:background="@color/transparentDarkOverlay"
+            android:orientation="vertical">
 
-        <Button
-            style="@style/opensalve_button"
-            android:onClick="goToGiveHelpScreen"
-            android:text="@string/give_help" />
-    </LinearLayout>
+            <Button
+                style="@style/opensalve_button"
+                android:onClick="goToGetHelpScreen"
+                android:text="@string/want_help" />
 
-</RelativeLayout>
+            <Button
+                style="@style/opensalve_button"
+                android:onClick="goToGiveHelpScreen"
+                android:text="@string/give_help" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>
