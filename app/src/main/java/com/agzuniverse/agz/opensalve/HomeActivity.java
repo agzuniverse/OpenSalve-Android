@@ -1,5 +1,7 @@
 package com.agzuniverse.agz.opensalve;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +10,8 @@ import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Modals.LocationMarker;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.Icon;
+import com.mapbox.mapboxsdk.annotations.IconFactory;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
@@ -55,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
 
         //TODO fetch coordinates of all the markers from API
         String[] titles = new String[]{"MEC", "RSET", "RSC", "GSouk"};
-        String[] snippets = new String[]{"1", "2", "3", "4"};
+        String[] snippets = new String[]{"camp", "camp", "collection center", "collection center"};
         Double[] lats = new Double[]{9.9323, 9.9306, 9.9310, 9.9339};
         Double[] lngs = new Double[]{76.2633, 76.2653, 76.2673, 76.2693};
         for (int i = 0; i < titles.length && i < snippets.length && i < lats.length && i < lngs.length; i++) {
@@ -63,11 +67,21 @@ public class HomeActivity extends AppCompatActivity {
             locations.add(current);
         }
 
+        int iconHeight = 200;
+        int iconWidth = 100;
+        BitmapDrawable iconYellowBitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.yellow_marker);
+        Bitmap iconYellowBitmap = iconYellowBitmapDraw.getBitmap();
+        Bitmap iconYellowScaled = Bitmap.createScaledBitmap(iconYellowBitmap, iconWidth, iconHeight, false);
+
+        IconFactory iconFactory = IconFactory.getInstance(HomeActivity.this);
+        Icon iconYellow = iconFactory.fromBitmap(iconYellowScaled);
+
         for (LocationMarker a : locations) {
             map.addMarker(new MarkerOptions()
                     .position(new LatLng(a.getLat(), a.getLng()))
                     .title(a.getTitle())
                     .snippet(a.getSnippet())
+                    .icon(iconYellow)
             );
         }
 
