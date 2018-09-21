@@ -1,5 +1,6 @@
 package com.agzuniverse.agz.opensalve;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,10 +14,10 @@ import android.widget.TextView;
 
 import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
 import com.agzuniverse.agz.opensalve.Modals.SupplyNeededModel;
+import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CampMgmtScreen extends AppCompatActivity {
@@ -26,15 +27,15 @@ public class CampMgmtScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camp_mgmt_home);
 
-        //TODO Set camp name, image, contact and camp manager's name
-        //TODO fetch list of supplies needed for camp and display it
-        List<SupplyNeededModel> supplies = new ArrayList<>();
-        String[] data = {"Snacks", "Drinking Water", "Clothes", "Paracetamol", "First Aid kits"};
-        for (int i = 0; i < data.length; i++) {
-            SupplyNeededModel current = new SupplyNeededModel(data[i]);
-            supplies.add(current);
-        }
+        CampMgmtViewModel model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
 
+        CampMetadata data = model.getCampMetadata();
+        try {
+            setCampMetadata(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        List<SupplyNeededModel> supplies = model.getSuppliesNeeded();
 
         RecyclerView list = findViewById(R.id.camp_supplies);
         list.setHasFixedSize(true);
@@ -53,6 +54,7 @@ public class CampMgmtScreen extends AppCompatActivity {
         TextView campContact = findViewById(R.id.camp_contact);
         campContact.setText(data.getCampContact());
         ImageView campImage = findViewById(R.id.camp_image);
+        //TODO do not do this on the main thread
         Bitmap imageBitmap = BitmapFactory.decodeStream(data.getCampImageUrl().openConnection().getInputStream());
         campImage.setImageBitmap(imageBitmap);
     }

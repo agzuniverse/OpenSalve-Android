@@ -34,7 +34,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         android.support.v7.widget.Toolbar bar = findViewById(R.id.homeToolbar);
         setSupportActionBar(bar);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -53,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-//        Intent debug = new Intent(this, CollectionCentreScreen.class);
+//        Intent debug = new Intent(this, CampMgmtScreen.class);
 //        this.startActivity(debug);
     }
 
