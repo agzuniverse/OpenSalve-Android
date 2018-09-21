@@ -1,5 +1,6 @@
 package com.agzuniverse.agz.opensalve;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -11,10 +12,10 @@ import android.widget.TextView;
 
 import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
 import com.agzuniverse.agz.opensalve.Modals.SupplyNeededModel;
+import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionCentreScreen extends AppCompatActivity {
@@ -24,12 +25,15 @@ public class CollectionCentreScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.collection_center);
 
-        List<SupplyNeededModel> supplies = new ArrayList<>();
-        String[] data = {"Snacks", "Drinking Water", "Clothes", "Paracetamol", "First Aid kits"};
-        for (int i = 0; i < data.length; i++) {
-            SupplyNeededModel current = new SupplyNeededModel(data[i]);
-            supplies.add(current);
+        CampMgmtViewModel model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
+
+        CampMetadata data = model.getCampMetadata();
+        try {
+            setCollectionMetadata(data);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        List<SupplyNeededModel> supplies = model.getSuppliesNeeded();
 
         RecyclerView list = findViewById(R.id.collection_supplies);
         list.setHasFixedSize(true);
