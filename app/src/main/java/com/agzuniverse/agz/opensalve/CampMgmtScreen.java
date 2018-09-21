@@ -48,13 +48,13 @@ public class CampMgmtScreen extends AppCompatActivity {
 
     public void setCampMetadata(CampMetadata data) throws IOException {
         TextView campName = findViewById(R.id.camp_name);
-        campName.setText(data.campName);
+        campName.setText(data.getCampName());
         TextView campManager = findViewById(R.id.camp_manager);
-        campManager.setText(data.campManager);
+        campManager.setText(data.getCampManager());
         TextView campContact = findViewById(R.id.camp_contact);
-        campContact.setText(data.campContact);
+        campContact.setText(data.getCampContact());
         ImageView campImage = findViewById(R.id.camp_image);
-        Bitmap imageBitmap = BitmapFactory.decodeStream(data.campImageUrl.openConnection().getInputStream());
+        Bitmap imageBitmap = BitmapFactory.decodeStream(data.getCampImageUrl().openConnection().getInputStream());
         campImage.setImageBitmap(imageBitmap);
     }
 

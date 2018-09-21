@@ -42,13 +42,13 @@ public class CollectionCentreScreen extends AppCompatActivity {
 
     public void setCollectionMetadata(CampMetadata data) throws IOException {
         TextView collectionName = findViewById(R.id.collection_name);
-        collectionName.setText(data.campName);
+        collectionName.setText(data.getCampName());
         TextView collectionManager = findViewById(R.id.collection_manager);
-        collectionManager.setText(data.campManager);
+        collectionManager.setText(data.getCampManager());
         TextView collectionContact = findViewById(R.id.collection_contact);
-        collectionContact.setText(data.campContact);
+        collectionContact.setText(data.getCampContact());
         ImageView collectionImage = findViewById(R.id.collection_image);
-        Bitmap imageBitmap = BitmapFactory.decodeStream(data.campImageUrl.openConnection().getInputStream());
+        Bitmap imageBitmap = BitmapFactory.decodeStream(data.getCampImageUrl().openConnection().getInputStream());
         collectionImage.setImageBitmap(imageBitmap);
     }
 }
