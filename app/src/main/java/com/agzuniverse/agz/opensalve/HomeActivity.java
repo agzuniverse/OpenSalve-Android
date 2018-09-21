@@ -73,14 +73,32 @@ public class HomeActivity extends AppCompatActivity {
         Drawable drawable = ContextCompat.getDrawable(HomeActivity.this, R.drawable.yellow_marker);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
         Icon iconYellow = iconFactory.fromBitmap(bitmap);
+        drawable = ContextCompat.getDrawable(HomeActivity.this, R.drawable.blue_marker);
+        bitmap = ((BitmapDrawable) drawable).getBitmap();
+        Icon iconBlue = iconFactory.fromBitmap(bitmap);
 
-        for (LocationMarker a : locations) {
-            map.addMarker(new MarkerOptions()
-                    .position(new LatLng(a.getLat(), a.getLng()))
-                    .title(a.getTitle())
-                    .snippet(a.getSnippet())
-                    .icon(iconYellow)
-            );
+        for (LocationMarker loc : locations) {
+            if (loc.getSnippet().equals("collection center")) {
+                map.addMarker(new MarkerOptions()
+                        .position(new LatLng(loc.getLat(), loc.getLng()))
+                        .title(loc.getTitle())
+                        .snippet(loc.getSnippet())
+                        .icon(iconYellow)
+                );
+            } else if (loc.getSnippet().equals("camp")) {
+                map.addMarker(new MarkerOptions()
+                        .position(new LatLng(loc.getLat(), loc.getLng()))
+                        .title(loc.getTitle())
+                        .snippet(loc.getSnippet())
+                        .icon(iconBlue)
+                );
+            } else {
+                map.addMarker(new MarkerOptions()
+                        .position(new LatLng(loc.getLat(), loc.getLng()))
+                        .title(loc.getTitle())
+                        .snippet(loc.getSnippet())
+                );
+            }
         }
 
         map.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
