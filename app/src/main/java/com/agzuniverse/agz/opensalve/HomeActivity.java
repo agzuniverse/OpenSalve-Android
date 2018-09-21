@@ -1,5 +1,6 @@
 package com.agzuniverse.agz.opensalve;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Modals.LocationMarker;
+import com.agzuniverse.agz.opensalve.ViewModels.LocationMarkersViewModel;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
@@ -26,13 +28,18 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private LocationMarkersViewModel model;
+
     private MapView mapView;
     private List<LocationMarker> locations = new ArrayList<>();
+    private List<LocationMarker> locationsOfRequests = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        model = ViewModelProviders.of(this).get(LocationMarkersViewModel.class);
 
         android.support.v7.widget.Toolbar bar = findViewById(R.id.homeToolbar);
         setSupportActionBar(bar);
@@ -58,15 +65,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void configMapOverlay(MapboxMap map) {
 
-        //TODO fetch coordinates of all the markers from API
-        String[] titles = new String[]{"MEC", "RSET", "RSC", "GSouk"};
-        String[] snippets = new String[]{"camp", "camp", "collection center", "collection center"};
-        Double[] lats = new Double[]{9.9323, 9.9306, 9.9310, 9.9339};
-        Double[] lngs = new Double[]{76.2633, 76.2653, 76.2673, 76.2693};
-        for (int i = 0; i < titles.length && i < snippets.length && i < lats.length && i < lngs.length; i++) {
-            LocationMarker current = new LocationMarker(titles[i], snippets[i], lats[i], lngs[i]);
-            locations.add(current);
-        }
+        locations = model.getCampsAndCollectionCentres();
 
         IconFactory iconFactory = IconFactory.getInstance(HomeActivity.this);
         Drawable drawable = ContextCompat.getDrawable(HomeActivity.this, R.drawable.yellow_marker);
@@ -99,6 +98,9 @@ public class HomeActivity extends AppCompatActivity {
                 );
             }
         }
+
+        //TODO fetch requests only when user flips the toggle to display them
+        locationsOfRequests = model.getRequests();
 
         map.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
             @Override
