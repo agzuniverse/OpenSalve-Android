@@ -31,8 +31,7 @@ public class CampMgmtScreen extends AppCompatActivity {
         List<SupplyNeededModel> supplies = new ArrayList<>();
         String[] data = {"Snacks", "Drinking Water", "Clothes", "Paracetamol", "First Aid kits"};
         for (int i = 0; i < data.length; i++) {
-            SupplyNeededModel current = new SupplyNeededModel();
-            current.supply = data[i];
+            SupplyNeededModel current = new SupplyNeededModel(data[i]);
             supplies.add(current);
         }
 

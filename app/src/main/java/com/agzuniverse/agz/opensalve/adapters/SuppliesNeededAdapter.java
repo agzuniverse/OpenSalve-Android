@@ -35,7 +35,7 @@ public class SuppliesNeededAdapter extends RecyclerView.Adapter<SuppliesNeededAd
     @Override
     public void onBindViewHolder(@NonNull SuppliesNeededViewHolder viewHolder, int i) {
         SupplyNeededModel current = supplies.get(i);
-        viewHolder.supply.setText(current.supply);
+        viewHolder.supply.setText(current.getSupply());
     }
 
     @Override

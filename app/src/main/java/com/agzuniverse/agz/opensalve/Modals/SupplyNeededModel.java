@@ -1,5 +1,13 @@
 package com.agzuniverse.agz.opensalve.Modals;
 
 public class SupplyNeededModel {
-    public String supply;
+    private String supply;
+
+    public SupplyNeededModel(String supply) {
+        this.supply = supply;
+    }
+
+    public String getSupply() {
+        return supply;
+    }
 }
