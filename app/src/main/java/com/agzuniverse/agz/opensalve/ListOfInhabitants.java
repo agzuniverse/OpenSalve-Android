@@ -53,10 +53,7 @@ public class ListOfInhabitants extends AppCompatActivity {
         String[] snames = new String[]{"Stark", "Rogers", "Quill", "Romanoff", "Parker", "Banner", "Pool", "Strange"};
         Integer[] ages = new Integer[]{50, 37, 42, 30, 21, 54, 45, 43};
         for (int i = 0; i < fnames.length && i < snames.length && i < ages.length; i++) {
-            Person current = new Person();
-            current.firstName = fnames[i];
-            current.secondName = snames[i];
-            current.age = ages[i];
+            Person current = new Person(fnames[i], snames[i], ages[i]);
             persons_original.add(current);
         }
 
@@ -71,13 +68,13 @@ public class ListOfInhabitants extends AppCompatActivity {
     protected void filter(String s) {
         s = s.toLowerCase();
         persons_filtered.clear();
-        for (Person a : persons_original) {
-            if (a.firstName.toLowerCase().contains(s)) {
-                persons_filtered.add(a);
-            } else if (a.secondName.toLowerCase().contains(s)) {
-                persons_filtered.add(a);
-            } else if ((a.firstName.toLowerCase() + ' ' + a.secondName.toLowerCase()).contains(s)) {
-                persons_filtered.add(a);
+        for (Person person : persons_original) {
+            if (person.getFirstName().toLowerCase().contains(s)) {
+                persons_filtered.add(person);
+            } else if (person.getSecondName().toLowerCase().contains(s)) {
+                persons_filtered.add(person);
+            } else if ((person.getFirstName().toLowerCase() + ' ' + person.getSecondName().toLowerCase()).contains(s)) {
+                persons_filtered.add(person);
             }
         }
         inhabAdapter.notifyDataSetChanged();
