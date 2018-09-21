@@ -1,5 +1,6 @@
 package com.agzuniverse.agz.opensalve;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.agzuniverse.agz.opensalve.Modals.Person;
+import com.agzuniverse.agz.opensalve.ViewModels.ListOfInhabitantsViewModel;
 import com.agzuniverse.agz.opensalve.adapters.ListOfInhabsAdapter;
 
 import java.util.ArrayList;
@@ -25,6 +27,9 @@ public class ListOfInhabitants extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_of_inhabitants);
+
+        //Set ViewModel
+        ListOfInhabitantsViewModel model = ViewModelProviders.of(this).get(ListOfInhabitantsViewModel.class);
 
         //Set EditText field for searching in Action Bar
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -48,15 +53,7 @@ public class ListOfInhabitants extends AppCompatActivity {
             }
         });
 
-        //TODO replace this dummy data with data fetched from API
-        String[] fnames = new String[]{"Tony", "Steve", "Peter", "Natasha", "Peter", "Bruce", "Dead", "Steven"};
-        String[] snames = new String[]{"Stark", "Rogers", "Quill", "Romanoff", "Parker", "Banner", "Pool", "Strange"};
-        Integer[] ages = new Integer[]{50, 37, 42, 30, 21, 54, 45, 43};
-        for (int i = 0; i < fnames.length && i < snames.length && i < ages.length; i++) {
-            Person current = new Person(fnames[i], snames[i], ages[i]);
-            persons_original.add(current);
-        }
-
+        persons_original = model.getListOfInhabs();
         persons_filtered = new ArrayList<>(persons_original);
         inhabs = findViewById(R.id.listOfInhabitants);
         inhabManager = new LinearLayoutManager(this);
