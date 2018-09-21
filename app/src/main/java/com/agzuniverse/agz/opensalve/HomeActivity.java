@@ -2,8 +2,10 @@ package com.agzuniverse.agz.opensalve;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -67,14 +69,10 @@ public class HomeActivity extends AppCompatActivity {
             locations.add(current);
         }
 
-        int iconHeight = 200;
-        int iconWidth = 100;
-        BitmapDrawable iconYellowBitmapDraw = (BitmapDrawable) getResources().getDrawable(R.drawable.yellow_marker);
-        Bitmap iconYellowBitmap = iconYellowBitmapDraw.getBitmap();
-        Bitmap iconYellowScaled = Bitmap.createScaledBitmap(iconYellowBitmap, iconWidth, iconHeight, false);
-
         IconFactory iconFactory = IconFactory.getInstance(HomeActivity.this);
-        Icon iconYellow = iconFactory.fromBitmap(iconYellowScaled);
+        Drawable drawable = ContextCompat.getDrawable(HomeActivity.this, R.drawable.yellow_marker);
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        Icon iconYellow = iconFactory.fromBitmap(bitmap);
 
         for (LocationMarker a : locations) {
             map.addMarker(new MarkerOptions()
