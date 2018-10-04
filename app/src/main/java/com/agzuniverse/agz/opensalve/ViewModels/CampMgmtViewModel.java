@@ -13,8 +13,8 @@ import java.util.List;
 public class CampMgmtViewModel extends ViewModel {
     private List<SupplyNeededModel> supplies = new ArrayList<>();
 
-    public CampMetadata getCampMetadata() {
-        //TODO Set camp name, image, contact and camp manager's name after fetching from API
+    public CampMetadata getCampMetadata(int id) {
+        //TODO Set camp name, image, contact and camp manager's name after fetching from API using ID
         URL imageUrl = null;
         try {
             imageUrl = new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/PanoBunker.jpg/250px-PanoBunker.jpg");

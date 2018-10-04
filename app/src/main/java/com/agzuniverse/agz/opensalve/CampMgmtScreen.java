@@ -2,8 +2,6 @@ package com.agzuniverse.agz.opensalve;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,9 +25,12 @@ public class CampMgmtScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.camp_mgmt_home);
 
+        Bundle extraData = getIntent().getExtras();
+        int id = extraData.getInt("id", 0);
+
         CampMgmtViewModel model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
 
-        CampMetadata data = model.getCampMetadata();
+        CampMetadata data = model.getCampMetadata(id);
         try {
             setCampMetadata(data);
         } catch (IOException e) {
@@ -55,8 +56,9 @@ public class CampMgmtScreen extends AppCompatActivity {
         campContact.setText(data.getCampContact());
         ImageView campImage = findViewById(R.id.camp_image);
         //TODO do not do this on the main thread
-        Bitmap imageBitmap = BitmapFactory.decodeStream(data.getCampImageUrl().openConnection().getInputStream());
-        campImage.setImageBitmap(imageBitmap);
+//        Bitmap imageBitmap = BitmapFactory.decodeStream(data.getCampImageUrl().openConnection().getInputStream());
+//        campImage.setImageBitmap(imageBitmap);
+        campImage.setImageDrawable(getDrawable(R.drawable.shelter));
     }
 
     public void goToListOfInhabitants(View v) {

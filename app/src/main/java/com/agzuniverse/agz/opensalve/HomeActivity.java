@@ -1,6 +1,7 @@
 package com.agzuniverse.agz.opensalve;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -76,14 +77,14 @@ public class HomeActivity extends AppCompatActivity {
         Icon iconBlue = iconFactory.fromBitmap(bitmap);
 
         for (LocationMarker loc : locations) {
-            if (loc.getSnippet().equals("collection center")) {
+            if (loc.getSnippet().split("#")[0].equals("collection center")) {
                 map.addMarker(new MarkerOptions()
                         .position(new LatLng(loc.getLat(), loc.getLng()))
                         .title(loc.getTitle())
                         .snippet(loc.getSnippet())
                         .icon(iconYellow)
                 );
-            } else if (loc.getSnippet().equals("camp")) {
+            } else if (loc.getSnippet().split("#")[0].equals("camp")) {
                 map.addMarker(new MarkerOptions()
                         .position(new LatLng(loc.getLat(), loc.getLng()))
                         .title(loc.getTitle())
@@ -105,7 +106,18 @@ public class HomeActivity extends AppCompatActivity {
         map.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
-                Toast.makeText(HomeActivity.this, marker.getSnippet(), Toast.LENGTH_SHORT).show();
+                String[] markerSnippet = marker.getSnippet().split("#");
+                //TODO remove this debug line
+                Toast.makeText(HomeActivity.this, markerSnippet[0], Toast.LENGTH_SHORT).show();
+                if (markerSnippet[0].equals("camp")) {
+                    Intent campIntent = new Intent(HomeActivity.this, CampMgmtScreen.class);
+                    campIntent.putExtra("id", Integer.parseInt(markerSnippet[1]));
+                    HomeActivity.this.startActivity(campIntent);
+                } else if (markerSnippet[0].equals("collection center")) {
+
+                } else if (markerSnippet[0].equals("request")) {
+                    //TODO go to requests screen
+                }
                 return false;
             }
         });

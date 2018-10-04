@@ -25,9 +25,12 @@ public class CollectionCentreScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.collection_center);
 
+        Bundle extraData = getIntent().getExtras();
+        int id = extraData.getInt("id", 0);
+
         CampMgmtViewModel model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
 
-        CampMetadata data = model.getCampMetadata();
+        CampMetadata data = model.getCampMetadata(id);
         try {
             setCollectionMetadata(data);
         } catch (IOException e) {
