@@ -14,7 +14,7 @@ public class LocationMarkersViewModel extends ViewModel {
     //TODO fetch coordinates of all the markers from API
     public List<LocationMarker> getCampsAndCollectionCentres() {
         String[] titles = new String[]{"MEC", "RSET", "RSC", "GSouk"};
-        String[] snippets = new String[]{"camp", "camp", "collection center", "collection center"};
+        String[] snippets = new String[]{"camp#1", "camp#2", "collection center#3", "collection center#4"};
         Double[] lats = new Double[]{9.9323, 9.9306, 9.9310, 9.9339};
         Double[] lngs = new Double[]{76.2633, 76.2653, 76.2673, 76.2693};
         for (int i = 0; i < titles.length && i < snippets.length && i < lats.length && i < lngs.length; i++) {
