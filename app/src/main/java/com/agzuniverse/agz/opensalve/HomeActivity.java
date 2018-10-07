@@ -46,6 +46,8 @@ public class HomeActivity extends AppCompatActivity {
 
         model = ViewModelProviders.of(this).get(LocationMarkersViewModel.class);
 
+        locations = model.getCampsAndCollectionCentres();
+
         android.support.v7.widget.Toolbar bar = findViewById(R.id.homeToolbar);
         setSupportActionBar(bar);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -55,7 +57,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Mapbox.getInstance(this, getString(R.string.mapbox_api_token));
 
-        mapView = (MapView) findViewById(R.id.mapView);
+        mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -69,9 +71,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void configMapOverlay(MapboxMap map) {
-
-        locations = model.getCampsAndCollectionCentres();
-
         IconFactory iconFactory = IconFactory.getInstance(HomeActivity.this);
         Drawable drawable = ContextCompat.getDrawable(HomeActivity.this, R.drawable.yellow_marker);
         Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
@@ -96,11 +95,12 @@ public class HomeActivity extends AppCompatActivity {
                         .icon(iconBlue)
                 );
             } else {
-                map.addMarker(new MarkerOptions()
-                        .position(new LatLng(loc.getLat(), loc.getLng()))
-                        .title(loc.getTitle())
-                        .snippet(loc.getSnippet())
-                );
+                //TODO display request markers here
+//                map.addMarker(new MarkerOptions()
+//                        .position(new LatLng(loc.getLat(), loc.getLng()))
+//                        .title(loc.getTitle())
+//                        .snippet(loc.getSnippet())
+//                );
             }
         }
 
@@ -141,8 +141,10 @@ public class HomeActivity extends AppCompatActivity {
     public void campCheckBoxClicked(View v) {
         if (((CheckBox) v).isChecked()) {
             showCamps = true;
+            refreshMapOverlay();
         } else {
             showCamps = false;
+            refreshMapOverlay();
         }
     }
 
@@ -160,5 +162,16 @@ public class HomeActivity extends AppCompatActivity {
         } else {
             showRequests = false;
         }
+    }
+
+    public void refreshMapOverlay() {
+        mapView = findViewById(R.id.mapView);
+        mapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(MapboxMap mapboxMap) {
+                mapboxMap.clear();
+                configMapOverlay(mapboxMap);
+            }
+        });
     }
 }

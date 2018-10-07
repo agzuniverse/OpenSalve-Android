@@ -46,6 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:buttonTint="@color/textColorAccent"
+                    android:checked="true"
                     android:onClick="campCheckBoxClicked"
                     android:text="@string/camps"
                     android:textColor="@color/textColorOverlay" />
@@ -56,6 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:buttonTint="@color/textColorAccent"
+                    android:checked="true"
                     android:onClick="collectionCheckBoxClicked"
                     android:text="@string/collection"
                     android:textColor="@color/textColorOverlay" />
