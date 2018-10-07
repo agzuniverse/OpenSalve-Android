@@ -13,4 +13,7 @@
     <string name="give_help">I want to help</string>
     <string name="name">Name</string>
     <string name="age">Age</string>
+    <string name="camps">Camps</string>
+    <string name="collection">Collection Centers</string>
+    <string name="requests">Help Requests</string>
 </resources>

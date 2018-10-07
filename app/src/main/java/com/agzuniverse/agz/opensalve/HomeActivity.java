@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Modals.LocationMarker;
@@ -34,6 +35,9 @@ public class HomeActivity extends AppCompatActivity {
     private MapView mapView;
     private List<LocationMarker> locations = new ArrayList<>();
     private List<LocationMarker> locationsOfRequests = new ArrayList<>();
+    private boolean showCamps = true;
+    private boolean showCollection = true;
+    private boolean showRequests = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +81,14 @@ public class HomeActivity extends AppCompatActivity {
         Icon iconBlue = iconFactory.fromBitmap(bitmap);
 
         for (LocationMarker loc : locations) {
-            if (loc.getSnippet().split("#")[0].equals("collection center")) {
+            if (loc.getSnippet().split("#")[0].equals("collection center") && showCollection) {
                 map.addMarker(new MarkerOptions()
                         .position(new LatLng(loc.getLat(), loc.getLng()))
                         .title(loc.getTitle())
                         .snippet(loc.getSnippet())
                         .icon(iconYellow)
                 );
-            } else if (loc.getSnippet().split("#")[0].equals("camp")) {
+            } else if (loc.getSnippet().split("#")[0].equals("camp") && showCamps) {
                 map.addMarker(new MarkerOptions()
                         .position(new LatLng(loc.getLat(), loc.getLng()))
                         .title(loc.getTitle())
@@ -132,5 +136,29 @@ public class HomeActivity extends AppCompatActivity {
 
     public void goToGiveHelpScreen(View v) {
         //Go to give help screen
+    }
+
+    public void campCheckBoxClicked(View v) {
+        if (((CheckBox) v).isChecked()) {
+            showCamps = true;
+        } else {
+            showCamps = false;
+        }
+    }
+
+    public void collectionCheckBoxClicked(View v) {
+        if (((CheckBox) v).isChecked()) {
+            showCollection = true;
+        } else {
+            showCollection = false;
+        }
+    }
+
+    public void requestCheckBoxClicked(View v) {
+        if (((CheckBox) v).isChecked()) {
+            showRequests = true;
+        } else {
+            showRequests = false;
+        }
     }
 }

@@ -36,6 +36,41 @@
             android:background="@color/transparentDarkOverlay"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <CheckBox
+                    android:id="@+id/campCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:buttonTint="@color/textColorAccent"
+                    android:onClick="campCheckBoxClicked"
+                    android:text="@string/camps"
+                    android:textColor="@color/textColorOverlay" />
+
+                <CheckBox
+                    android:id="@+id/collectionCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/textColorAccent"
+                    android:onClick="collectionCheckBoxClicked"
+                    android:text="@string/collection"
+                    android:textColor="@color/textColorOverlay" />
+
+                <CheckBox
+                    android:id="@+id/requestCheckBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.8"
+                    android:buttonTint="@color/textColorAccent"
+                    android:onClick="requestCheckBoxClicked"
+                    android:text="@string/requests"
+                    android:textColor="@color/textColorOverlay" />
+            </LinearLayout>
+
             <Button
                 style="@style/opensalve_button"
                 android:onClick="goToGetHelpScreen"
