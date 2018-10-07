@@ -16,4 +16,7 @@
     <string name="camps">Camps</string>
     <string name="collection">Collection Centers</string>
     <string name="requests">Help Requests</string>
+    <string name="anything_else">Anything else you want to mention: </string>
+    <string name="desc">Enter description</string>
+    <string name="check_all_that_applies">Check all that applies to you:</string>
 </resources>
