@@ -19,4 +19,11 @@
     <string name="anything_else">Anything else you want to mention: </string>
     <string name="desc">Enter description</string>
     <string name="check_all_that_applies">Check all that applies to you:</string>
+
+    <string name="evac">Evacuation required</string>
+    <string name="foodwater">Food &amp; water required</string>
+    <string name="medical">Medical attention needed</string>
+    <string name="firstaid">First aid needed</string>
+    <string name="transport">Looking for transport</string>
+    <string name="other">Other</string>
 </resources>

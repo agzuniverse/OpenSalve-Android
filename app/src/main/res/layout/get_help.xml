@@ -19,55 +19,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="checkFood"
-        android:text="Food required" />
+        android:text="@string/evac" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="checkWater"
-        android:text="Water required" />
+        android:text="@string/foodwater" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="checkShelter"
-        android:text="Shelter needed" />
+        android:text="@string/medical" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="checkCloth"
-        android:text="Clothes required" />
+        android:text="@string/firstaid" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="checkBlanket"
-        android:text="Blankets required" />
+        android:text="@string/transport" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="checkFirstAid"
-        android:text="First Aid needed" />
+        android:text="@string/other" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="checkRescue"
-        android:text="Needs to be rescued" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="checkMedical"
-        android:text="Medical attention needed" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="checkTransport"
-        android:text="Transport required" />
 
     <LinearLayout
         android:layout_width="match_parent"
