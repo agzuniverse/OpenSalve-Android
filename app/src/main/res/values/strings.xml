@@ -19,6 +19,7 @@
     <string name="anything_else">Anything else you want to mention: </string>
     <string name="desc">Enter description</string>
     <string name="check_all_that_applies">Check all that applies to you:</string>
+    <string name="submit">Submit</string>
 
     <string name="evac">Evacuation required</string>
     <string name="foodwater">Food &amp; water required</string>

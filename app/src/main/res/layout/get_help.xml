@@ -16,41 +16,40 @@
         android:textSize="20sp" />
 
     <CheckBox
+        android:id="@+id/evac"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="checkFood"
         android:text="@string/evac" />
 
     <CheckBox
+        android:id="@+id/foodwater"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="checkWater"
         android:text="@string/foodwater" />
 
     <CheckBox
+        android:id="@+id/medical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="checkShelter"
         android:text="@string/medical" />
 
     <CheckBox
+        android:id="@+id/firstaid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="checkCloth"
         android:text="@string/firstaid" />
 
     <CheckBox
+        android:id="@+id/transport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="checkBlanket"
         android:text="@string/transport" />
 
     <CheckBox
+        android:id="@+id/other"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="checkFirstAid"
         android:text="@string/other" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,10 +64,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/contact" />
+                android:text="@string/name" />
 
             <EditText
-                android:id="@+id/contact1"
+                android:id="@+id/name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -88,7 +87,7 @@
                 android:text="@string/contact" />
 
             <EditText
-                android:id="@+id/contact2"
+                android:id="@+id/contact"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -113,4 +112,9 @@
         android:inputType="textMultiLine"
         android:maxLines="3"
         android:minLines="3" />
+
+    <Button
+        style="@style/opensalve_button"
+        android:onClick="submitRequest"
+        android:text="@string/submit" />
 </LinearLayout>

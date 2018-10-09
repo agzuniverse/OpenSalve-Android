@@ -3,6 +3,7 @@
     package="com.agzuniverse.agz.opensalve">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -35,6 +36,10 @@
             android:label="List of Inhabitants"
             android:parentActivityName=".CampMgmtScreen"
             android:theme="@style/ListOfInhabitantsScreenTheme" />
+        <activity
+            android:name=".GetHelp"
+            android:label="Get Help"
+            android:parentActivityName=".HomeActivity" />
     </application>
 
 </manifest>
