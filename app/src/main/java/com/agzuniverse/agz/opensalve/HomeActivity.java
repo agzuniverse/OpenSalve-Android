@@ -8,7 +8,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
@@ -38,6 +41,7 @@ public class HomeActivity extends AppCompatActivity {
     private boolean showCamps = true;
     private boolean showCollection = true;
     private boolean showRequests = false;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        drawer = findViewById(R.id.drawer_layout);
 
         Mapbox.getInstance(this, getString(R.string.mapbox_api_token));
 
@@ -70,6 +75,17 @@ public class HomeActivity extends AppCompatActivity {
 
 //        Intent debug = new Intent(this, CampMgmtScreen.class);
 //        this.startActivity(debug);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawer.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void configMapOverlay(MapboxMap map) {
