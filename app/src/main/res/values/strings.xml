@@ -27,4 +27,8 @@
     <string name="firstaid">First aid needed</string>
     <string name="transport">Looking for transport</string>
     <string name="other">Other</string>
+
+    <string name="news">News</string>
+    <string name="imp_contacts">Important Contacts</string>
+    <string name="about">About OpenSalve</string>
 </resources>

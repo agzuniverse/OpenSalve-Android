@@ -1,87 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/homeToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:mapbox="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".HomeActivity">
+        android:orientation="vertical">
 
-        <com.mapbox.mapboxsdk.maps.MapView
-            android:id="@+id/mapView"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/homeToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:mapbox="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            mapbox:mapbox_cameraTargetLat="9.9312"
-            mapbox:mapbox_cameraTargetLng="76.2673"
-            mapbox:mapbox_cameraZoom="12"
-            mapbox:mapbox_styleUrl="mapbox://styles/mapbox/dark-v9" />
+            android:orientation="vertical"
+            tools:context=".HomeActivity">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/mapView"
-            android:background="@color/transparentDarkOverlay"
-            android:orientation="vertical">
+            <com.mapbox.mapboxsdk.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                mapbox:mapbox_cameraTargetLat="9.9312"
+                mapbox:mapbox_cameraTargetLng="76.2673"
+                mapbox:mapbox_cameraZoom="12"
+                mapbox:mapbox_styleUrl="mapbox://styles/mapbox/dark-v9" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/mapView"
+                android:background="@color/transparentDarkOverlay"
+                android:orientation="vertical">
 
-                <CheckBox
-                    android:id="@+id/campCheckBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:buttonTint="@color/textColorAccent"
-                    android:checked="true"
-                    android:onClick="campCheckBoxClicked"
-                    android:text="@string/camps"
-                    android:textColor="@color/textColorOverlay" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <CheckBox
-                    android:id="@+id/collectionCheckBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:buttonTint="@color/textColorAccent"
-                    android:checked="true"
-                    android:onClick="collectionCheckBoxClicked"
-                    android:text="@string/collection"
-                    android:textColor="@color/textColorOverlay" />
+                    <CheckBox
+                        android:id="@+id/campCheckBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:buttonTint="@color/textColorAccent"
+                        android:checked="true"
+                        android:onClick="campCheckBoxClicked"
+                        android:text="@string/camps"
+                        android:textColor="@color/textColorOverlay" />
 
-                <CheckBox
-                    android:id="@+id/requestCheckBox"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.8"
-                    android:buttonTint="@color/textColorAccent"
-                    android:onClick="requestCheckBoxClicked"
-                    android:text="@string/requests"
-                    android:textColor="@color/textColorOverlay" />
+                    <CheckBox
+                        android:id="@+id/collectionCheckBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:buttonTint="@color/textColorAccent"
+                        android:checked="true"
+                        android:onClick="collectionCheckBoxClicked"
+                        android:text="@string/collection"
+                        android:textColor="@color/textColorOverlay" />
+
+                    <CheckBox
+                        android:id="@+id/requestCheckBox"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.8"
+                        android:buttonTint="@color/textColorAccent"
+                        android:onClick="requestCheckBoxClicked"
+                        android:text="@string/requests"
+                        android:textColor="@color/textColorOverlay" />
+                </LinearLayout>
+
+                <Button
+                    style="@style/opensalve_button"
+                    android:onClick="goToGetHelpScreen"
+                    android:text="@string/want_help" />
+
+                <Button
+                    style="@style/opensalve_button"
+                    android:onClick="goToGiveHelpScreen"
+                    android:text="@string/give_help" />
             </LinearLayout>
 
-            <Button
-                style="@style/opensalve_button"
-                android:onClick="goToGetHelpScreen"
-                android:text="@string/want_help" />
+        </RelativeLayout>
+    </LinearLayout>
 
-            <Button
-                style="@style/opensalve_button"
-                android:onClick="goToGiveHelpScreen"
-                android:text="@string/give_help" />
-        </LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/drawer" />
 
-    </RelativeLayout>
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>
