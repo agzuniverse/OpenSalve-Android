@@ -54,6 +54,8 @@ public class HomeActivity extends AppCompatActivity {
         actionBar.setCustomView(R.layout.action_bar_edit_text);
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
         Mapbox.getInstance(this, getString(R.string.mapbox_api_token));
 
