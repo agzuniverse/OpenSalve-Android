@@ -8,4 +8,12 @@ public class Contact {
         this.desc = desc;
         this.number = number;
     }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public String getNumber() {
+        return number;
+    }
 }
