@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -70,6 +71,19 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onMapReady(MapboxMap mapboxMap) {
                 configMapOverlay(mapboxMap);
+            }
+        });
+
+        NavigationView nav = findViewById(R.id.nav_view);
+        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                drawer.closeDrawers();
+                if (menuItem.getTitle().toString() == getResources().getString(R.string.imp_contacts)) {
+                    Intent intent = new Intent(HomeActivity.this, Helplines.class);
+                    HomeActivity.this.startActivity(intent);
+                }
+                return true;
             }
         });
 

@@ -40,6 +40,10 @@
             android:name=".GetHelp"
             android:label="Get Help"
             android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".Helplines"
+            android:label="Helplines"
+            android:parentActivityName=".HomeActivity" />
     </application>
 
 </manifest>
