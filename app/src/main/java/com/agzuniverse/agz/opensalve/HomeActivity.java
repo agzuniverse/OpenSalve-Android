@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
@@ -51,8 +53,6 @@ public class HomeActivity extends AppCompatActivity {
 
         model = ViewModelProviders.of(this).get(LocationMarkersViewModel.class);
 
-        locations = model.getCampsAndCollectionCentres();
-
         android.support.v7.widget.Toolbar bar = findViewById(R.id.homeToolbar);
         setSupportActionBar(bar);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
@@ -67,12 +67,7 @@ public class HomeActivity extends AppCompatActivity {
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(MapboxMap mapboxMap) {
-                configMapOverlay(mapboxMap);
-            }
-        });
+        getMarkers();
 
         NavigationView nav = findViewById(R.id.nav_view);
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -91,7 +86,30 @@ public class HomeActivity extends AppCompatActivity {
 //        this.startActivity(debug);
     }
 
+    public void getMarkers() {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                mapView.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(MapboxMap mapboxMap) {
+                        configMapOverlay(mapboxMap);
+                    }
+                });
+            }
+        };
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                locations = model.getCampsAndCollectionCentres(getString(R.string.base_api_url));
+                handler.sendEmptyMessage(0);
+            }
+        };
+        Thread async = new Thread(runnable);
+        async.start();
+    }
 
+    //Make the ham icon open side drawer
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
