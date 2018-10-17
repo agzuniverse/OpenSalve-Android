@@ -33,10 +33,13 @@ public class LocationMarkersViewModel extends ViewModel {
 //        }
 
         OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(apiUrl + "/api/camps/").build();
+        Request requestCamps = new Request.Builder().url(apiUrl + "/api/camps/").build();
+        Request requestCollectionCenters = new Request.Builder().url(apiUrl + "/api/collectioncentres/").build();
         try {
-            Response response = client.newCall(request).execute();
+            Response response = client.newCall(requestCamps).execute();
             parse(response.body().string(), "camps");
+            response = client.newCall(requestCollectionCenters).execute();
+            parse(response.body().string(), "collection_centers");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,6 +65,13 @@ public class LocationMarkersViewModel extends ViewModel {
                             a.getDouble("lng")
                     );
                     locationsOfCampsAndCollectionCentres.add(current);
+                } else if (type.equals("collection_centers")) {
+                    LocationMarker current = new LocationMarker(
+                            a.getString("location"),
+                            "collection center#" + a.getString("id"),
+                            a.getDouble("lat"),
+                            a.getDouble("lng")
+                    );
                 }
             }
         } catch (JSONException e) {
