@@ -20,26 +20,15 @@ public class LocationMarkersViewModel extends ViewModel {
     private List<LocationMarker> locationsOfCampsAndCollectionCentres = new ArrayList<>();
     private List<LocationMarker> locationsOfRequests = new ArrayList<>();
 
-    //TODO fetch coordinates of all the markers from API
     public List<LocationMarker> getCampsAndCollectionCentres(String apiUrl) {
-//        String[] titles = new String[]{"MEC", "RSET", "RSC", "GSouk"};
-//        String[] snippets = new String[]{"camp#1", "camp#2", "collection center#3", "collection center#4"};
-//        Double[] lats = new Double[]{9.9323, 9.9306, 9.9310, 9.9339};
-//        Double[] lngs = new Double[]{76.2633, 76.2653, 76.2673, 76.2693};
-
-//        for (int i = 0; i < titles.length && i < snippets.length && i < lats.length && i < lngs.length; i++) {
-//            LocationMarker current = new LocationMarker(titles[i], snippets[i], lats[i], lngs[i]);
-//            locationsOfCampsAndCollectionCentres.add(current);
-//        }
-
         OkHttpClient client = new OkHttpClient();
         Request requestCamps = new Request.Builder().url(apiUrl + "/api/camps/").build();
         Request requestCollectionCenters = new Request.Builder().url(apiUrl + "/api/collectioncentres/").build();
         try {
             Response response = client.newCall(requestCamps).execute();
             parse(response.body().string(), "camps");
-            response = client.newCall(requestCollectionCenters).execute();
-            parse(response.body().string(), "collection_centers");
+            Response response2 = client.newCall(requestCollectionCenters).execute();
+            parse(response2.body().string(), "collection_centers");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,6 +37,7 @@ public class LocationMarkersViewModel extends ViewModel {
     }
 
     public List<LocationMarker> getRequests() {
+        //TODO this
         return locationsOfRequests;
     }
 
@@ -72,6 +62,7 @@ public class LocationMarkersViewModel extends ViewModel {
                             a.getDouble("lat"),
                             a.getDouble("lng")
                     );
+                    locationsOfCampsAndCollectionCentres.add(current);
                 }
             }
         } catch (JSONException e) {
