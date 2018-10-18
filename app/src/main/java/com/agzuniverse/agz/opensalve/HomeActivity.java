@@ -201,16 +201,20 @@ public class HomeActivity extends AppCompatActivity {
     public void collectionCheckBoxClicked(View v) {
         if (((CheckBox) v).isChecked()) {
             showCollection = true;
+            refreshMapOverlay();
         } else {
             showCollection = false;
+            refreshMapOverlay();
         }
     }
 
     public void requestCheckBoxClicked(View v) {
         if (((CheckBox) v).isChecked()) {
             showRequests = true;
+            refreshMapOverlay();
         } else {
             showRequests = false;
+            refreshMapOverlay();
         }
     }
 
