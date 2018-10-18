@@ -1,8 +1,6 @@
 package com.agzuniverse.agz.opensalve;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,7 +52,9 @@ public class CollectionCentreScreen extends AppCompatActivity {
         TextView collectionContact = findViewById(R.id.collection_contact);
         collectionContact.setText(data.getCampContact());
         ImageView collectionImage = findViewById(R.id.collection_image);
-        Bitmap imageBitmap = BitmapFactory.decodeStream(data.getCampImageUrl().openConnection().getInputStream());
-        collectionImage.setImageBitmap(imageBitmap);
+        //TODO do not do this on the main thread
+//        Bitmap imageBitmap = BitmapFactory.decodeStream(data.getCampImageUrl().openConnection().getInputStream());
+//        collectionImage.setImageBitmap(imageBitmap);
+        collectionImage.setImageDrawable(getDrawable(R.drawable.shelter));
     }
 }

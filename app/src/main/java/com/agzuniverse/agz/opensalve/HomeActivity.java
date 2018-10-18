@@ -168,7 +168,6 @@ public class HomeActivity extends AppCompatActivity {
                     campIntent.putExtra("id", Integer.parseInt(markerSnippet[1]));
                     HomeActivity.this.startActivity(campIntent);
                 } else if (markerSnippet[0].equals("collection center")) {
-
                     Intent collectionIntent = new Intent(HomeActivity.this, CollectionCentreScreen.class);
                     collectionIntent.putExtra("id", Integer.parseInt(markerSnippet[1]));
                     HomeActivity.this.startActivity(collectionIntent);
