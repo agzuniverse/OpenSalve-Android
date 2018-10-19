@@ -3,6 +3,8 @@ package com.agzuniverse.agz.opensalve;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +17,12 @@ import com.agzuniverse.agz.opensalve.Modals.SupplyNeededModel;
 import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
 
-import java.io.IOException;
 import java.util.List;
 
 public class CampMgmtScreen extends AppCompatActivity {
+
+    private CampMgmtViewModel model;
+    private CampMetadata data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +32,8 @@ public class CampMgmtScreen extends AppCompatActivity {
         Bundle extraData = getIntent().getExtras();
         int id = extraData.getInt("id", 0);
 
-        CampMgmtViewModel model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
-
-        CampMetadata data = model.getCampMetadata(id);
-        try {
-            setCampMetadata(data);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
+        fetchCampMetadataAsync(id);
         List<SupplyNeededModel> supplies = model.getSuppliesNeeded();
 
         RecyclerView list = findViewById(R.id.camp_supplies);
@@ -47,7 +45,25 @@ public class CampMgmtScreen extends AppCompatActivity {
 
     }
 
-    public void setCampMetadata(CampMetadata data) throws IOException {
+    public void fetchCampMetadataAsync(int id) {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                setCampMetadata(data);
+            }
+        };
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                data = model.getCampMetadata(id);
+                handler.sendEmptyMessage(0);
+            }
+        };
+        Thread async = new Thread(runnable);
+        async.start();
+    }
+
+    public void setCampMetadata(CampMetadata data) {
         TextView campName = findViewById(R.id.camp_name);
         campName.setText(data.getCampName());
         TextView campManager = findViewById(R.id.camp_manager);
