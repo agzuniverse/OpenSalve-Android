@@ -55,7 +55,7 @@ public class CampMgmtScreen extends AppCompatActivity {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-                data = model.getCampMetadata(id, getResources().getString(R.string.base_api_url));
+                data = model.getCampMetadata(id, getResources().getString(R.string.base_api_url), "camps");
                 handler.sendEmptyMessage(0);
             }
         };

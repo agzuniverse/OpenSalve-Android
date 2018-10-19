@@ -22,9 +22,12 @@ public class CampMgmtViewModel extends ViewModel {
     private CampMetadata data;
     private List<SupplyNeededModel> supplies = new ArrayList<>();
 
-    public CampMetadata getCampMetadata(int id, String apiUrl) {
+    public CampMetadata getCampMetadata(int id, String apiUrl, String type) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(apiUrl + "/api/camps/c/" + Integer.toString(id)).build();
+        if (type.equals("collection_centers")) {
+            request = new Request.Builder().url(apiUrl + "/api/collectioncentres/c/" + Integer.toString(id)).build();
+        }
         try {
             Response response = client.newCall(request).execute();
             parse(response.body().string());
