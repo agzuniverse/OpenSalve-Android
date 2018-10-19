@@ -25,6 +25,7 @@
         <activity
             android:name=".CampMgmtScreen"
             android:label="Camp Management"
+            android:launchMode="singleTop"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/CampAndCollectionScreenTheme" />
         <activity
