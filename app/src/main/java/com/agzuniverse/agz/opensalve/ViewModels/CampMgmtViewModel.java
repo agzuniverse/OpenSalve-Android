@@ -5,24 +5,47 @@ import android.arch.lifecycle.ViewModel;
 import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
 import com.agzuniverse.agz.opensalve.Modals.SupplyNeededModel;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
 public class CampMgmtViewModel extends ViewModel {
+    private CampMetadata data;
     private List<SupplyNeededModel> supplies = new ArrayList<>();
 
-    public CampMetadata getCampMetadata(int id) {
-        //TODO Set camp name, image, contact and camp manager's name after fetching from API using ID
-        URL imageUrl = null;
+    public CampMetadata getCampMetadata(int id, String apiUrl) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(apiUrl + "/api/camps/c/" + Integer.toString(id)).build();
         try {
-            imageUrl = new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/PanoBunker.jpg/250px-PanoBunker.jpg");
-        } catch (MalformedURLException e) {
+            Response response = client.newCall(request).execute();
+            parse(response.body().string());
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        CampMetadata data = new CampMetadata("MEC", "John Doe", "911", imageUrl);
         return data;
+    }
+
+    private void parse(String s) {
+        try {
+            JSONObject json = new JSONObject(s);
+            data = new CampMetadata(
+                    json.getString("location"),
+                    json.getString("incharge"),
+                    json.getString("phone"),
+                    new URL(json.getString("photo"))
+            );
+        } catch (JSONException | MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<SupplyNeededModel> getSuppliesNeeded() {

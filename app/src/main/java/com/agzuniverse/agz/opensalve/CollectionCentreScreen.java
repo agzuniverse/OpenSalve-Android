@@ -28,7 +28,7 @@ public class CollectionCentreScreen extends AppCompatActivity {
 
         CampMgmtViewModel model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
 
-        CampMetadata data = model.getCampMetadata(id);
+        CampMetadata data = model.getCampMetadata(id, getResources().getString(R.string.base_api_url));
         try {
             setCollectionMetadata(data);
         } catch (IOException e) {
