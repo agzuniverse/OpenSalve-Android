@@ -56,7 +56,6 @@ public class GetHelp extends AppCompatActivity {
                                     resObj.put("medical", String.valueOf(((CheckBox) findViewById(R.id.medical)).isChecked()));
                                     resObj.put("firstaid", String.valueOf(((CheckBox) findViewById(R.id.firstaid)).isChecked()));
                                     resObj.put("transport", String.valueOf(((CheckBox) findViewById(R.id.transport)).isChecked()));
-//                                    resObj.put("other", String.valueOf(((CheckBox)findViewById(R.id.other)).isChecked()));
 
                                     resObj.put("desc", nDesc);
                                     obj.put("user", userObj);

@@ -180,7 +180,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void goToGetHelpScreen(View v) {
-        //Go to get help screen
+        Intent intent = new Intent(this, GetHelp.class);
+        this.startActivity(intent);
     }
 
     public void goToGiveHelpScreen(View v) {
