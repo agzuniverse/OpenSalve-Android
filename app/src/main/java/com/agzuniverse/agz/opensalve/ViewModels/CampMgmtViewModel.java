@@ -3,7 +3,6 @@ package com.agzuniverse.agz.opensalve.ViewModels;
 import android.arch.lifecycle.ViewModel;
 
 import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
-import com.agzuniverse.agz.opensalve.Modals.SupplyNeededModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,7 +12,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -21,7 +19,6 @@ import okhttp3.Response;
 
 public class CampMgmtViewModel extends ViewModel {
     private CampMetadata data;
-    private List<SupplyNeededModel> supplies = new ArrayList<>();
 
     public CampMetadata getCampMetadata(int id, String apiUrl, String type) {
         OkHttpClient client = new OkHttpClient();
@@ -55,15 +52,5 @@ public class CampMgmtViewModel extends ViewModel {
         } catch (JSONException | MalformedURLException e) {
             e.printStackTrace();
         }
-    }
-
-    public List<SupplyNeededModel> getSuppliesNeeded() {
-        //TODO fetch list of supplies needed for camp from API and display it
-        String[] data = {"Snacks", "Drinking Water", "Clothes", "Paracetamol", "First Aid kits"};
-        for (int i = 0; i < data.length; i++) {
-            SupplyNeededModel current = new SupplyNeededModel(data[i]);
-            supplies.add(current);
-        }
-        return supplies;
     }
 }
