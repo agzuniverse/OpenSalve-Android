@@ -9,12 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
-import com.agzuniverse.agz.opensalve.Modals.SupplyNeededModel;
 import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
 
 import java.io.IOException;
-import java.util.List;
 
 public class CollectionCentreScreen extends AppCompatActivity {
 
@@ -34,12 +32,11 @@ public class CollectionCentreScreen extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        List<SupplyNeededModel> supplies = model.getSuppliesNeeded();
 
         RecyclerView list = findViewById(R.id.collection_supplies);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager listManager = new LinearLayoutManager(this);
-        RecyclerView.Adapter listAdapter = new SuppliesNeededAdapter(this, supplies);
+        RecyclerView.Adapter listAdapter = new SuppliesNeededAdapter(this, data.getSuppliesNeeded());
         list.setLayoutManager(listManager);
         list.setAdapter(listAdapter);
     }

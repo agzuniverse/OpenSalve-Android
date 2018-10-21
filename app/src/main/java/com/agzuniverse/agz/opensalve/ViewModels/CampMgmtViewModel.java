@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -44,7 +45,12 @@ public class CampMgmtViewModel extends ViewModel {
                     json.getString("location"),
                     json.getString("incharge"),
                     json.getString("phone"),
-                    new URL(json.getString("photo"))
+                    new URL(json.getString("photo")),
+                    new ArrayList<>(
+                            Arrays.asList(
+                                    json.getString("supplies").split(",")
+                            )
+                    )
             );
         } catch (JSONException | MalformedURLException e) {
             e.printStackTrace();

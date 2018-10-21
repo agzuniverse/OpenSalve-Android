@@ -8,18 +8,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.agzuniverse.agz.opensalve.Modals.SupplyNeededModel;
 import com.agzuniverse.agz.opensalve.R;
 
-import java.util.Collections;
 import java.util.List;
 
 public class SuppliesNeededAdapter extends RecyclerView.Adapter<SuppliesNeededAdapter.SuppliesNeededViewHolder> {
 
     private LayoutInflater inflater;
-    private List<SupplyNeededModel> supplies = Collections.emptyList();
+    private List<String> supplies;
 
-    public SuppliesNeededAdapter(Context context, List<SupplyNeededModel> supplies) {
+    public SuppliesNeededAdapter(Context context, List<String> supplies) {
         inflater = LayoutInflater.from(context);
         this.supplies = supplies;
     }
@@ -34,8 +32,8 @@ public class SuppliesNeededAdapter extends RecyclerView.Adapter<SuppliesNeededAd
 
     @Override
     public void onBindViewHolder(@NonNull SuppliesNeededViewHolder viewHolder, int i) {
-        SupplyNeededModel current = supplies.get(i);
-        viewHolder.supply.setText(current.getSupply());
+        String current = supplies.get(i);
+        viewHolder.supply.setText(current);
     }
 
     @Override

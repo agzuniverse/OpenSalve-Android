@@ -13,11 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
-import com.agzuniverse.agz.opensalve.Modals.SupplyNeededModel;
 import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
-
-import java.util.List;
 
 public class CampMgmtScreen extends AppCompatActivity {
 
@@ -34,15 +31,6 @@ public class CampMgmtScreen extends AppCompatActivity {
 
         model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
         fetchCampMetadataAsync(id);
-        List<SupplyNeededModel> supplies = model.getSuppliesNeeded();
-
-        RecyclerView list = findViewById(R.id.camp_supplies);
-        list.setHasFixedSize(true);
-        RecyclerView.LayoutManager listManager = new LinearLayoutManager(this);
-        RecyclerView.Adapter listAdapter = new SuppliesNeededAdapter(this, supplies);
-        list.setAdapter(listAdapter);
-        list.setLayoutManager(listManager);
-
     }
 
     public void fetchCampMetadataAsync(int id) {
@@ -52,12 +40,9 @@ public class CampMgmtScreen extends AppCompatActivity {
                 setCampMetadata(data);
             }
         };
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                data = model.getCampMetadata(id, getResources().getString(R.string.base_api_url), "camps");
-                handler.sendEmptyMessage(0);
-            }
+        Runnable runnable = () -> {
+            data = model.getCampMetadata(id, getResources().getString(R.string.base_api_url), "camps");
+            handler.sendEmptyMessage(0);
         };
         Thread async = new Thread(runnable);
         async.start();
@@ -75,6 +60,13 @@ public class CampMgmtScreen extends AppCompatActivity {
 //        Bitmap imageBitmap = BitmapFactory.decodeStream(data.getCampImageUrl().openConnection().getInputStream());
 //        campImage.setImageBitmap(imageBitmap);
         campImage.setImageDrawable(getDrawable(R.drawable.shelter));
+
+        RecyclerView list = findViewById(R.id.camp_supplies);
+        list.setHasFixedSize(true);
+        RecyclerView.LayoutManager listManager = new LinearLayoutManager(this);
+        RecyclerView.Adapter listAdapter = new SuppliesNeededAdapter(this, data.getSuppliesNeeded());
+        list.setAdapter(listAdapter);
+        list.setLayoutManager(listManager);
     }
 
     public void goToListOfInhabitants(View v) {
