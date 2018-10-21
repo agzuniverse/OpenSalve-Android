@@ -14,9 +14,13 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.CheckBox;
+import android.widget.EditText;
 
 import com.agzuniverse.agz.opensalve.Modals.LocationMarker;
 import com.agzuniverse.agz.opensalve.ViewModels.LocationMarkersViewModel;
@@ -44,6 +48,7 @@ public class HomeActivity extends AppCompatActivity {
     private boolean showCollection = true;
     private boolean showRequests = false;
     private DrawerLayout drawer;
+    private String query = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,30 @@ public class HomeActivity extends AppCompatActivity {
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         drawer = findViewById(R.id.drawer_layout);
 
+        EditText search = actionBar.getCustomView().findViewById(R.id.appbar_search_field);
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                query = charSequence.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        search.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if (i == EditorInfo.IME_ACTION_DONE) {
+                refreshMapOverlay();
+            }
+            return false;
+        });
+
         Mapbox.getInstance(this, getString(R.string.mapbox_api_token));
 
         mapView = findViewById(R.id.mapView);
@@ -69,16 +98,13 @@ public class HomeActivity extends AppCompatActivity {
         getMarkers();
 
         NavigationView nav = findViewById(R.id.nav_view);
-        nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                drawer.closeDrawers();
-                if (menuItem.getTitle().toString() == getResources().getString(R.string.imp_contacts)) {
-                    Intent intent = new Intent(HomeActivity.this, Helplines.class);
-                    HomeActivity.this.startActivity(intent);
-                }
-                return true;
+        nav.setNavigationItemSelectedListener(menuItem -> {
+            drawer.closeDrawers();
+            if (menuItem.getTitle().toString() == getResources().getString(R.string.imp_contacts)) {
+                Intent intent = new Intent(HomeActivity.this, Helplines.class);
+                HomeActivity.this.startActivity(intent);
             }
+            return true;
         });
 
 //        Intent debug = new Intent(this, CampMgmtScreen.class);
@@ -89,20 +115,12 @@ public class HomeActivity extends AppCompatActivity {
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                mapView.getMapAsync(new OnMapReadyCallback() {
-                    @Override
-                    public void onMapReady(MapboxMap mapboxMap) {
-                        configMapOverlay(mapboxMap);
-                    }
-                });
+                mapView.getMapAsync(mapboxMap -> configMapOverlay(mapboxMap));
             }
         };
-        Runnable runnable = new Runnable() {
-            @Override
-            public void run() {
-                locations = model.getCampsAndCollectionCentres(getString(R.string.base_api_url));
-                handler.sendEmptyMessage(0);
-            }
+        Runnable runnable = () -> {
+            locations = model.getCampsAndCollectionCentres(getString(R.string.base_api_url));
+            handler.sendEmptyMessage(0);
         };
         Thread async = new Thread(runnable);
         async.start();
@@ -129,27 +147,58 @@ public class HomeActivity extends AppCompatActivity {
         Icon iconBlue = iconFactory.fromBitmap(bitmap);
 
         for (LocationMarker loc : locations) {
-            if (loc.getSnippet().split("#")[0].equals("collection center") && showCollection) {
-                map.addMarker(new MarkerOptions()
-                        .position(new LatLng(loc.getLat(), loc.getLng()))
-                        .title(loc.getTitle())
-                        .snippet(loc.getSnippet())
-                        .icon(iconYellow)
-                );
-            } else if (loc.getSnippet().split("#")[0].equals("camp") && showCamps) {
-                map.addMarker(new MarkerOptions()
-                        .position(new LatLng(loc.getLat(), loc.getLng()))
-                        .title(loc.getTitle())
-                        .snippet(loc.getSnippet())
-                        .icon(iconBlue)
-                );
-            } else {
-                //TODO display request markers here
+            if (query.equals("")) {
+                if (loc.getSnippet().split("#")[0].equals("collection center") && showCollection) {
+                    map.addMarker(new MarkerOptions()
+                            .position(new LatLng(loc.getLat(), loc.getLng()))
+                            .title(loc.getTitle())
+                            .snippet(loc.getSnippet())
+                            .icon(iconYellow)
+                    );
+                } else if (loc.getSnippet().split("#")[0].equals("camp") && showCamps) {
+                    map.addMarker(new MarkerOptions()
+                            .position(new LatLng(loc.getLat(), loc.getLng()))
+                            .title(loc.getTitle())
+                            .snippet(loc.getSnippet())
+                            .icon(iconBlue)
+                    );
+                } else if (loc.getSnippet().split("#")[0].equals("camp") && showRequests) {
+                    //TODO display request markers here
 //                map.addMarker(new MarkerOptions()
 //                        .position(new LatLng(loc.getLat(), loc.getLng()))
 //                        .title(loc.getTitle())
 //                        .snippet(loc.getSnippet())
 //                );
+                }
+            } else {
+                if (loc.getSnippet().split("#")[0].equals("collection center")
+                        && showCollection
+                        && loc.getTitle().toLowerCase().contains(query)) {
+                    map.addMarker(new MarkerOptions()
+                            .position(new LatLng(loc.getLat(), loc.getLng()))
+                            .title(loc.getTitle())
+                            .snippet(loc.getSnippet())
+                            .icon(iconYellow)
+                    );
+                } else if (loc.getSnippet().split("#")[0].equals("camp")
+                        && showCamps
+                        && loc.getTitle().toLowerCase().contains(query)) {
+                    map.addMarker(new MarkerOptions()
+                            .position(new LatLng(loc.getLat(), loc.getLng()))
+                            .title(loc.getTitle())
+                            .snippet(loc.getSnippet())
+                            .icon(iconBlue)
+                    );
+                } else if (loc.getSnippet().split("#")[0].equals("request")
+                        && showRequests
+                        && loc.getTitle().toLowerCase().contains(query)) {
+                    //TODO display request markers here
+//                map.addMarker(new MarkerOptions()
+//                        .position(new LatLng(loc.getLat(), loc.getLng()))
+//                        .title(loc.getTitle())
+//                        .snippet(loc.getSnippet())
+//                );
+                }
             }
         }
 
