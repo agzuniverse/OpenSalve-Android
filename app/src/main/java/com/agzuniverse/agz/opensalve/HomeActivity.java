@@ -17,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Modals.LocationMarker;
 import com.agzuniverse.agz.opensalve.ViewModels.LocationMarkersViewModel;
@@ -161,8 +160,6 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public boolean onMarkerClick(@NonNull Marker marker) {
                 String[] markerSnippet = marker.getSnippet().split("#");
-                //TODO remove this debug line
-                Toast.makeText(HomeActivity.this, markerSnippet[0], Toast.LENGTH_SHORT).show();
                 if (markerSnippet[0].equals("camp")) {
                     Intent campIntent = new Intent(HomeActivity.this, CampMgmtScreen.class);
                     campIntent.putExtra("id", Integer.parseInt(markerSnippet[1]));

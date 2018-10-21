@@ -5,6 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -31,7 +32,7 @@ public class GetHelp extends AppCompatActivity {
         contact = findViewById(R.id.contact);
     }
 
-    public void submitRequest() {
+    public void submitRequest(View v) {
         final String n = name.getText().toString();
         final String c = contact.getText().toString();
         final String nDesc = desc.getText().toString();
