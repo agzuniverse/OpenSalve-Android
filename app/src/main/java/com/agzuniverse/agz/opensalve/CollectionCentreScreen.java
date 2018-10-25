@@ -2,6 +2,8 @@ package com.agzuniverse.agz.opensalve;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +14,10 @@ import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
 import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
 
-import java.io.IOException;
-
 public class CollectionCentreScreen extends AppCompatActivity {
+
+    private CampMgmtViewModel model;
+    private CampMetadata data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,24 +27,26 @@ public class CollectionCentreScreen extends AppCompatActivity {
         Bundle extraData = getIntent().getExtras();
         int id = extraData.getInt("id", 0);
 
-        CampMgmtViewModel model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
-
-        CampMetadata data = model.getCampMetadata(id, getResources().getString(R.string.base_api_url), "collection_centers");
-        try {
-            setCollectionMetadata(data);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        RecyclerView list = findViewById(R.id.collection_supplies);
-        list.setHasFixedSize(true);
-        RecyclerView.LayoutManager listManager = new LinearLayoutManager(this);
-        RecyclerView.Adapter listAdapter = new SuppliesNeededAdapter(this, data.getSuppliesNeeded());
-        list.setLayoutManager(listManager);
-        list.setAdapter(listAdapter);
+        model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
+        fetchCollectionMetadataAsync(id);
     }
 
-    public void setCollectionMetadata(CampMetadata data) throws IOException {
+    public void fetchCollectionMetadataAsync(int id) {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                setCollectionMetadata(data);
+            }
+        };
+        Runnable runnable = () -> {
+            data = model.getCampMetadata(id, getResources().getString(R.string.base_api_url), "collection_centers");
+            handler.sendEmptyMessage(0);
+        };
+        Thread async = new Thread(runnable);
+        async.start();
+    }
+
+    public void setCollectionMetadata(CampMetadata data) {
         TextView collectionName = findViewById(R.id.collection_name);
         collectionName.setText(data.getCampName());
         TextView collectionManager = findViewById(R.id.collection_manager);
@@ -53,5 +58,12 @@ public class CollectionCentreScreen extends AppCompatActivity {
 //        Bitmap imageBitmap = BitmapFactory.decodeStream(data.getCampImageUrl().openConnection().getInputStream());
 //        collectionImage.setImageBitmap(imageBitmap);
         collectionImage.setImageDrawable(getDrawable(R.drawable.shelter));
+
+        RecyclerView list = findViewById(R.id.collection_supplies);
+        list.setHasFixedSize(true);
+        RecyclerView.LayoutManager listManager = new LinearLayoutManager(this);
+        RecyclerView.Adapter listAdapter = new SuppliesNeededAdapter(this, data.getSuppliesNeeded());
+        list.setLayoutManager(listManager);
+        list.setAdapter(listAdapter);
     }
 }
