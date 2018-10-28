@@ -20,6 +20,7 @@ public class CampMgmtScreen extends AppCompatActivity {
 
     private CampMgmtViewModel model;
     private CampMetadata data;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +28,13 @@ public class CampMgmtScreen extends AppCompatActivity {
         setContentView(R.layout.camp_mgmt_home);
 
         Bundle extraData = getIntent().getExtras();
-        int id = extraData.getInt("id", 0);
+        id = extraData.getInt("id", 0);
 
         model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
         fetchCampMetadataAsync(id);
     }
 
+    //TODO handle case when this returns null
     public void fetchCampMetadataAsync(int id) {
         Handler handler = new Handler() {
             @Override
@@ -71,6 +73,7 @@ public class CampMgmtScreen extends AppCompatActivity {
 
     public void goToListOfInhabitants(View v) {
         Intent listOfInhabs = new Intent(this, ListOfInhabitants.class);
+        listOfInhabs.putExtra("id", id);
         this.startActivity(listOfInhabs);
     }
 }

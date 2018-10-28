@@ -1,25 +1,19 @@
 package com.agzuniverse.agz.opensalve.Modals;
 
 public class Person {
-    private String firstName;
-    private String secondName;
-    private Integer age;
+    private String name;
+    private String bloodgrp;
 
-    public Person(String firstName, String secondName, Integer age) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.age = age;
+    public Person(String name, String bloodgrp) {
+        this.name = name;
+        this.bloodgrp = bloodgrp;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public String getSecondName() {
-        return secondName;
-    }
-
-    public Integer getAge() {
-        return age;
+    public String getBloodgrp() {
+        return bloodgrp;
     }
 }

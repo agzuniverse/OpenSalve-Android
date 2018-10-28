@@ -31,6 +31,7 @@ public class CollectionCentreScreen extends AppCompatActivity {
         fetchCollectionMetadataAsync(id);
     }
 
+    //TODO handle case when this returns null
     public void fetchCollectionMetadataAsync(int id) {
         Handler handler = new Handler() {
             @Override

@@ -35,8 +35,8 @@ public class ListOfInhabsAdapter extends RecyclerView.Adapter<ListOfInhabsAdapte
     @Override
     public void onBindViewHolder(@NonNull ListOfInhabsViewHolder viewHolder, int i) {
         Person current = persons.get(i);
-        viewHolder.name.setText(current.getFirstName() + ' ' + current.getSecondName());
-        viewHolder.age.setText(Integer.toString(current.getAge()));
+        viewHolder.name.setText(current.getName());
+        viewHolder.age.setText(current.getBloodgrp());
 
     }
 
