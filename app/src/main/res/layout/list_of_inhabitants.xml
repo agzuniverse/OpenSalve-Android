@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.3"
             android:gravity="center"
-            android:text="@string/age"
+            android:text="@string/secondary_person_attrib"
             android:textSize="16sp"
             android:textStyle="bold" />
 
