@@ -36,8 +36,15 @@ public class LocationMarkersViewModel extends ViewModel {
         return locationsOfCampsAndCollectionCentres;
     }
 
-    public List<LocationMarker> getRequests() {
-        //TODO this
+    public List<LocationMarker> getRequests(String apiUrl) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder().url(apiUrl + "/api/help/").build();
+        try {
+            Response response = client.newCall(request).execute();
+            parse(response.body().string(), "request");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return locationsOfRequests;
     }
 
@@ -63,6 +70,14 @@ public class LocationMarkersViewModel extends ViewModel {
                             a.getDouble("lng")
                     );
                     locationsOfCampsAndCollectionCentres.add(current);
+                } else if (type.equals("request")) {
+                    LocationMarker current = new LocationMarker(
+                            a.getString("name"),
+                            "request#" + a.getString("id"),
+                            a.getDouble("lat"),
+                            a.getDouble("lng")
+                    );
+                    locationsOfRequests.add(current);
                 }
             }
         } catch (JSONException e) {

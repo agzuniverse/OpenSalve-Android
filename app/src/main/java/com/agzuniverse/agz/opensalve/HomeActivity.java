@@ -8,7 +8,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -27,12 +26,10 @@ import com.agzuniverse.agz.opensalve.ViewModels.LocationMarkersViewModel;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
-import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +117,7 @@ public class HomeActivity extends AppCompatActivity {
         };
         Runnable runnable = () -> {
             locations = model.getCampsAndCollectionCentres(getString(R.string.base_api_url));
+            locationsOfRequests = model.getRequests(getString(R.string.base_api_url));
             handler.sendEmptyMessage(0);
         };
         Thread async = new Thread(runnable);
@@ -162,13 +160,6 @@ public class HomeActivity extends AppCompatActivity {
                             .snippet(loc.getSnippet())
                             .icon(iconBlue)
                     );
-                } else if (loc.getSnippet().split("#")[0].equals("camp") && showRequests) {
-                    //TODO display request markers here
-//                map.addMarker(new MarkerOptions()
-//                        .position(new LatLng(loc.getLat(), loc.getLng()))
-//                        .title(loc.getTitle())
-//                        .snippet(loc.getSnippet())
-//                );
                 }
             } else {
                 if (loc.getSnippet().split("#")[0].equals("collection center")
@@ -189,49 +180,53 @@ public class HomeActivity extends AppCompatActivity {
                             .snippet(loc.getSnippet())
                             .icon(iconBlue)
                     );
-                } else if (loc.getSnippet().split("#")[0].equals("request")
-                        && showRequests
-                        && loc.getTitle().toLowerCase().contains(query)) {
-                    //TODO display request markers here
-//                map.addMarker(new MarkerOptions()
-//                        .position(new LatLng(loc.getLat(), loc.getLng()))
-//                        .title(loc.getTitle())
-//                        .snippet(loc.getSnippet())
-//                );
+                }
+            }
+        }
+
+        if (showRequests) {
+            for (LocationMarker loc : locationsOfRequests) {
+                if (query.equals("")) {
+                    map.addMarker(new MarkerOptions()
+                            .position(new LatLng(loc.getLat(), loc.getLng()))
+                            .title(loc.getTitle())
+                            .snippet(loc.getSnippet())
+                    );
+                } else {
+                    if (loc.getTitle().toLowerCase().contains(query)) {
+                        map.addMarker(new MarkerOptions()
+                                .position(new LatLng(loc.getLat(), loc.getLng()))
+                                .title(loc.getTitle())
+                                .snippet(loc.getSnippet())
+                        );
+                    }
                 }
             }
         }
 
         //TODO fetch requests only when user flips the toggle to display them
-        locationsOfRequests = model.getRequests();
+//        locationsOfRequests = model.getRequests();
 
-        map.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(@NonNull Marker marker) {
-                String[] markerSnippet = marker.getSnippet().split("#");
-                if (markerSnippet[0].equals("camp")) {
-                    Intent campIntent = new Intent(HomeActivity.this, CampMgmtScreen.class);
-                    campIntent.putExtra("id", Integer.parseInt(markerSnippet[1]));
-                    HomeActivity.this.startActivity(campIntent);
-                } else if (markerSnippet[0].equals("collection center")) {
-                    Intent collectionIntent = new Intent(HomeActivity.this, CollectionCentreScreen.class);
-                    collectionIntent.putExtra("id", Integer.parseInt(markerSnippet[1]));
-                    HomeActivity.this.startActivity(collectionIntent);
-                } else if (markerSnippet[0].equals("request")) {
-                    //TODO go to requests screen
-                }
-                return false;
+        map.setOnMarkerClickListener(marker -> {
+            String[] markerSnippet = marker.getSnippet().split("#");
+            if (markerSnippet[0].equals("camp")) {
+                Intent campIntent = new Intent(HomeActivity.this, CampMgmtScreen.class);
+                campIntent.putExtra("id", Integer.parseInt(markerSnippet[1]));
+                HomeActivity.this.startActivity(campIntent);
+            } else if (markerSnippet[0].equals("collection center")) {
+                Intent collectionIntent = new Intent(HomeActivity.this, CollectionCentreScreen.class);
+                collectionIntent.putExtra("id", Integer.parseInt(markerSnippet[1]));
+                HomeActivity.this.startActivity(collectionIntent);
+            } else if (markerSnippet[0].equals("request")) {
+                //TODO go to requests screen
             }
+            return false;
         });
     }
 
     public void goToGetHelpScreen(View v) {
         Intent intent = new Intent(this, GetHelp.class);
         this.startActivity(intent);
-    }
-
-    public void goToGiveHelpScreen(View v) {
-        //Go to give help screen
     }
 
     public void campCheckBoxClicked(View v) {
@@ -266,12 +261,9 @@ public class HomeActivity extends AppCompatActivity {
 
     public void refreshMapOverlay() {
         mapView = findViewById(R.id.mapView);
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(MapboxMap mapboxMap) {
-                mapboxMap.clear();
-                configMapOverlay(mapboxMap);
-            }
+        mapView.getMapAsync(mapboxMap -> {
+            mapboxMap.clear();
+            configMapOverlay(mapboxMap);
         });
     }
 }
