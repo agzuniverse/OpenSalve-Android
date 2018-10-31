@@ -83,11 +83,6 @@
                     style="@style/opensalve_button"
                     android:onClick="goToGetHelpScreen"
                     android:text="@string/want_help" />
-
-                <Button
-                    style="@style/opensalve_button"
-                    android:onClick="goToGiveHelpScreen"
-                    android:text="@string/give_help" />
             </LinearLayout>
 
         </RelativeLayout>
