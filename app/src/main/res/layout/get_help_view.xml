@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingEnd="8dp"
+    android:paddingStart="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/name_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/contact_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/contact" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/evac_needed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/evac" />
+
+    <TextView
+        android:id="@+id/foodwater_needed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/foodwater" />
+
+    <TextView
+        android:id="@+id/medical_needed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/medical" />
+
+    <TextView
+        android:id="@+id/firstaid_needed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/firstaid" />
+
+    <TextView
+        android:id="@+id/transport_needed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/transport" />
+
+
+    <TextView
+        android:id="@+id/desc_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/anything_else" />
+
+    <TextView
+        android:id="@+id/req_status_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/name_placeholder" />
+
+    <!--<Button-->
+    <!--style="@style/opensalve_button"-->
+    <!--android:onClick="markResponderDispatched"-->
+    <!--android:text="@string/mark_as_responded" />-->
+
+    <!--<Button-->
+    <!--style="@style/opensalve_button"-->
+    <!--android:onClick="markRequestResolved"-->
+    <!--android:text="@string/mark_resolved" />-->
+</LinearLayout>

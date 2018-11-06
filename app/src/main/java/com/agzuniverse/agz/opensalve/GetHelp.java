@@ -21,15 +21,21 @@ public class GetHelp extends AppCompatActivity {
     private EditText desc;
     private EditText name;
     private EditText contact;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.get_help);
-
-        desc = findViewById(R.id.desc);
-        name = findViewById(R.id.name);
-        contact = findViewById(R.id.contact);
+        Bundle bundle = getIntent().getExtras();
+        id = bundle.getInt("id", 0);
+        if (id == 0) {
+            setContentView(R.layout.get_help);
+            desc = findViewById(R.id.desc);
+            name = findViewById(R.id.name);
+            contact = findViewById(R.id.contact);
+        } else {
+            setContentView(R.layout.get_help_view);
+        }
     }
 
     public void submitRequest(View v) {

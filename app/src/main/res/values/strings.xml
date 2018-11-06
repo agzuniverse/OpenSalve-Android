@@ -30,6 +30,8 @@
     <string name="firstaid">First aid needed</string>
     <string name="transport">Looking for transport</string>
     <string name="other">Other</string>
+    <string name="mark_resolved">Mark request as resolved</string>
+    <string name="mark_as_responded">Responders dispatched</string>
 
     <string name="news">News</string>
     <string name="imp_contacts">Important Contacts</string>

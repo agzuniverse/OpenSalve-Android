@@ -226,6 +226,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void goToGetHelpScreen(View v) {
         Intent intent = new Intent(this, GetHelp.class);
+        intent.putExtra("id", 0);
         this.startActivity(intent);
     }
 
