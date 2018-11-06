@@ -204,9 +204,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
 
-        //TODO fetch requests only when user flips the toggle to display them
-//        locationsOfRequests = model.getRequests();
-
         map.setOnMarkerClickListener(marker -> {
             String[] markerSnippet = marker.getSnippet().split("#");
             if (markerSnippet[0].equals("camp")) {
@@ -218,7 +215,9 @@ public class HomeActivity extends AppCompatActivity {
                 collectionIntent.putExtra("id", Integer.parseInt(markerSnippet[1]));
                 HomeActivity.this.startActivity(collectionIntent);
             } else if (markerSnippet[0].equals("request")) {
-                //TODO go to requests screen
+                Intent reqIntent = new Intent(HomeActivity.this, GetHelp.class);
+                reqIntent.putExtra("id", Integer.parseInt(markerSnippet[1]));
+                HomeActivity.this.startActivity(reqIntent);
             }
             return false;
         });
