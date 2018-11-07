@@ -1,8 +1,11 @@
 package com.agzuniverse.agz.opensalve;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,6 +13,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.agzuniverse.agz.opensalve.Modals.GetHelpData;
+import com.agzuniverse.agz.opensalve.ViewModels.GetHelpViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,6 +27,8 @@ public class GetHelp extends AppCompatActivity {
     private EditText name;
     private EditText contact;
     private int id;
+    private GetHelpData data;
+    private GetHelpViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,29 @@ public class GetHelp extends AppCompatActivity {
             contact = findViewById(R.id.contact);
         } else {
             setContentView(R.layout.get_help_view);
+            model = ViewModelProviders.of(this).get(GetHelpViewModel.class);
+            fetchGetHelpDataAsync(id);
         }
+    }
+
+    private void fetchGetHelpDataAsync(int id) {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                setGetHelpData();
+            }
+        };
+        Runnable runnable = () -> {
+            data = model.getHelpData(id, getResources().getString(R.string.base_api_url));
+            handler.sendEmptyMessage(0);
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
+    }
+
+    public void setGetHelpData() {
+
     }
 
     public void submitRequest(View v) {
