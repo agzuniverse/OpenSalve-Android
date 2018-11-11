@@ -14,7 +14,7 @@
     <string name="search_hint">Search Here</string>
     <string name="want_help">I need help</string>
     <string name="give_help">I want to help</string>
-    <string name="name">Name</string>
+    <string name="name">Name: </string>
     <string name="secondary_person_attrib">Blood Group</string>
     <string name="camps">Camps</string>
     <string name="collection">Collection Centers</string>
