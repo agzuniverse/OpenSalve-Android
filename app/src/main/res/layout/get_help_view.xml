@@ -17,10 +17,16 @@
             android:focusableInTouchMode="true">
 
             <TextView
-                android:id="@+id/name_view"
+                android:id="@+id/name_view_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/name" />
+
+            <TextView
+                android:id="@+id/name_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_placeholder" />
 
         </LinearLayout>
 
@@ -30,10 +36,16 @@
             android:focusableInTouchMode="true">
 
             <TextView
-                android:id="@+id/contact_view"
+                android:id="@+id/contact_view_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/contact" />
+
+            <TextView
+                android:id="@+id/contact_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/name_placeholder" />
         </LinearLayout>
 
     </LinearLayout>
@@ -74,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:text="@string/anything_else" />
+        android:text="@string/name_placeholder" />
 
     <TextView
         android:id="@+id/req_status_view"

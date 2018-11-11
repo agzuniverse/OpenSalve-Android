@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Modals.GetHelpData;
@@ -64,7 +65,14 @@ public class GetHelp extends AppCompatActivity {
     }
 
     public void setGetHelpData() {
-
+        TextView t = findViewById(R.id.name_view);
+        t.setText(data.getName());
+        t = findViewById(R.id.contact_view);
+        t.setText(data.getContact());
+        t = findViewById(R.id.desc_view);
+        t.setText(data.getDesc());
+        t = findViewById(R.id.req_status_view);
+        t.setText(data.getStatus());
     }
 
     public void submitRequest(View v) {
