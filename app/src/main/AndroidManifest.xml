@@ -45,7 +45,7 @@
             android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".NewsScreen"
-            android:label="News Screen"
+            android:label="News and Announcements"
             android:parentActivityName=".HomeActivity" />
     </application>
 
