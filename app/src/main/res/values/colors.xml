@@ -11,4 +11,6 @@
     <color name="divider_color">#c9ced5</color>
     <color name="transparentDarkOverlay">#7f000000</color>
     <color name="transparentLightOverlay">#7fffffff</color>
+    <color name="danger">#c9d80000</color>
+    <color name="safe">#ca51ff00</color>
 </resources>

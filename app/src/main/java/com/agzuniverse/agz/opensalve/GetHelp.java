@@ -2,7 +2,6 @@ package com.agzuniverse.agz.opensalve;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,7 +17,6 @@ import com.agzuniverse.agz.opensalve.Modals.GetHelpData;
 import com.agzuniverse.agz.opensalve.ViewModels.GetHelpViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -73,6 +71,29 @@ public class GetHelp extends AppCompatActivity {
         t.setText(data.getDesc());
         t = findViewById(R.id.req_status_view);
         t.setText(data.getStatus());
+        if (data.getStatus().equals("Help is on the way")) {
+            t.setTextColor(getResources().getColor(R.color.safe));
+        } else t.setTextColor(getResources().getColor(R.color.danger));
+        if (!data.isEvac()) {
+            t = findViewById(R.id.evac_needed);
+            t.setVisibility(View.GONE);
+        }
+        if (!data.isFoodWater()) {
+            t = findViewById(R.id.foodwater_needed);
+            t.setVisibility(View.GONE);
+        }
+        if (!data.isMedical()) {
+            t = findViewById(R.id.medical_needed);
+            t.setVisibility(View.GONE);
+        }
+        if (!data.isFirstAid()) {
+            t = findViewById(R.id.firstaid_needed);
+            t.setVisibility(View.GONE);
+        }
+        if (!data.isTransport()) {
+            t = findViewById(R.id.transport_needed);
+            t.setVisibility(View.GONE);
+        }
     }
 
     public void submitRequest(View v) {
@@ -83,35 +104,33 @@ public class GetHelp extends AppCompatActivity {
         FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                JSONObject locObj = new JSONObject();
-                                JSONObject userObj = new JSONObject();
-                                JSONObject resObj = new JSONObject();
-                                JSONObject obj = new JSONObject();
-                                try {
-                                    locObj.put("latitude", location.getLatitude());
-                                    locObj.put("longitude", location.getLongitude());
-                                    userObj.put("name", n);
-                                    userObj.put("phone", c);
-                                    resObj.put("evac", String.valueOf(((CheckBox) findViewById(R.id.evac)).isChecked()));
-                                    resObj.put("foodwater", String.valueOf(((CheckBox) findViewById(R.id.foodwater)).isChecked()));
-                                    resObj.put("medical", String.valueOf(((CheckBox) findViewById(R.id.medical)).isChecked()));
-                                    resObj.put("firstaid", String.valueOf(((CheckBox) findViewById(R.id.firstaid)).isChecked()));
-                                    resObj.put("transport", String.valueOf(((CheckBox) findViewById(R.id.transport)).isChecked()));
+                    .addOnSuccessListener(this, location -> {
+                        if (location != null) {
+                            JSONObject locObj = new JSONObject();
+                            JSONObject userObj = new JSONObject();
+                            JSONObject resObj = new JSONObject();
+                            JSONObject obj = new JSONObject();
+                            try {
+                                locObj.put("latitude", location.getLatitude());
+                                locObj.put("longitude", location.getLongitude());
+                                userObj.put("name", n);
+                                userObj.put("phone", c);
+                                resObj.put("evac", String.valueOf(((CheckBox) findViewById(R.id.evac)).isChecked()));
+                                resObj.put("foodwater", String.valueOf(((CheckBox) findViewById(R.id.foodwater)).isChecked()));
+                                resObj.put("medical", String.valueOf(((CheckBox) findViewById(R.id.medical)).isChecked()));
+                                resObj.put("firstaid", String.valueOf(((CheckBox) findViewById(R.id.firstaid)).isChecked()));
+                                resObj.put("transport", String.valueOf(((CheckBox) findViewById(R.id.transport)).isChecked()));
 
-                                    resObj.put("desc", nDesc);
-                                    obj.put("user", userObj);
-                                    obj.put("location", locObj);
-                                    obj.put("resources", resObj);
-                                    //TODO make a POST request to the backend
+                                resObj.put("desc", nDesc);
+                                obj.put("user", userObj);
+                                obj.put("location", locObj);
+                                obj.put("resources", resObj);
+                                //TODO make a POST request to the backend
 //                                      NetworkPost net = new NetworkPost();
 //                                      net.execute("https://postman-echo.com/post", String.valueOf(obj));
-                                    showToast();
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                showToast();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
                         }
                     });
