@@ -44,8 +44,8 @@
             android:label="Get Help"
             android:parentActivityName=".HomeActivity" />
         <activity
-            android:name=".Helplines"
-            android:label="Helplines"
+            android:name=".NewsScreen"
+            android:label="News Screen"
             android:parentActivityName=".HomeActivity" />
     </application>
 

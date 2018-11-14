@@ -97,8 +97,8 @@ public class HomeActivity extends AppCompatActivity {
         NavigationView nav = findViewById(R.id.nav_view);
         nav.setNavigationItemSelectedListener(menuItem -> {
             drawer.closeDrawers();
-            if (menuItem.getTitle().toString() == getResources().getString(R.string.imp_contacts)) {
-                Intent intent = new Intent(HomeActivity.this, Helplines.class);
+            if (menuItem.getTitle().toString() == getResources().getString(R.string.menu_item_one)) {
+                Intent intent = new Intent(HomeActivity.this, NewsScreen.class);
                 HomeActivity.this.startActivity(intent);
             }
             return true;

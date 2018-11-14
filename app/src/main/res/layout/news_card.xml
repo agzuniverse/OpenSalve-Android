@@ -5,12 +5,12 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/contact_desc"
+        android:id="@+id/news_body"
         style="@style/label"
         android:text="@string/name_placeholder" />
 
     <TextView
-        android:id="@+id/contact_number"
+        android:id="@+id/news_author"
         style="@style/label"
         android:text="@string/name_placeholder" />
 </LinearLayout>

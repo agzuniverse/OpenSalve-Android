@@ -33,7 +33,6 @@
     <string name="mark_resolved">Mark request as resolved</string>
     <string name="mark_as_responded">Responders dispatched</string>
 
-    <string name="news">News</string>
-    <string name="imp_contacts">Important Contacts</string>
+    <string name="menu_item_one">Important News</string>
     <string name="about">About OpenSalve</string>
 </resources>
