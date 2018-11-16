@@ -170,4 +170,20 @@ public class GetHelp extends AppCompatActivity {
         Thread async = new Thread(runnable);
         async.start();
     }
+
+    public void markRequestResolved() {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                Toast.makeText(GetHelp.this, "Request closed successfully", Toast.LENGTH_LONG).show();
+                GetHelp.this.finish();
+            }
+        };
+        Runnable runnable = () -> {
+            //TODO send request to backend to close request
+            handler.sendEmptyMessage(0);
+        };
+        Thread async = new Thread(runnable);
+        async.start();
+    }
 }
