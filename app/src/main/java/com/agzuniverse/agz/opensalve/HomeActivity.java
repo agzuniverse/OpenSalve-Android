@@ -1,7 +1,9 @@
 package com.agzuniverse.agz.opensalve;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -104,8 +106,37 @@ public class HomeActivity extends AppCompatActivity {
             return true;
         });
 
+        //Check if locally stored token exists
+        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+        String token = prefs.getString("token", "0");
+        if (!token.equals("0")) {
+            //User has a token, check if it is valid
+            checkAuth(token);
+        }
+
+
 //        Intent debug = new Intent(this, CampMgmtScreen.class);
 //        this.startActivity(debug);
+    }
+
+    public void checkAuth(String token) {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                //TODO if response is negative, inform user they have been logged out and remove isVolunteer and isAdmin values
+                //TODO do this only if response is positive
+                SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("isVolunteer", 1);
+                editor.commit();
+            }
+        };
+        Runnable runnable = () -> {
+            //TODO make POST request to backend with token to check if it is valid
+            handler.sendEmptyMessage(0);
+        };
+        Thread async = new Thread(runnable);
+        async.start();
     }
 
     public void getMarkers() {
