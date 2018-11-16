@@ -1,6 +1,8 @@
 package com.agzuniverse.agz.opensalve;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +46,12 @@ public class GetHelp extends AppCompatActivity {
             setContentView(R.layout.get_help_view);
             model = ViewModelProviders.of(this).get(GetHelpViewModel.class);
             fetchGetHelpDataAsync(id);
+
+            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+            if (prefs.getInt("isVolunteer", 0) == 1) {
+                LinearLayout l = findViewById(R.id.get_help_manage_buttons);
+                l.setVisibility(View.VISIBLE);
+            }
         }
     }
 
