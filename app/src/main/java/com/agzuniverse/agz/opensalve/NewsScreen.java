@@ -23,8 +23,12 @@ public class NewsScreen extends AppCompatActivity {
 
         RecyclerView news = findViewById(R.id.news_list);
         RecyclerView.LayoutManager newsLayoutManager = new LinearLayoutManager(this);
-        RecyclerView.Adapter newsAdapter = new NewsAdapter(this, data);
+        RecyclerView.Adapter newsAdapter = new NewsAdapter(this, data, getColors());
         news.setAdapter(newsAdapter);
         news.setLayoutManager(newsLayoutManager);
+    }
+
+    private int[] getColors() {
+        return getResources().getIntArray(R.array.card_backgrounds);
     }
 }

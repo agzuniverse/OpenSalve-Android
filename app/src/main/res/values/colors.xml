@@ -14,4 +14,13 @@
     <color name="danger">#c9d80000</color>
     <color name="safe">#ca51ff00</color>
     <color name="default_card_background">#313131</color>
+
+    <array name="card_backgrounds">
+        <item>#313131</item>
+        <item>#8e44ad</item>
+        <item>#2c3e50</item>
+        <item>#7f8c8d</item>
+        <item>#16a085</item>
+        <item>#2980b9</item>
+    </array>
 </resources>

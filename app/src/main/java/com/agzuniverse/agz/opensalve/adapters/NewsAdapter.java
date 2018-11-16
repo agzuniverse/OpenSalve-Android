@@ -2,6 +2,7 @@ package com.agzuniverse.agz.opensalve.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,9 +18,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     private List<News> data;
     private LayoutInflater inflater;
+    private int[] colors;
 
-    public NewsAdapter(Context context, List<News> data) {
+    public NewsAdapter(Context context, List<News> data, int[] colors) {
         this.data = data;
+        this.colors = colors;
         inflater = LayoutInflater.from(context);
     }
 
@@ -36,6 +39,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         News current = data.get(i);
         viewHolder.body.setText(current.getBody());
         viewHolder.author.setText(current.getAuthor());
+        viewHolder.main.setCardBackgroundColor(colors[(int) (Math.random() * colors.length)]);
     }
 
     @Override
@@ -45,9 +49,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
 
     class NewsViewHolder extends RecyclerView.ViewHolder {
         TextView body, author;
+        CardView main;
 
         private NewsViewHolder(@NonNull View itemView) {
             super(itemView);
+            main = itemView.findViewById(R.id.card_background);
             body = itemView.findViewById(R.id.news_body);
             author = itemView.findViewById(R.id.news_author);
         }
