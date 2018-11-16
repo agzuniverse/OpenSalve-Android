@@ -31,6 +31,7 @@ public class GetHelp extends AppCompatActivity {
     private int id;
     private GetHelpData data;
     private GetHelpViewModel model;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class GetHelp extends AppCompatActivity {
             if (prefs.getInt("isVolunteer", 0) == 1) {
                 LinearLayout l = findViewById(R.id.get_help_manage_buttons);
                 l.setVisibility(View.VISIBLE);
+                token = prefs.getString("token", "0");
             }
         }
     }
@@ -150,5 +152,22 @@ public class GetHelp extends AppCompatActivity {
 
     public void showToast() {
         Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG).show();
+    }
+
+    public void markResponderDispatched() {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                TextView status = findViewById(R.id.req_status_view);
+                status.setTextColor(getResources().getColor(R.color.safe));
+                status.setText("Teams have responded to the request.");
+            }
+        };
+        Runnable runnable = () -> {
+            //TODO send request to backend to change status
+            handler.sendEmptyMessage(0);
+        };
+        Thread async = new Thread(runnable);
+        async.start();
     }
 }
