@@ -35,4 +35,8 @@
 
     <string name="menu_item_one">Important News</string>
     <string name="about">About OpenSalve</string>
+    <string name="okay">Okay</string>
+    <string name="cancel">Cancel</string>
+    <string name="designation">Designation</string>
+    <string name="announcement">Enter announcement here</string>
 </resources>
