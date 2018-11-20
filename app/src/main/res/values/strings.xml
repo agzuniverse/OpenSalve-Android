@@ -39,4 +39,6 @@
     <string name="cancel">Cancel</string>
     <string name="designation">Designation</string>
     <string name="announcement">Enter announcement here</string>
+
+    <string name="confirm_delete">Are you sure you want to delete this?</string>
 </resources>
