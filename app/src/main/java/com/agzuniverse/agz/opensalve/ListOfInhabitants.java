@@ -1,23 +1,31 @@
 package com.agzuniverse.agz.opensalve;
 
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.agzuniverse.agz.opensalve.Modals.Person;
 import com.agzuniverse.agz.opensalve.ViewModels.ListOfInhabitantsViewModel;
 import com.agzuniverse.agz.opensalve.adapters.ListOfInhabsAdapter;
+import com.agzuniverse.agz.opensalve.widgets.AddInhabDialog;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListOfInhabitants extends AppCompatActivity {
+public class ListOfInhabitants extends AppCompatActivity implements AddInhabDialog.AddInhabSubmit {
 
     private String query;
     private int id;
@@ -26,6 +34,8 @@ public class ListOfInhabitants extends AppCompatActivity {
     private android.support.v7.widget.RecyclerView.Adapter inhabAdapter;
     private android.support.v7.widget.RecyclerView.LayoutManager inhabManager;
     private android.support.v7.widget.RecyclerView inhabs;
+    private String token;
+    private boolean showCloseButton = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +70,17 @@ public class ListOfInhabitants extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton fab = findViewById(R.id.inhab_fab);
+        fab.setOnClickListener((View view) -> addNewInhab());
+
+        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+//        if (prefs.getInt("isVolunteer", 0) == 1) {
+        LinearLayout f = findViewById(R.id.inhab_fab_wrapper);
+        f.setVisibility(View.VISIBLE);
+        showCloseButton = true;
+        token = prefs.getString("token", "0");
+//        }
+
         getListOfInhabsAsync();
     }
 
@@ -70,7 +91,7 @@ public class ListOfInhabitants extends AppCompatActivity {
                 persons_filtered = new ArrayList<>(persons_original);
                 inhabs = findViewById(R.id.listOfInhabitants);
                 inhabManager = new LinearLayoutManager(ListOfInhabitants.this);
-                inhabAdapter = new ListOfInhabsAdapter(ListOfInhabitants.this, persons_filtered);
+                inhabAdapter = new ListOfInhabsAdapter(ListOfInhabitants.this, persons_filtered, showCloseButton);
                 inhabs.setLayoutManager(inhabManager);
                 inhabs.setAdapter(inhabAdapter);
             }
@@ -93,4 +114,28 @@ public class ListOfInhabitants extends AppCompatActivity {
         }
         inhabAdapter.notifyDataSetChanged();
     }
+
+    public void addNewInhab() {
+        DialogFragment dialog = new AddInhabDialog();
+        dialog.show(getSupportFragmentManager(), "AddInhabDialog");
+    }
+
+    @Override
+    public void onAddNewInhab(DialogFragment diag) {
+        Dialog d = diag.getDialog();
+        EditText t = d.findViewById(R.id.new_inhab_name);
+        String name = t.getText().toString();
+        t = d.findViewById(R.id.new_inhab_secondary_attribute);
+        String attrib = t.getText().toString();
+        Person p = new Person(name, attrib, 0);
+        persons_filtered.add(p);
+        inhabAdapter.notifyItemInserted(persons_filtered.size());
+        Runnable runnable = () -> {
+            //TODO send new inhab to backend
+        };
+        Thread async = new Thread(runnable);
+        async.start();
+    }
+
+
 }

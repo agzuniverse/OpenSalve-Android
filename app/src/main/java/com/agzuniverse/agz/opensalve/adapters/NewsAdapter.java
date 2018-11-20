@@ -46,10 +46,10 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         if (showCloseButton) {
             viewHolder.close.setVisibility(View.VISIBLE);
             viewHolder.close.setOnClickListener((View v) -> {
+                int id = data.get(i).getId();
                 data.remove(i);
                 notifyItemRemoved(i);
                 Runnable runnable = () -> {
-                    //data.get(i).getId();
                     //TODO send deleted news to backend
                 };
                 Thread async = new Thread(runnable);

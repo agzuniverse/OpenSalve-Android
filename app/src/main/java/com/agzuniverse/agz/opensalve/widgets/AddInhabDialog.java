@@ -11,18 +11,18 @@ import android.view.LayoutInflater;
 
 import com.agzuniverse.agz.opensalve.R;
 
-public class AddNewsDialog extends DialogFragment {
+public class AddInhabDialog extends DialogFragment {
 
-    public interface AddNewsSubmit {
-        void onDialogPositiveClick(DialogFragment dialog);
+    public interface AddInhabSubmit {
+        void onAddNewInhab(DialogFragment dialog);
     }
 
-    AddNewsSubmit listener;
+    AddInhabSubmit listener;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (AddNewsSubmit) context;
+        listener = (AddInhabSubmit) context;
     }
 
     @NonNull
@@ -30,9 +30,9 @@ public class AddNewsDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.add_news_diag, null))
-                .setPositiveButton(R.string.okay, (dialogInterface, i) -> listener.onDialogPositiveClick(AddNewsDialog.this))
-                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> AddNewsDialog.this.getDialog().cancel());
+        builder.setView(inflater.inflate(R.layout.add_new_inhab_diag, null))
+                .setPositiveButton(R.string.okay, (dialogInterface, i) -> listener.onAddNewInhab(AddInhabDialog.this))
+                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> AddInhabDialog.this.getDialog().cancel());
         return builder.create();
     }
 }
