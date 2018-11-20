@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.agzuniverse.agz.opensalve.Modals.News;
@@ -40,6 +41,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         viewHolder.body.setText(current.getBody());
         viewHolder.author.setText(current.getAuthor());
         viewHolder.main.setCardBackgroundColor(colors[(int) (Math.random() * colors.length)]);
+        viewHolder.close.setOnClickListener((View v) -> {
+            data.remove(i);
+            notifyItemRemoved(i);
+            Runnable runnable = () -> {
+                //data.get(i).getId();
+                //TODO send deleted news to backend
+            };
+            Thread async = new Thread(runnable);
+            async.start();
+        });
     }
 
     @Override
@@ -50,12 +61,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     class NewsViewHolder extends RecyclerView.ViewHolder {
         TextView body, author;
         CardView main;
+        FrameLayout close;
 
         private NewsViewHolder(@NonNull View itemView) {
             super(itemView);
             main = itemView.findViewById(R.id.card_background);
             body = itemView.findViewById(R.id.news_body);
             author = itemView.findViewById(R.id.news_author);
+            close = itemView.findViewById(R.id.delete_news);
         }
     }
 }

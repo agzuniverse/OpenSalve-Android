@@ -67,7 +67,7 @@ public class NewsScreen extends AppCompatActivity implements AddNewsDialog.AddNe
         EditText authorText = dialogview.findViewById(R.id.new_news_author);
         String body = bodyText.getText().toString();
         String author = authorText.getText().toString();
-        News news = new News(body, author);
+        News news = new News(body, author, 0);
         data.add(news);
         newsAdapter.notifyItemInserted(data.size());
         Runnable runnable = () -> {
