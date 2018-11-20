@@ -74,6 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.8"
                         android:buttonTint="@color/textColorAccent"
+                        android:checked="true"
                         android:onClick="requestCheckBoxClicked"
                         android:text="@string/requests"
                         android:textColor="@color/textColorOverlay" />
