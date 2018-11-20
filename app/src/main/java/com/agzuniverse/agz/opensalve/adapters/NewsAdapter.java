@@ -20,11 +20,13 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     private List<News> data;
     private LayoutInflater inflater;
     private int[] colors;
+    private boolean showCloseButton;
 
-    public NewsAdapter(Context context, List<News> data, int[] colors) {
+    public NewsAdapter(Context context, List<News> data, int[] colors, boolean showCloseButton) {
         this.data = data;
         this.colors = colors;
         inflater = LayoutInflater.from(context);
+        this.showCloseButton = showCloseButton;
     }
 
     @NonNull
@@ -41,16 +43,20 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         viewHolder.body.setText(current.getBody());
         viewHolder.author.setText(current.getAuthor());
         viewHolder.main.setCardBackgroundColor(colors[(int) (Math.random() * colors.length)]);
-        viewHolder.close.setOnClickListener((View v) -> {
-            data.remove(i);
-            notifyItemRemoved(i);
-            Runnable runnable = () -> {
-                //data.get(i).getId();
-                //TODO send deleted news to backend
-            };
-            Thread async = new Thread(runnable);
-            async.start();
-        });
+        if (showCloseButton) {
+            viewHolder.close.setVisibility(View.VISIBLE);
+            viewHolder.close.setOnClickListener((View v) -> {
+                data.remove(i);
+                notifyItemRemoved(i);
+                Runnable runnable = () -> {
+                    //data.get(i).getId();
+                    //TODO send deleted news to backend
+                };
+                Thread async = new Thread(runnable);
+                async.start();
+            });
+        }
+
     }
 
     @Override

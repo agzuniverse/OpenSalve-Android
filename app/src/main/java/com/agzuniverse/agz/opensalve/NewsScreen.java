@@ -25,6 +25,7 @@ public class NewsScreen extends AppCompatActivity implements AddNewsDialog.AddNe
     private String token;
     private RecyclerView.Adapter newsAdapter;
     private List<News> data;
+    private boolean showCloseButton = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +35,6 @@ public class NewsScreen extends AppCompatActivity implements AddNewsDialog.AddNe
         NewsViewModel model = ViewModelProviders.of(this).get(NewsViewModel.class);
         data = model.getNews();
 
-        RecyclerView news = findViewById(R.id.news_list);
-        RecyclerView.LayoutManager newsLayoutManager = new LinearLayoutManager(this);
-        newsAdapter = new NewsAdapter(this, data, getColors());
-        news.setAdapter(newsAdapter);
-        news.setLayoutManager(newsLayoutManager);
-
         FloatingActionButton fab = findViewById(R.id.news_fab);
         fab.setOnClickListener((View view) -> addNewNews());
 
@@ -47,8 +42,15 @@ public class NewsScreen extends AppCompatActivity implements AddNewsDialog.AddNe
         if (prefs.getInt("isVolunteer", 0) == 1) {
             LinearLayout f = findViewById(R.id.news_fab_wrapper);
             f.setVisibility(View.VISIBLE);
+            showCloseButton = true;
             token = prefs.getString("token", "0");
         }
+
+        RecyclerView news = findViewById(R.id.news_list);
+        RecyclerView.LayoutManager newsLayoutManager = new LinearLayoutManager(this);
+        newsAdapter = new NewsAdapter(this, data, getColors(), showCloseButton);
+        news.setAdapter(newsAdapter);
+        news.setLayoutManager(newsLayoutManager);
     }
 
     private int[] getColors() {

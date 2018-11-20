@@ -47,7 +47,8 @@ public class CampMgmtViewModel extends ViewModel {
                             Arrays.asList(
                                     json.getString("supplies").split(",")
                             )
-                    )
+                    ),
+                    json.getInt("id")
             );
         } catch (JSONException | MalformedURLException e) {
             e.printStackTrace();
