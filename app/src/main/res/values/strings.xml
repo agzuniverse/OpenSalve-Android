@@ -40,6 +40,11 @@
     <string name="designation">Designation</string>
     <string name="announcement">Enter announcement here</string>
 
+    <string-array name="camp_or_collection_spinner_options">
+        <item>Relief Camp</item>
+        <item>Collection Center</item>
+    </string-array>
+
     <string name="add_new_loc">Add new location</string>
     <string name="new_camp_name">Enter camp name</string>
     <string name="new_collection_name">Enter collection center name</string>

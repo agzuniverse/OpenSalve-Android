@@ -83,8 +83,7 @@
                 <Button
                     style="@style/opensalve_button"
                     android:onClick="openNewLocDialog"
-                    android:text="@string/add_new_loc"
-                    android:visibility="gone" />
+                    android:text="@string/add_new_loc" />
 
                 <Button
                     style="@style/opensalve_button"

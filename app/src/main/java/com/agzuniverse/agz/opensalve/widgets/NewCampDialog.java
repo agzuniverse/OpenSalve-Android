@@ -8,10 +8,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.agzuniverse.agz.opensalve.R;
 
-public class NewCampDialog extends DialogFragment {
+public class NewCampDialog extends DialogFragment implements AdapterView.OnItemSelectedListener {
+
+    private View v;
+    private boolean isCamp;
 
     public interface UpdateMap {
         void onAddNewCamp(DialogFragment dialog);
@@ -30,11 +38,38 @@ public class NewCampDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.add_new_camp, null))
+        v = inflater.inflate(R.layout.add_new_camp, null);
+
+        Spinner spinner = v.findViewById(R.id.camp_or_collection_spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.camp_or_collection_spinner_options, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(NewCampDialog.this);
+
+        builder.setView(v)
                 .setPositiveButton(R.string.okay, (dialogInterface, i) -> {
                     listener.onAddNewCamp(NewCampDialog.this);
                 })
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> NewCampDialog.this.getDialog().cancel());
+
+
         return builder.create();
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        String s = parent.getItemAtPosition(pos).toString();
+        if (s.equals(getResources().getStringArray(R.array.camp_or_collection_spinner_options)[0])) {
+            EditText t = v.findViewById(R.id.new_camp_name);
+            t.setHint(R.string.new_camp_name);
+            isCamp = true;
+        } else {
+            EditText t = v.findViewById(R.id.new_camp_name);
+            t.setHint(R.string.new_collection_name);
+            isCamp = false;
+        }
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Do nothing
     }
 }
