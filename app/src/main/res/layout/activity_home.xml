@@ -81,6 +81,12 @@
 
                 <Button
                     style="@style/opensalve_button"
+                    android:onClick="openNewLocDialog"
+                    android:text="@string/add_new_loc"
+                    android:visibility="gone" />
+
+                <Button
+                    style="@style/opensalve_button"
                     android:onClick="goToGetHelpScreen"
                     android:text="@string/want_help" />
             </LinearLayout>
