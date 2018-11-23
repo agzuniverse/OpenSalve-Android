@@ -118,8 +118,8 @@ public class HomeActivity extends AppCompatActivity implements NewCampDialog.Upd
         }
 
 
-//        Intent debug = new Intent(this, CampMgmtScreen.class);
-//        this.startActivity(debug);
+        Intent debug = new Intent(this, LocationPicker.class);
+        this.startActivity(debug);
     }
 
     public void checkAuth(String token) {

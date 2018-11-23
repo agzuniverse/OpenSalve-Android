@@ -47,6 +47,10 @@
             android:name=".NewsScreen"
             android:label="News and Announcements"
             android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".LocationPicker"
+            android:label="Choose Location"
+            android:parentActivityName=".HomeActivity" />
     </application>
 
 </manifest>
