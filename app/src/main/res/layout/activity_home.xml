@@ -81,9 +81,11 @@
                 </LinearLayout>
 
                 <Button
+                    android:id="@+id/AddNewLocBtn"
                     style="@style/opensalve_button"
                     android:onClick="openNewLocDialog"
-                    android:text="@string/add_new_loc" />
+                    android:text="@string/add_new_loc"
+                    android:visibility="gone" />
 
                 <Button
                     style="@style/opensalve_button"

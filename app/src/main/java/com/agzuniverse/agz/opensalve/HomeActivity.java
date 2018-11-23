@@ -21,6 +21,7 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -131,6 +132,8 @@ public class HomeActivity extends AppCompatActivity implements NewCampDialog.Upd
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putInt("isVolunteer", 1);
                 editor.commit();
+                Button b = findViewById(R.id.AddNewLocBtn);
+                b.setVisibility(View.VISIBLE);
 
             }
         };
