@@ -51,6 +51,7 @@
     <string name="new_camp_manager">Name of In-charge</string>
     <string name="new_camp_contact">Contact</string>
     <string name="optional_upload">Upload Image (Optional)</string>
+    <string name="confirm_location">Confirm Location</string>
 
     <string name="confirm_delete">Are you sure you want to delete this?</string>
 </resources>
