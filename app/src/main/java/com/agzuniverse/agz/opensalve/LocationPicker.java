@@ -1,26 +1,35 @@
 package com.agzuniverse.agz.opensalve;
 
+import android.app.Dialog;
 import android.graphics.PointF;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.agzuniverse.agz.opensalve.widgets.NewCampDialog;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 
-public class LocationPicker extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class LocationPicker extends AppCompatActivity implements NewCampDialog.UpdateMap {
     private MapboxMap map;
     private Marker addressPin;
     private ImageView dropPinView;
+    private LatLng position;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,10 +70,51 @@ public class LocationPicker extends AppCompatActivity {
 
     public void confirmLocation(View v) {
         dropPinView.setVisibility(View.INVISIBLE);
-        LatLng position = map.getProjection().fromScreenLocation(
+        position = map.getProjection().fromScreenLocation(
                 new PointF(dropPinView.getLeft() + (dropPinView.getWidth() / 2), dropPinView.getBottom())
         );
         addressPin = map.addMarker(new MarkerOptions().position(position));
         map.selectMarker(addressPin);
+        openNewLocDialog();
+    }
+
+    public void openNewLocDialog() {
+        DialogFragment dialog = new NewCampDialog();
+        dialog.show(getSupportFragmentManager(), "NewCampDialog");
+    }
+
+    @Override
+    public void onAddNewCamp(DialogFragment dialog) {
+        //TODO handle cancel
+        Dialog d = dialog.getDialog();
+        JSONObject json = new JSONObject();
+        try {
+            EditText t = d.findViewById(R.id.new_camp_name);
+            json.put("location", t.getText().toString());
+            t = d.findViewById(R.id.new_camp_manager);
+            json.put("incharge", t.getText().toString());
+            t = d.findViewById(R.id.new_camp_contact);
+            json.put("phone", t.getText().toString());
+            json.put("lat", position.getLatitude());
+            json.put("lng", position.getLongitude());
+            //TODO add image
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                //TODO send lat and lng to homeactivity to display immediately
+                finish();
+            }
+        };
+        Runnable runnable = () -> {
+            //TODO make POST request to backend with json
+            handler.sendEmptyMessage(0);
+        };
+        Thread async = new Thread(runnable);
+        async.start();
+
     }
 }

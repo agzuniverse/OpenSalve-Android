@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -27,7 +26,6 @@ import android.widget.EditText;
 
 import com.agzuniverse.agz.opensalve.Modals.LocationMarker;
 import com.agzuniverse.agz.opensalve.ViewModels.LocationMarkersViewModel;
-import com.agzuniverse.agz.opensalve.widgets.NewCampDialog;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
@@ -39,7 +37,7 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity implements NewCampDialog.UpdateMap {
+public class HomeActivity extends AppCompatActivity {
 
     private LocationMarkersViewModel model;
 
@@ -116,10 +114,10 @@ public class HomeActivity extends AppCompatActivity implements NewCampDialog.Upd
             //User has a token, check if it is valid
             checkAuth(token);
         }
-
-
-        Intent debug = new Intent(this, LocationPicker.class);
-        this.startActivity(debug);
+        Button b = findViewById(R.id.AddNewLocBtn);
+        b.setVisibility(View.VISIBLE);
+//        Intent debug = new Intent(this, LocationPicker.class);
+//        this.startActivity(debug);
     }
 
     public void checkAuth(String token) {
@@ -297,13 +295,8 @@ public class HomeActivity extends AppCompatActivity implements NewCampDialog.Upd
     }
 
     public void openNewLocDialog(View v) {
-        DialogFragment dialog = new NewCampDialog();
-        dialog.show(getSupportFragmentManager(), "NewCampDialog");
-    }
-
-    @Override
-    public void onAddNewCamp(DialogFragment dialog) {
-
+        Intent debug = new Intent(this, LocationPicker.class);
+        this.startActivity(debug);
     }
 
     public void refreshMapOverlay() {

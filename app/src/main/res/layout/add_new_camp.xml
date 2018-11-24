@@ -29,17 +29,17 @@
         android:layout_height="wrap_content"
         android:padding="8dp" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="openImagePicker"
-        android:text="@string/optional_upload" />
+    <!--<Button-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:onClick="openImagePicker"-->
+    <!--android:text="@string/optional_upload" />-->
 
-    <TextView
-        android:id="@+id/uploaded_image_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="8dp" />
+    <!--<TextView-->
+    <!--android:id="@+id/uploaded_image_name"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:padding="8dp" />-->
 
 </LinearLayout>
