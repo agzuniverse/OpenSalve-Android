@@ -17,6 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -25,6 +26,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.agzuniverse.agz.opensalve.Modals.LocationMarker;
+import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
 import com.agzuniverse.agz.opensalve.ViewModels.LocationMarkersViewModel;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
@@ -118,6 +120,19 @@ public class HomeActivity extends AppCompatActivity {
         b.setVisibility(View.VISIBLE);
 //        Intent debug = new Intent(this, LocationPicker.class);
 //        this.startActivity(debug);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (GlobalStore.newDataPresent) {
+            LocationMarker curr = new LocationMarker(GlobalStore.title, GlobalStore.snippet, GlobalStore.lat, GlobalStore.lng);
+            locations.add(curr);
+            GlobalStore.newDataPresent = false;
+            refreshMapOverlay();
+        }
+        Log.i("zxcv", "focused here");
+        Log.i("zxcv", String.valueOf(GlobalStore.lat));
     }
 
     public void checkAuth(String token) {
