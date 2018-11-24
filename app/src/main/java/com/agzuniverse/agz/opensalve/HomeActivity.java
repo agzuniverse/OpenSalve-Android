@@ -48,7 +48,7 @@ public class HomeActivity extends AppCompatActivity implements NewCampDialog.Upd
     private List<LocationMarker> locationsOfRequests = new ArrayList<>();
     private boolean showCamps = true;
     private boolean showCollection = true;
-    private boolean showRequests = false;
+    private boolean showRequests = true;
     private DrawerLayout drawer;
     private String query = "";
 
