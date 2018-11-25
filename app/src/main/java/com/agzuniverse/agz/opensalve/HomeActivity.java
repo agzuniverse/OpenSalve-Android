@@ -116,8 +116,6 @@ public class HomeActivity extends AppCompatActivity {
             //User has a token, check if it is valid
             checkAuth(token);
         }
-        Button b = findViewById(R.id.AddNewLocBtn);
-        b.setVisibility(View.VISIBLE);
 //        Intent debug = new Intent(this, LocationPicker.class);
 //        this.startActivity(debug);
     }
