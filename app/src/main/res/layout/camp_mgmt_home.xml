@@ -85,6 +85,7 @@
                     android:id="@+id/new_supply_fab"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent">
 
@@ -94,7 +95,6 @@
                         android:layout_margin="8dp"
                         android:onClick="openAddNewSupplyDialog"
                         android:src="@drawable/ic_action_add"
-                        android:visibility="gone"
                         app:fabSize="mini" />
                 </LinearLayout>
 

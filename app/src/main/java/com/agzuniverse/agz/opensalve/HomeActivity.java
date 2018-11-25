@@ -17,7 +17,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -129,8 +128,6 @@ public class HomeActivity extends AppCompatActivity {
             GlobalStore.newDataPresent = false;
             refreshMapOverlay();
         }
-        Log.i("zxcv", "focused here");
-        Log.i("zxcv", String.valueOf(GlobalStore.lat));
     }
 
     public void checkAuth(String token) {

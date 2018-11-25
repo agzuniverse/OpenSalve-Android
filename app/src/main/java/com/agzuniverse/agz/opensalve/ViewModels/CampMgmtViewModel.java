@@ -1,6 +1,7 @@
 package com.agzuniverse.agz.opensalve.ViewModels;
 
 import android.arch.lifecycle.ViewModel;
+import android.util.Log;
 
 import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
 
@@ -30,6 +31,7 @@ public class CampMgmtViewModel extends ViewModel {
             Response response = client.newCall(request).execute();
             parse(response.body().string());
         } catch (IOException e) {
+            Log.v("zxcv", "CRASH SHOULD HAVE HAPPEND NERE");
             e.printStackTrace();
         }
         return data;
