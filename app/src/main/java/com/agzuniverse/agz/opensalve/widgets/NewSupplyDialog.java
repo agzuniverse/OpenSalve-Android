@@ -13,18 +13,18 @@ import com.agzuniverse.agz.opensalve.R;
 
 import java.util.Objects;
 
-public class AddInhabDialog extends DialogFragment {
+public class NewSupplyDialog extends DialogFragment {
 
-    public interface AddInhabSubmit {
-        void onAddNewInhab(DialogFragment dialog);
+    public interface AddSupplySubmit {
+        void onAddNewSupply(DialogFragment dialog);
     }
 
-    AddInhabSubmit listener;
+    AddSupplySubmit listener;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        listener = (AddInhabSubmit) context;
+        listener = (AddSupplySubmit) context;
     }
 
     @NonNull
@@ -32,9 +32,9 @@ public class AddInhabDialog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.add_new_inhab_diag, null))
-                .setPositiveButton(R.string.okay, (dialogInterface, i) -> listener.onAddNewInhab(AddInhabDialog.this))
-                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> AddInhabDialog.this.getDialog().cancel());
+        builder.setView(inflater.inflate(R.layout.add_new_supply, null))
+                .setPositiveButton(R.string.okay, (dialogInterface, i) -> listener.onAddNewSupply(NewSupplyDialog.this))
+                .setNegativeButton(R.string.cancel, (dialogInterface, i) -> NewSupplyDialog.this.getDialog().cancel());
         return builder.create();
     }
 }

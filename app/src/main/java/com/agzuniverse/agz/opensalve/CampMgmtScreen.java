@@ -1,5 +1,6 @@
 package com.agzuniverse.agz.opensalve;
 
+import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
@@ -12,21 +13,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
 import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
 import com.agzuniverse.agz.opensalve.widgets.ConfirmDeleteCampDialog;
+import com.agzuniverse.agz.opensalve.widgets.NewSupplyDialog;
 
-public class CampMgmtScreen extends AppCompatActivity {
+import java.util.List;
+
+public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog.AddSupplySubmit {
 
     private CampMgmtViewModel model;
     private CampMetadata data;
     private int id;
     private String token;
+    private List<String> supplies;
+    private RecyclerView.Adapter listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +59,8 @@ public class CampMgmtScreen extends AppCompatActivity {
                 dialog.setArguments(bundle);
                 dialog.show(getSupportFragmentManager(), "ConfirmDeleteCampDialog");
             });
+            LinearLayout fab = findViewById(R.id.new_supply_fab);
+            fab.setVisibility(View.VISIBLE);
         }
     }
 
@@ -83,10 +93,11 @@ public class CampMgmtScreen extends AppCompatActivity {
 //        campImage.setImageBitmap(imageBitmap);
         campImage.setImageDrawable(getDrawable(R.drawable.shelter));
 
+        supplies = data.getSuppliesNeeded();
         RecyclerView list = findViewById(R.id.camp_supplies);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager listManager = new LinearLayoutManager(this);
-        RecyclerView.Adapter listAdapter = new SuppliesNeededAdapter(this, data.getSuppliesNeeded());
+        listAdapter = new SuppliesNeededAdapter(this, supplies);
         list.setAdapter(listAdapter);
         list.setLayoutManager(listManager);
     }
@@ -95,5 +106,24 @@ public class CampMgmtScreen extends AppCompatActivity {
         Intent listOfInhabs = new Intent(this, ListOfInhabitants.class);
         listOfInhabs.putExtra("id", id);
         this.startActivity(listOfInhabs);
+    }
+
+    public void openAddNewSupplyDialog(View v) {
+        DialogFragment dialog = new NewSupplyDialog();
+        dialog.show(getSupportFragmentManager(), "NewSupplyDialog");
+    }
+
+    @Override
+    public void onAddNewSupply(DialogFragment dialog) {
+        Dialog d = dialog.getDialog();
+        EditText t = d.findViewById(R.id.new_supply);
+        String s = t.getText().toString();
+        Runnable runnable = () -> {
+            //TODO send s to the backend to add to list of supplies for this camp
+        };
+        Thread async = new Thread(runnable);
+        async.start();
+        supplies.add(s);
+        listAdapter.notifyItemInserted(supplies.size());
     }
 }

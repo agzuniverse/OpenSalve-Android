@@ -74,12 +74,12 @@ public class ListOfInhabitants extends AppCompatActivity implements AddInhabDial
         fab.setOnClickListener((View view) -> addNewInhab());
 
         SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-//        if (prefs.getInt("isVolunteer", 0) == 1) {
-        LinearLayout f = findViewById(R.id.inhab_fab_wrapper);
-        f.setVisibility(View.VISIBLE);
-        showCloseButton = true;
-        token = prefs.getString("token", "0");
-//        }
+        if (prefs.getInt("isVolunteer", 0) == 1) {
+            LinearLayout f = findViewById(R.id.inhab_fab_wrapper);
+            f.setVisibility(View.VISIBLE);
+            showCloseButton = true;
+            token = prefs.getString("token", "0");
+        }
 
         getListOfInhabsAsync();
     }

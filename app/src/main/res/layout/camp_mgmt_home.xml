@@ -70,12 +70,35 @@
                 style="@style/label"
                 android:text="@string/supplies_needed" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/camp_supplies"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
-                android:scrollbars="vertical" />
+                android:layout_weight="2">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/camp_supplies"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical" />
+
+                <LinearLayout
+                    android:id="@+id/new_supply_fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent">
+
+                    <android.support.design.widget.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:onClick="openAddNewSupplyDialog"
+                        android:src="@drawable/ic_action_add"
+                        android:visibility="gone"
+                        app:fabSize="mini" />
+                </LinearLayout>
+
+            </android.support.constraint.ConstraintLayout>
 
 
             <View style="@style/divider_full" />
