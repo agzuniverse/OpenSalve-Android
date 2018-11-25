@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
 import com.agzuniverse.agz.opensalve.widgets.NewCampDialog;
-import com.mapbox.mapboxsdk.annotations.Marker;
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -30,7 +28,6 @@ import org.json.JSONObject;
 
 public class LocationPicker extends AppCompatActivity implements NewCampDialog.UpdateMap {
     private MapboxMap map;
-    private Marker addressPin;
     private ImageView dropPinView;
     private LatLng position;
     private boolean isCamp;
@@ -73,12 +70,9 @@ public class LocationPicker extends AppCompatActivity implements NewCampDialog.U
     }
 
     public void confirmLocation(View v) {
-        dropPinView.setVisibility(View.INVISIBLE);
         position = map.getProjection().fromScreenLocation(
                 new PointF(dropPinView.getLeft() + (dropPinView.getWidth() / 2), dropPinView.getBottom())
         );
-        addressPin = map.addMarker(new MarkerOptions().position(position));
-        map.selectMarker(addressPin);
         openNewLocDialog();
     }
 
@@ -89,7 +83,6 @@ public class LocationPicker extends AppCompatActivity implements NewCampDialog.U
 
     @Override
     public void onAddNewCamp(DialogFragment dialog) {
-        //TODO handle cancel
         Dialog d = dialog.getDialog();
         JSONObject json = new JSONObject();
         EditText x = d.findViewById(R.id.new_camp_name);
