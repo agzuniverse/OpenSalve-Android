@@ -47,6 +47,8 @@ public class CollectionCentreScreen extends AppCompatActivity implements NewSupp
         SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
         if (prefs.getInt("isVolunteer", 0) == 1) {
             token = prefs.getString("token", "0");
+            //TODO add close button to collection screen
+            //TODO show "no supplies needed" if data.getsupplies() is empty string
 //            FrameLayout f = findViewById(R.id.delete_camp_button);
 //            f.setVisibility(View.VISIBLE);
 //            f.setOnClickListener((View v) -> {

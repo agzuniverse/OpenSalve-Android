@@ -19,19 +19,38 @@ import okhttp3.Response;
 public class LocationMarkersViewModel extends ViewModel {
     private List<LocationMarker> locationsOfCampsAndCollectionCentres = new ArrayList<>();
     private List<LocationMarker> locationsOfRequests = new ArrayList<>();
+    private int max_retries = 7;
 
     public List<LocationMarker> getCampsAndCollectionCentres(String apiUrl) {
         OkHttpClient client = new OkHttpClient();
         Request requestCamps = new Request.Builder().url(apiUrl + "/api/camps/").build();
         Request requestCollectionCenters = new Request.Builder().url(apiUrl + "/api/collectioncentres/").build();
-        try {
-            Response response = client.newCall(requestCamps).execute();
-            parse(response.body().string(), "camps");
-            Response response2 = client.newCall(requestCollectionCenters).execute();
-            parse(response2.body().string(), "collection_centers");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        boolean campRequestSuccessful = false;
+        int campRequestCounter = 0;
+        boolean collectionRequestSuccessful = false;
+        int collectionRequestCounter = 0;
+
+        do {
+            try {
+                Response response = client.newCall(requestCamps).execute();
+                parse(response.body().string(), "camps");
+                campRequestSuccessful = true;
+            } catch (IOException e) {
+                campRequestCounter++;
+                e.printStackTrace();
+            }
+        } while (!campRequestSuccessful && campRequestCounter <= max_retries);
+        do {
+            try {
+                Response response2 = client.newCall(requestCollectionCenters).execute();
+                parse(response2.body().string(), "collection_centers");
+                collectionRequestSuccessful = true;
+            } catch (IOException e) {
+                collectionRequestCounter++;
+                e.printStackTrace();
+            }
+        } while (!collectionRequestSuccessful && collectionRequestCounter <= max_retries);
 
         return locationsOfCampsAndCollectionCentres;
     }
@@ -39,12 +58,20 @@ public class LocationMarkersViewModel extends ViewModel {
     public List<LocationMarker> getRequests(String apiUrl) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(apiUrl + "/api/help/").build();
-        try {
-            Response response = client.newCall(request).execute();
-            parse(response.body().string(), "request");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        boolean helpReqSuccessful = false;
+        int helpReqCount = 0;
+        do {
+            try {
+                Response response = client.newCall(request).execute();
+                parse(response.body().string(), "request");
+                helpReqSuccessful = true;
+            } catch (IOException e) {
+                helpReqCount++;
+
+                e.printStackTrace();
+            }
+        } while (!helpReqSuccessful && helpReqCount <= max_retries);
         return locationsOfRequests;
     }
 
