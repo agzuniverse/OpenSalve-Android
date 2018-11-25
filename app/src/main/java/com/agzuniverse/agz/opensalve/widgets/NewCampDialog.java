@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -48,12 +49,24 @@ public class NewCampDialog extends DialogFragment implements AdapterView.OnItemS
 
         builder.setView(v)
                 .setPositiveButton(R.string.okay, (dialogInterface, i) -> {
-                    listener.onAddNewCamp(NewCampDialog.this);
+
                 })
                 .setNegativeButton(R.string.cancel, (dialogInterface, i) -> NewCampDialog.this.getDialog().cancel());
 
 
         return builder.create();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final AlertDialog d = (AlertDialog) getDialog();
+        if (d != null) {
+            Button button = d.getButton(Dialog.BUTTON_POSITIVE);
+            button.setOnClickListener((View v) -> {
+                listener.onAddNewCamp(NewCampDialog.this);
+            });
+        }
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {

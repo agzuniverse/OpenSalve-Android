@@ -90,55 +90,57 @@ public class LocationPicker extends AppCompatActivity implements NewCampDialog.U
     @Override
     public void onAddNewCamp(DialogFragment dialog) {
         //TODO handle cancel
-        //TODO handle empty fields
         Dialog d = dialog.getDialog();
         JSONObject json = new JSONObject();
-        try {
-            EditText t = d.findViewById(R.id.new_camp_name);
-            json.put("location", t.getText().toString());
-            GlobalStore.title = t.getText().toString();
-            t = d.findViewById(R.id.new_camp_manager);
-            json.put("incharge", t.getText().toString());
-            t = d.findViewById(R.id.new_camp_contact);
-            json.put("phone", t.getText().toString());
-            json.put("lat", position.getLatitude());
-            json.put("lng", position.getLongitude());
-            //TODO add image
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Spinner spin = d.findViewById(R.id.camp_or_collection_spinner);
-        String s = spin.getSelectedItem().toString();
-        isCamp = s.equals(getResources().getStringArray(R.array.camp_or_collection_spinner_options)[0]);
-        if (isCamp) {
-            Toast.makeText(this, "Registering new camp..", Toast.LENGTH_LONG).show();
+        EditText x = d.findViewById(R.id.new_camp_name);
+        EditText y = d.findViewById(R.id.new_camp_manager);
+        EditText z = d.findViewById(R.id.new_camp_contact);
+        if (x.getText().toString().equals("") || y.getText().toString().equals("") || z.getText().toString().equals("")) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(this, "Registering new collection center..", Toast.LENGTH_LONG).show();
-        }
-        Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                GlobalStore.lat = position.getLatitude();
-                GlobalStore.lng = position.getLongitude();
-                GlobalStore.newDataPresent = true;
-                finish();
+            try {
+                json.put("location", x.getText().toString());
+                GlobalStore.title = x.getText().toString();
+                json.put("incharge", y.getText().toString());
+                json.put("phone", z.getText().toString());
+                json.put("lat", position.getLatitude());
+                json.put("lng", position.getLongitude());
+                //TODO add image
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        };
-        Runnable runnable = () -> {
-            //TODO make POST request to backend with json and get ID in response
+            Spinner spin = d.findViewById(R.id.camp_or_collection_spinner);
+            String s = spin.getSelectedItem().toString();
+            isCamp = s.equals(getResources().getStringArray(R.array.camp_or_collection_spinner_options)[0]);
             if (isCamp) {
-                int id = 1;
-                GlobalStore.snippet = "camp#" + String.valueOf(id);
+                Toast.makeText(this, "Registering new camp..", Toast.LENGTH_LONG).show();
             } else {
-                int id = 1;
-                GlobalStore.snippet = "collection center#" + String.valueOf(id);
+                Toast.makeText(this, "Registering new collection center..", Toast.LENGTH_LONG).show();
             }
+            Handler handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    GlobalStore.lat = position.getLatitude();
+                    GlobalStore.lng = position.getLongitude();
+                    GlobalStore.newDataPresent = true;
+                    finish();
+                }
+            };
+            Runnable runnable = () -> {
+                //TODO make POST request to backend with json and get ID in response
+                if (isCamp) {
+                    int id = 1;
+                    GlobalStore.snippet = "camp#" + String.valueOf(id);
+                } else {
+                    int id = 1;
+                    GlobalStore.snippet = "collection center#" + String.valueOf(id);
+                }
 
-            handler.sendEmptyMessage(0);
-        };
-        Thread async = new Thread(runnable);
-        async.start();
-
+                handler.sendEmptyMessage(0);
+            };
+            Thread async = new Thread(runnable);
+            async.start();
+            d.dismiss();
+        }
     }
 }
