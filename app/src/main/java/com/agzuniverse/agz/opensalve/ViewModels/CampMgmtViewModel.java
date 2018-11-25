@@ -18,10 +18,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class CampMgmtViewModel extends ViewModel {
-    private CampMetadata data;
+    private CampMetadata data = null;
 
     public CampMetadata getCampMetadata(int id, String apiUrl, String type) {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
         Request request = new Request.Builder().url(apiUrl + "/api/camps/c/" + Integer.toString(id)).build();
         if (type.equals("collection_centers")) {
             request = new Request.Builder().url(apiUrl + "/api/collectioncentres/c/" + Integer.toString(id)).build();

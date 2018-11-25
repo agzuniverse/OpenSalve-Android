@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
 import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
@@ -69,7 +70,10 @@ public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                setCampMetadata(data);
+                if (data != null)
+                    setCampMetadata(data);
+                else
+                    Toast.makeText(CampMgmtScreen.this, "Network error", Toast.LENGTH_SHORT).show();
             }
         };
         Runnable runnable = () -> {

@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
 import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
@@ -36,7 +37,10 @@ public class CollectionCentreScreen extends AppCompatActivity {
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                setCollectionMetadata(data);
+                if (data != null)
+                    setCollectionMetadata(data);
+                else
+                    Toast.makeText(CollectionCentreScreen.this, "Network error", Toast.LENGTH_SHORT).show();
             }
         };
         Runnable runnable = () -> {
