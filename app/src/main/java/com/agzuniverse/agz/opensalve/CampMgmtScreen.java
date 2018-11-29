@@ -36,6 +36,7 @@ public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog
     private String token;
     private List<String> supplies;
     private RecyclerView.Adapter listAdapter;
+    private boolean showClosebutton = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,6 @@ public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog
         id = extraData.getInt("id", 0);
 
         model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
-        fetchCampMetadataAsync(id);
 
         SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
         if (prefs.getInt("isVolunteer", 0) == 1) {
@@ -62,7 +62,9 @@ public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog
             });
             LinearLayout fab = findViewById(R.id.new_supply_fab);
             fab.setVisibility(View.VISIBLE);
+            showClosebutton = true;
         }
+        fetchCampMetadataAsync(id);
     }
 
     //TODO handle case when this returns null
@@ -101,7 +103,7 @@ public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog
         RecyclerView list = findViewById(R.id.camp_supplies);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager listManager = new LinearLayoutManager(this);
-        listAdapter = new SuppliesNeededAdapter(this, supplies);
+        listAdapter = new SuppliesNeededAdapter(this, supplies, showClosebutton);
         list.setAdapter(listAdapter);
         list.setLayoutManager(listManager);
     }

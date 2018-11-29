@@ -32,6 +32,7 @@ public class CollectionCentreScreen extends AppCompatActivity implements NewSupp
     private String token;
     private RecyclerView.Adapter listAdapter;
     private List<String> supplies;
+    private boolean showClosebutton = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,7 @@ public class CollectionCentreScreen extends AppCompatActivity implements NewSupp
 //            });
             LinearLayout fab = findViewById(R.id.new_supply_fab_collection);
             fab.setVisibility(View.VISIBLE);
+            showClosebutton = true;
         }
     }
 
@@ -99,7 +101,7 @@ public class CollectionCentreScreen extends AppCompatActivity implements NewSupp
         RecyclerView list = findViewById(R.id.collection_supplies);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager listManager = new LinearLayoutManager(this);
-        listAdapter = new SuppliesNeededAdapter(this, supplies);
+        listAdapter = new SuppliesNeededAdapter(this, supplies, showClosebutton);
         list.setLayoutManager(listManager);
         list.setAdapter(listAdapter);
     }

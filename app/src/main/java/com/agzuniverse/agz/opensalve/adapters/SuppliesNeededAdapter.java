@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.agzuniverse.agz.opensalve.R;
@@ -16,10 +17,12 @@ public class SuppliesNeededAdapter extends RecyclerView.Adapter<SuppliesNeededAd
 
     private LayoutInflater inflater;
     private List<String> supplies;
+    private boolean showClosebutton;
 
-    public SuppliesNeededAdapter(Context context, List<String> supplies) {
+    public SuppliesNeededAdapter(Context context, List<String> supplies, boolean showClosebutton) {
         inflater = LayoutInflater.from(context);
         this.supplies = supplies;
+        this.showClosebutton = showClosebutton;
     }
 
     @NonNull
@@ -34,6 +37,18 @@ public class SuppliesNeededAdapter extends RecyclerView.Adapter<SuppliesNeededAd
     public void onBindViewHolder(@NonNull SuppliesNeededViewHolder viewHolder, int i) {
         String current = supplies.get(i);
         viewHolder.supply.setText(current);
+        if (showClosebutton) {
+            viewHolder.closeButton.setOnClickListener((View v) -> {
+                supplies.remove(i);
+                notifyItemRemoved(i);
+                Runnable runnable = () -> {
+                    //TODO send deleted supply item to backend
+                };
+                Thread async = new Thread(runnable);
+                async.start();
+            });
+            viewHolder.closeButton.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -43,6 +58,7 @@ public class SuppliesNeededAdapter extends RecyclerView.Adapter<SuppliesNeededAd
 
     class SuppliesNeededViewHolder extends RecyclerView.ViewHolder {
         public TextView supply;
+        public FrameLayout closeButton;
 
         public SuppliesNeededViewHolder(@NonNull View itemView) {
             super(itemView);
