@@ -5,6 +5,9 @@
             android:id="@+id/imp_contacts"
             android:title="@string/menu_item_one" />
         <item
+            android:id="@+id/authentication"
+            android:title="@string/menu_auth" />
+        <item
             android:id="@+id/about"
             android:title="@string/about" />
     </group>

@@ -51,6 +51,10 @@
             android:name=".LocationPicker"
             android:label="Choose Location"
             android:parentActivityName=".HomeActivity" />
+        <activity
+            android:name=".LoginScreen"
+            android:label="Login"
+            android:parentActivityName=".HomeActivity" />
     </application>
 
 </manifest>
