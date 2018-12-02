@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.agzuniverse.agz.opensalve.Modals.News;
+import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
 import com.agzuniverse.agz.opensalve.ViewModels.NewsViewModel;
 import com.agzuniverse.agz.opensalve.adapters.NewsAdapter;
 import com.agzuniverse.agz.opensalve.widgets.AddNewsDialog;
@@ -38,12 +39,12 @@ public class NewsScreen extends AppCompatActivity implements AddNewsDialog.AddNe
         FloatingActionButton fab = findViewById(R.id.news_fab);
         fab.setOnClickListener((View view) -> addNewNews());
 
-        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-        if (prefs.getInt("isVolunteer", 0) == 1) {
-        LinearLayout f = findViewById(R.id.news_fab_wrapper);
-        f.setVisibility(View.VISIBLE);
-        showCloseButton = true;
-        token = prefs.getString("token", "0");
+        if (GlobalStore.isVolunteer) {
+            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+            token = prefs.getString("token", "0");
+            LinearLayout f = findViewById(R.id.news_fab_wrapper);
+            f.setVisibility(View.VISIBLE);
+            showCloseButton = true;
         }
 
         RecyclerView news = findViewById(R.id.news_list);

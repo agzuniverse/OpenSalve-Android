@@ -25,6 +25,7 @@
         style="@style/opensalve_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="loginUser"
         android:text="@string/login" />
 
     <TextView

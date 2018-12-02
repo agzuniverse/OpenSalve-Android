@@ -2,8 +2,7 @@
     <string name="app_name">OpenSalve</string>
 
     <string name="mapbox_api_token">pk.eyJ1IjoiYWd6dW5pdmVyc2UiLCJhIjoiY2ptNm01d3p0MW14NzNrbXVzZzNxZGVsdyJ9.fTN7Y8Af1_AWtj_YtTqn5Q</string>
-    <!--<string name="base_api_url">http://10.0.2.2:8000</string>-->
-    <string name="base_api_url">https://dfaa7ace.ngrok.io</string>
+    <string name="base_api_url">http://10.0.2.2:8000</string>
 
     <string name="button_placeholder">Loading…</string>
     <string name="name_placeholder">Loading…</string>

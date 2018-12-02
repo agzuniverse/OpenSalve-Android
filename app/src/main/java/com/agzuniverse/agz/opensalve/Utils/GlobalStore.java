@@ -1,6 +1,8 @@
 package com.agzuniverse.agz.opensalve.Utils;
 
 public class GlobalStore {
+    public static boolean isVolunteer = false;
+
     public static double lat = 0;
     public static double lng = 0;
     public static String title = "";
