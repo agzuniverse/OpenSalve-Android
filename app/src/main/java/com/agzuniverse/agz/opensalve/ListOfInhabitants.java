@@ -2,8 +2,6 @@ package com.agzuniverse.agz.opensalve;
 
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.agzuniverse.agz.opensalve.Modals.Person;
+import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
 import com.agzuniverse.agz.opensalve.ViewModels.ListOfInhabitantsViewModel;
 import com.agzuniverse.agz.opensalve.adapters.ListOfInhabsAdapter;
 import com.agzuniverse.agz.opensalve.widgets.AddInhabDialog;
@@ -34,7 +33,6 @@ public class ListOfInhabitants extends AppCompatActivity implements AddInhabDial
     private android.support.v7.widget.RecyclerView.Adapter inhabAdapter;
     private android.support.v7.widget.RecyclerView.LayoutManager inhabManager;
     private android.support.v7.widget.RecyclerView inhabs;
-    private String token;
     private boolean showCloseButton = false;
 
     @Override
@@ -73,12 +71,10 @@ public class ListOfInhabitants extends AppCompatActivity implements AddInhabDial
         FloatingActionButton fab = findViewById(R.id.inhab_fab);
         fab.setOnClickListener((View view) -> addNewInhab());
 
-        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-        if (prefs.getInt("isVolunteer", 0) == 1) {
+        if (GlobalStore.isVolunteer) {
             LinearLayout f = findViewById(R.id.inhab_fab_wrapper);
             f.setVisibility(View.VISIBLE);
             showCloseButton = true;
-            token = prefs.getString("token", "0");
         }
 
         getListOfInhabsAsync();

@@ -2,9 +2,7 @@ package com.agzuniverse.agz.opensalve;
 
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
+import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
 import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
 import com.agzuniverse.agz.opensalve.widgets.ConfirmDeleteCampDialog;
@@ -33,7 +32,6 @@ public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog
     private CampMgmtViewModel model;
     private CampMetadata data;
     private int id;
-    private String token;
     private List<String> supplies;
     private RecyclerView.Adapter listAdapter;
     private boolean showClosebutton = false;
@@ -48,9 +46,7 @@ public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog
 
         model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
 
-        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-        if (prefs.getInt("isVolunteer", 0) == 1) {
-            token = prefs.getString("token", "0");
+        if (GlobalStore.isVolunteer) {
             FrameLayout f = findViewById(R.id.delete_camp_button);
             f.setVisibility(View.VISIBLE);
             f.setOnClickListener((View v) -> {

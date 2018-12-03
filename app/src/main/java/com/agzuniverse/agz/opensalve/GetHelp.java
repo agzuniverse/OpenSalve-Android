@@ -1,8 +1,6 @@
 package com.agzuniverse.agz.opensalve;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Modals.GetHelpData;
+import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
 import com.agzuniverse.agz.opensalve.ViewModels.GetHelpViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -31,7 +30,6 @@ public class GetHelp extends AppCompatActivity {
     private int id;
     private GetHelpData data;
     private GetHelpViewModel model;
-    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +46,9 @@ public class GetHelp extends AppCompatActivity {
             model = ViewModelProviders.of(this).get(GetHelpViewModel.class);
             fetchGetHelpDataAsync(id);
 
-            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-            if (prefs.getInt("isVolunteer", 0) == 1) {
+            if (GlobalStore.isVolunteer) {
                 LinearLayout l = findViewById(R.id.get_help_manage_buttons);
                 l.setVisibility(View.VISIBLE);
-                token = prefs.getString("token", "0");
             }
         }
     }
