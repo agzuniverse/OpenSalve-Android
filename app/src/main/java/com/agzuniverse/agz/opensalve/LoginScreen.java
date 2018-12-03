@@ -55,6 +55,7 @@ public class LoginScreen extends AppCompatActivity {
                     editor.putString("token", token);
                     editor.commit();
                     GlobalStore.isVolunteer = true;
+                    GlobalStore.token = token;
                     Toast.makeText(LoginScreen.this, "Login successful", Toast.LENGTH_SHORT).show();
                     LoginScreen.this.finish();
                 } catch (JSONException e1) {

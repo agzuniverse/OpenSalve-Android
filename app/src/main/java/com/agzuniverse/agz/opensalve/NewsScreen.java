@@ -2,8 +2,6 @@ package com.agzuniverse.agz.opensalve;
 
 import android.app.Dialog;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -40,8 +38,6 @@ public class NewsScreen extends AppCompatActivity implements AddNewsDialog.AddNe
         fab.setOnClickListener((View view) -> addNewNews());
 
         if (GlobalStore.isVolunteer) {
-            SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-            token = prefs.getString("token", "0");
             LinearLayout f = findViewById(R.id.news_fab_wrapper);
             f.setVisibility(View.VISIBLE);
             showCloseButton = true;

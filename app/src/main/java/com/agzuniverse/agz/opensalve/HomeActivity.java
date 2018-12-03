@@ -115,8 +115,10 @@ public class HomeActivity extends AppCompatActivity {
         SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
         String token = prefs.getString("token", "0");
         if (!token.equals("0")) {
-            //User has a token, check if it is valid
-            checkAuth(token);
+            GlobalStore.isVolunteer = true;
+            GlobalStore.token = token;
+            Button b = findViewById(R.id.AddNewLocBtn);
+            b.setVisibility(View.VISIBLE);
         }
 //        Intent debug = new Intent(this, LocationPicker.class);
 //        this.startActivity(debug);
@@ -125,35 +127,19 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        if (GlobalStore.isVolunteer) {
+            Button b = findViewById(R.id.AddNewLocBtn);
+            b.setVisibility(View.VISIBLE);
+        } else if (!GlobalStore.isVolunteer) {
+            Button b = findViewById(R.id.AddNewLocBtn);
+            b.setVisibility(View.GONE);
+        }
         if (GlobalStore.newDataPresent) {
             LocationMarker curr = new LocationMarker(GlobalStore.title, GlobalStore.snippet, GlobalStore.lat, GlobalStore.lng);
             locations.add(curr);
             GlobalStore.newDataPresent = false;
             refreshMapOverlay();
         }
-    }
-
-    public void checkAuth(String token) {
-        Handler handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                //TODO if response is negative, inform user they have been logged out and remove isVolunteer and isAdmin values
-                //TODO do this only if response is positive
-                SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putInt("isVolunteer", 1);
-                editor.commit();
-                Button b = findViewById(R.id.AddNewLocBtn);
-                b.setVisibility(View.VISIBLE);
-
-            }
-        };
-        Runnable runnable = () -> {
-            //TODO make POST request to backend with token to check if it is valid
-            handler.sendEmptyMessage(0);
-        };
-        Thread async = new Thread(runnable);
-        async.start();
     }
 
     public void getMarkers() {
