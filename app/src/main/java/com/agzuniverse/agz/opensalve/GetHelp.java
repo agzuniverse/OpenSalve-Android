@@ -1,10 +1,13 @@
 package com.agzuniverse.agz.opensalve;
 
+import android.Manifest;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -103,13 +106,24 @@ public class GetHelp extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            //Permission granted
+        } else {
+            Toast.makeText(this, "Please grant location permission", Toast.LENGTH_LONG).show();
+        }
+    }
+
     public void submitRequest(View v) {
         final String n = name.getText().toString();
         final String c = contact.getText().toString();
         final String nDesc = desc.getText().toString();
 
         FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+        } else {
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(this, location -> {
                         if (location != null) {
@@ -141,9 +155,9 @@ public class GetHelp extends AppCompatActivity {
                             }
                         }
                     });
+            super.finish();
         }
 
-        super.finish();
     }
 
     public void showToast() {
