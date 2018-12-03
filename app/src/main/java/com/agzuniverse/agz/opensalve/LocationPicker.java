@@ -8,6 +8,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,14 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class LocationPicker extends AppCompatActivity implements NewCampDialog.UpdateMap {
     private MapboxMap map;
@@ -98,6 +107,10 @@ public class LocationPicker extends AppCompatActivity implements NewCampDialog.U
                 json.put("phone", z.getText().toString());
                 json.put("lat", position.getLatitude());
                 json.put("lng", position.getLongitude());
+                json.put("photo", "null");
+                json.put("supplies", "");
+                json.put("capacity", "50");
+                json.put("number_of_people", "0");
                 //TODO add image
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -120,12 +133,37 @@ public class LocationPicker extends AppCompatActivity implements NewCampDialog.U
                 }
             };
             Runnable runnable = () -> {
-                //TODO make POST request to backend with json and get ID in response
+                String apiUrl = getResources().getString(R.string.base_api_url);
+                String reqUrl = apiUrl;
+                int id = 1;
                 if (isCamp) {
-                    int id = 1;
+                    reqUrl = reqUrl + "/api/camps/";
+                } else {
+                    reqUrl = reqUrl + "/api/collectioncentres/";
+                }
+
+                OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
+                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString());
+
+                Request request = new Request.Builder()
+                        .url(reqUrl)
+                        .header("Authorization", "Token " + GlobalStore.token)
+                        .header("Content-Type", " application/json")
+                        .post(requestBody)
+                        .build();
+                try {
+                    Response response = client.newCall(request).execute();
+                    Log.i("qwe", response.body().string());
+                    //TODO get ID in response
+//                    JSONObject extractId = new JSONObject(response.body().string());
+//                    id = extractId.getInt("id");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (isCamp) {
                     GlobalStore.snippet = "camp#" + String.valueOf(id);
                 } else {
-                    int id = 1;
                     GlobalStore.snippet = "collection center#" + String.valueOf(id);
                 }
 
