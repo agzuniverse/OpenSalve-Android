@@ -8,7 +8,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -75,10 +74,8 @@ public class LoginScreen extends AppCompatActivity {
             try {
                 Response response = client.newCall(request).execute();
                 json = new JSONObject(response.body().string());
-                Log.i("qwe", json.toString());
                 handler.sendEmptyMessage(0);
             } catch (IOException | JSONException ex) {
-//                Toast.makeText(LoginScreen.this, "Network error, please try again.", Toast.LENGTH_SHORT).show();
                 ex.printStackTrace();
             }
         };

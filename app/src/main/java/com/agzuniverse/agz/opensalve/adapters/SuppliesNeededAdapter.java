@@ -63,6 +63,7 @@ public class SuppliesNeededAdapter extends RecyclerView.Adapter<SuppliesNeededAd
         public SuppliesNeededViewHolder(@NonNull View itemView) {
             super(itemView);
             supply = itemView.findViewById(R.id.supply);
+            closeButton = itemView.findViewById(R.id.delete_supply);
         }
     }
 }

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -21,8 +22,15 @@ import com.agzuniverse.agz.opensalve.ViewModels.ListOfInhabitantsViewModel;
 import com.agzuniverse.agz.opensalve.adapters.ListOfInhabsAdapter;
 import com.agzuniverse.agz.opensalve.widgets.AddInhabDialog;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ListOfInhabitants extends AppCompatActivity implements AddInhabDialog.AddInhabSubmit {
 
@@ -127,7 +135,26 @@ public class ListOfInhabitants extends AppCompatActivity implements AddInhabDial
         persons_filtered.add(p);
         inhabAdapter.notifyItemInserted(persons_filtered.size());
         Runnable runnable = () -> {
-            //TODO send new inhab to backend
+            String apiUrl = getResources().getString(R.string.base_api_url);
+            OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("name", p.getName())
+                    .addFormDataPart("blood_group", p.getBloodgrp())
+                    .addFormDataPart("location", "null")
+                    .build();
+            Request request = new Request.Builder()
+                    .url(apiUrl + "/api/camps/c/" + id + "/inhabitants")
+                    .header("Authorization", "Token " + GlobalStore.token)
+                    .header("Content-Type", " application/x-www-form-urlencoded")
+                    .post(requestBody)
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                Log.i("qwe", response.body().string());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         };
         Thread async = new Thread(runnable);
         async.start();
