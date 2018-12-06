@@ -171,7 +171,6 @@ public class GetHelp extends AppCompatActivity {
                                 RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), obj.toString());
                                 Request request = new Request.Builder()
                                         .url(apiUrl + "/api/help/")
-                                        .header("Authorization", "Token " + GlobalStore.token)
                                         .header("Content-Type", "application/json")
                                         .post(requestBody)
                                         .build();
