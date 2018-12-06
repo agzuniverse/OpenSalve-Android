@@ -148,7 +148,7 @@ public class LocationPicker extends AppCompatActivity implements NewCampDialog.U
                 Request request = new Request.Builder()
                         .url(reqUrl)
                         .header("Authorization", "Token " + GlobalStore.token)
-                        .header("Content-Type", " application/json")
+                        .header("Content-Type", "application/json")
                         .post(requestBody)
                         .build();
                 try {

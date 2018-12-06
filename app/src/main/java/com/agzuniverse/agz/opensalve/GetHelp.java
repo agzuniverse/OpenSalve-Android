@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -25,6 +26,14 @@ import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class GetHelp extends AppCompatActivity {
     private EditText desc;
@@ -116,9 +125,14 @@ public class GetHelp extends AppCompatActivity {
     }
 
     public void submitRequest(View v) {
-        final String n = name.getText().toString();
-        final String c = contact.getText().toString();
-        final String nDesc = desc.getText().toString();
+        String n = name.getText().toString();
+        String c = contact.getText().toString();
+        String nDesc = desc.getText().toString();
+
+        if ((n.equals("") || c.equals("")) || !TextUtils.isDigitsOnly(c)) {
+            Toast.makeText(GetHelp.this, "Please check your input", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -127,41 +141,55 @@ public class GetHelp extends AppCompatActivity {
             mFusedLocationClient.getLastLocation()
                     .addOnSuccessListener(this, location -> {
                         if (location != null) {
-                            JSONObject locObj = new JSONObject();
-                            JSONObject userObj = new JSONObject();
-                            JSONObject resObj = new JSONObject();
                             JSONObject obj = new JSONObject();
                             try {
-                                locObj.put("latitude", location.getLatitude());
-                                locObj.put("longitude", location.getLongitude());
-                                userObj.put("name", n);
-                                userObj.put("phone", c);
-                                resObj.put("evac", String.valueOf(((CheckBox) findViewById(R.id.evac)).isChecked()));
-                                resObj.put("foodwater", String.valueOf(((CheckBox) findViewById(R.id.foodwater)).isChecked()));
-                                resObj.put("medical", String.valueOf(((CheckBox) findViewById(R.id.medical)).isChecked()));
-                                resObj.put("firstaid", String.valueOf(((CheckBox) findViewById(R.id.firstaid)).isChecked()));
-                                resObj.put("transport", String.valueOf(((CheckBox) findViewById(R.id.transport)).isChecked()));
-
-                                resObj.put("desc", nDesc);
-                                obj.put("user", userObj);
-                                obj.put("location", locObj);
-                                obj.put("resources", resObj);
-                                //TODO make a POST request to the backend
-//                                      NetworkPost net = new NetworkPost();
-//                                      net.execute("https://postman-echo.com/post", String.valueOf(obj));
-                                showToast();
+                                obj.put("lat", location.getLatitude());
+                                obj.put("lng", location.getLongitude());
+                                obj.put("name", n);
+                                obj.put("phone", c);
+                                obj.put("desc", nDesc);
+                                obj.put("location", "");
+                                obj.put("status", "");
+                                obj.put("need_rescue", String.valueOf(((CheckBox) findViewById(R.id.evac)).isChecked()));
+                                obj.put("need_food_water", String.valueOf(((CheckBox) findViewById(R.id.foodwater)).isChecked()));
+                                obj.put("need_medical", String.valueOf(((CheckBox) findViewById(R.id.medical)).isChecked()));
+                                obj.put("need_first_aid", String.valueOf(((CheckBox) findViewById(R.id.firstaid)).isChecked()));
+                                obj.put("need_transport", String.valueOf(((CheckBox) findViewById(R.id.transport)).isChecked()));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+                            Handler handler = new Handler() {
+                                @Override
+                                public void handleMessage(Message msg) {
+                                    Toast.makeText(GetHelp.this, "Request submitted successfuly", Toast.LENGTH_SHORT).show();
+                                    GetHelp.this.finish();
+                                }
+                            };
+                            Runnable runnable = () -> {
+                                String apiUrl = getResources().getString(R.string.base_api_url);
+                                OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
+                                RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), obj.toString());
+                                Request request = new Request.Builder()
+                                        .url(apiUrl + "/api/help/")
+                                        .header("Authorization", "Token " + GlobalStore.token)
+                                        .header("Content-Type", "application/json")
+                                        .post(requestBody)
+                                        .build();
+                                try {
+                                    Response response = client.newCall(request).execute();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                handler.sendEmptyMessage(0);
+                            };
+                            Thread async = new Thread(runnable);
+                            async.start();
+                        } else {
+                            Toast.makeText(this, "Error getting location. Please turn on GPS.", Toast.LENGTH_LONG).show();
                         }
                     });
-            super.finish();
         }
 
-    }
-
-    public void showToast() {
-        Toast.makeText(this, "Request submitted successfully", Toast.LENGTH_LONG).show();
     }
 
     public void markResponderDispatched() {
