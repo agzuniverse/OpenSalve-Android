@@ -16,7 +16,7 @@
         <activity
             android:name=".HomeActivity"
             android:launchMode="singleTop"
-            android:theme="@style/HomeScreenTheme">
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
