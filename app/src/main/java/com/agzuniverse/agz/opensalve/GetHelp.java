@@ -191,7 +191,7 @@ public class GetHelp extends AppCompatActivity {
 
     }
 
-    public void markResponderDispatched() {
+    public void markResponderDispatched(View v) {
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -204,11 +204,12 @@ public class GetHelp extends AppCompatActivity {
             //TODO send request to backend to change status
             handler.sendEmptyMessage(0);
         };
+        Toast.makeText(GetHelp.this, "Changing status...", Toast.LENGTH_LONG).show();
         Thread async = new Thread(runnable);
         async.start();
     }
 
-    public void markRequestResolved() {
+    public void markRequestResolved(View v) {
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -217,7 +218,7 @@ public class GetHelp extends AppCompatActivity {
             }
         };
         Runnable runnable = () -> {
-            //TODO send request to backend to close request
+            //TODO delete request from backend
             handler.sendEmptyMessage(0);
         };
         Thread async = new Thread(runnable);
