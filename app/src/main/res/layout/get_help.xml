@@ -56,7 +56,8 @@
             android:focusableInTouchMode="true">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
                 android:layout_height="wrap_content"
                 android:labelFor="@id/name"
                 android:text="@string/name" />
@@ -76,7 +77,8 @@
             android:focusableInTouchMode="true">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.2"
                 android:layout_height="wrap_content"
                 android:labelFor="@id/contact"
                 android:text="@string/contact" />
@@ -97,6 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
         android:text="@string/anything_else" />
 
     <EditText
