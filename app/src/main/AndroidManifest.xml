@@ -16,6 +16,7 @@
         <activity
             android:name=".HomeActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,33 +29,40 @@
             android:label="Camp Management"
             android:launchMode="singleTop"
             android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/CampAndCollectionScreenTheme" />
         <activity
             android:name=".CollectionCentreScreen"
             android:label="Collection Centre"
             android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/CampAndCollectionScreenTheme" />
         <activity
             android:name=".ListOfInhabitants"
             android:label="List of Inhabitants"
             android:parentActivityName=".CampMgmtScreen"
+            android:screenOrientation="portrait"
             android:theme="@style/ListOfInhabitantsScreenTheme" />
         <activity
             android:name=".GetHelp"
             android:label="Get Help"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NewsScreen"
             android:label="News and Announcements"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LocationPicker"
             android:label="Choose Location"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LoginScreen"
             android:label="Login"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName=".HomeActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
