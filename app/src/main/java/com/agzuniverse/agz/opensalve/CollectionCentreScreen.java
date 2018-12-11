@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
 import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
 import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
+import com.agzuniverse.agz.opensalve.widgets.ConfirmDeleteCollectionDialog;
 import com.agzuniverse.agz.opensalve.widgets.NewSupplyDialog;
 
 import java.util.List;
@@ -44,24 +46,21 @@ public class CollectionCentreScreen extends AppCompatActivity implements NewSupp
         fetchCollectionMetadataAsync(id);
 
         if (GlobalStore.isVolunteer) {
-            //TODO add close button to collection screen
-            //TODO show "no supplies needed" if data.getsupplies() is empty string
-//            FrameLayout f = findViewById(R.id.delete_camp_button);
-//            f.setVisibility(View.VISIBLE);
-//            f.setOnClickListener((View v) -> {
-//                DialogFragment dialog = new ConfirmDeleteCampDialog();
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("id", id);
-//                dialog.setArguments(bundle);
-//                dialog.show(getSupportFragmentManager(), "ConfirmDeleteCampDialog");
-//            });
+            FrameLayout f = findViewById(R.id.delete_collection_button);
+            f.setVisibility(View.VISIBLE);
+            f.setOnClickListener((View v) -> {
+                DialogFragment dialog = new ConfirmDeleteCollectionDialog();
+                Bundle bundle = new Bundle();
+                bundle.putInt("id", id);
+                dialog.setArguments(bundle);
+                dialog.show(getSupportFragmentManager(), "ConfirmDeleteCollectionDialog");
+            });
             LinearLayout fab = findViewById(R.id.new_supply_fab_collection);
             fab.setVisibility(View.VISIBLE);
             showClosebutton = true;
         }
     }
 
-    //TODO handle case when this returns null
     public void fetchCollectionMetadataAsync(int id) {
         Handler handler = new Handler() {
             @Override
@@ -88,9 +87,6 @@ public class CollectionCentreScreen extends AppCompatActivity implements NewSupp
         TextView collectionContact = findViewById(R.id.collection_contact);
         collectionContact.setText(data.getCampContact());
         ImageView collectionImage = findViewById(R.id.collection_image);
-        //TODO do not do this on the main thread
-//        Bitmap imageBitmap = BitmapFactory.decodeStream(data.getCampImageUrl().openConnection().getInputStream());
-//        collectionImage.setImageBitmap(imageBitmap);
         collectionImage.setImageDrawable(getDrawable(R.drawable.shelter));
 
         supplies = data.getSuppliesNeeded();

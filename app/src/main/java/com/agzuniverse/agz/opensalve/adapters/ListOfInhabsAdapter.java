@@ -47,7 +47,7 @@ public class ListOfInhabsAdapter extends RecyclerView.Adapter<ListOfInhabsAdapte
                 persons.remove(i);
                 notifyItemRemoved(i);
                 Runnable runnable = () -> {
-                    //TODO send deleted news to backend
+                    //TODO send deleted inhabitant to backend
                 };
                 Thread async = new Thread(runnable);
                 async.start();

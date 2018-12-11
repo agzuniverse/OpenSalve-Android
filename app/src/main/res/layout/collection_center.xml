@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="0.35">
@@ -21,17 +21,32 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/shelter" />
 
+            <FrameLayout
+                android:id="@+id/delete_collection_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:background="@drawable/rounded_close_button"
+                android:visibility="gone"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_action_cancel" />
+            </FrameLayout>
+
             <TextView
                 android:id="@+id/collection_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/collection_image"
                 android:background="@drawable/top_fake_drop_shadow"
                 android:paddingLeft="16dp"
                 android:text="@string/name_placeholder"
                 android:textColor="@color/textColorOverlay"
-                android:textSize="24sp" />
-        </RelativeLayout>
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@+id/collection_image" />
+        </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -63,7 +63,6 @@ public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog
         fetchCampMetadataAsync(id);
     }
 
-    //TODO handle case when this returns null
     public void fetchCampMetadataAsync(int id) {
         Handler handler = new Handler() {
             @Override
@@ -90,9 +89,6 @@ public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog
         TextView campContact = findViewById(R.id.camp_contact);
         campContact.setText(data.getCampContact());
         ImageView campImage = findViewById(R.id.camp_image);
-        //TODO do not do this on the main thread
-//        Bitmap imageBitmap = BitmapFactory.decodeStream(data.getCampImageUrl().openConnection().getInputStream());
-//        campImage.setImageBitmap(imageBitmap);
         campImage.setImageDrawable(getDrawable(R.drawable.shelter));
 
         supplies = data.getSuppliesNeeded();
