@@ -1,6 +1,5 @@
 package com.agzuniverse.agz.opensalve;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,9 +8,9 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
@@ -20,7 +19,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.ConnectException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -34,7 +32,23 @@ public class LoginScreen extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_screen);
+        if (GlobalStore.isVolunteer) {
+            setContentView(R.layout.logout_screen);
+            TextView t = findViewById(R.id.username_goes_here);
+            t.setText(GlobalStore.logged_in_as);
+        } else setContentView(R.layout.login_screen);
+    }
+
+    public void logoutUser(View v) {
+        GlobalStore.token = "0";
+        GlobalStore.logged_in_as = "";
+        GlobalStore.isVolunteer = false;
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.clear();
+        editor.commit();
+        Toast.makeText(LoginScreen.this, "Logout successful", Toast.LENGTH_SHORT).show();
+        LoginScreen.this.finish();
     }
 
     public void loginUser(View v) {
@@ -57,6 +71,7 @@ public class LoginScreen extends AppCompatActivity {
                     editor.putString("token", token);
                     editor.commit();
                     GlobalStore.isVolunteer = true;
+                    GlobalStore.logged_in_as = username;
                     GlobalStore.token = token;
                     Toast.makeText(LoginScreen.this, "Login successful", Toast.LENGTH_SHORT).show();
                     LoginScreen.this.finish();
