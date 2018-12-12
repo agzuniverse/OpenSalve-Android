@@ -95,7 +95,7 @@ public class ListOfInhabitants extends AppCompatActivity implements AddInhabDial
                 persons_filtered = new ArrayList<>(persons_original);
                 inhabs = findViewById(R.id.listOfInhabitants);
                 inhabManager = new LinearLayoutManager(ListOfInhabitants.this);
-                inhabAdapter = new ListOfInhabsAdapter(ListOfInhabitants.this, persons_filtered, showCloseButton);
+                inhabAdapter = new ListOfInhabsAdapter(ListOfInhabitants.this, persons_filtered, showCloseButton, id);
                 inhabs.setLayoutManager(inhabManager);
                 inhabs.setAdapter(inhabAdapter);
             }

@@ -11,20 +11,33 @@ import android.widget.TextView;
 
 import com.agzuniverse.agz.opensalve.Modals.Person;
 import com.agzuniverse.agz.opensalve.R;
+import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ListOfInhabsAdapter extends RecyclerView.Adapter<ListOfInhabsAdapter.ListOfInhabsViewHolder> {
 
     private LayoutInflater inflater;
     private List<Person> persons = Collections.emptyList();
     private boolean showCloseButton;
+    private Context context;
+    private int camp_id;
 
-    public ListOfInhabsAdapter(Context context, List<Person> persons, boolean showCloseButton) {
+    public ListOfInhabsAdapter(Context context, List<Person> persons, boolean showCloseButton, int id) {
         inflater = LayoutInflater.from(context);
         this.persons = persons;
         this.showCloseButton = showCloseButton;
+        this.context = context;
+        this.camp_id = id;
     }
 
     @NonNull
@@ -47,7 +60,18 @@ public class ListOfInhabsAdapter extends RecyclerView.Adapter<ListOfInhabsAdapte
                 persons.remove(i);
                 notifyItemRemoved(i);
                 Runnable runnable = () -> {
-                    //TODO send deleted inhabitant to backend
+                    OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
+                    Request request = new Request.Builder()
+                            .url(context.getResources().getString(R.string.base_api_url) + "/api/camps/c/" + camp_id + "/inhabitants/" + id)
+                            .header("Authorization", "Token " + GlobalStore.token)
+                            .build();
+                    try {
+                        Response response = client.newCall(request).execute();
+                        JSONObject res = new JSONObject(response.body().string());
+
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                    }
                 };
                 Thread async = new Thread(runnable);
                 async.start();
