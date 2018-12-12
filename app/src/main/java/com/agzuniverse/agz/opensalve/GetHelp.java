@@ -237,7 +237,18 @@ public class GetHelp extends AppCompatActivity {
             }
         };
         Runnable runnable = () -> {
-            //TODO delete request from backend
+            OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
+            Request request = new Request.Builder()
+                    .url(getResources().getString(R.string.base_api_url) + "/api/help/r/" + id + "/delete")
+                    .header("Authorization", "Token " + GlobalStore.token)
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                JSONObject res = new JSONObject(response.body().string());
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
             handler.sendEmptyMessage(0);
         };
         Thread async = new Thread(runnable);
