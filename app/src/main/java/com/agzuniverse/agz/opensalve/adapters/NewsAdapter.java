@@ -9,11 +9,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.agzuniverse.agz.opensalve.Modals.News;
 import com.agzuniverse.agz.opensalve.R;
+import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
@@ -21,12 +31,14 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
     private LayoutInflater inflater;
     private int[] colors;
     private boolean showCloseButton;
+    private Context context;
 
     public NewsAdapter(Context context, List<News> data, int[] colors, boolean showCloseButton) {
         this.data = data;
         this.colors = colors;
         inflater = LayoutInflater.from(context);
         this.showCloseButton = showCloseButton;
+        this.context = context;
     }
 
     @NonNull
@@ -46,14 +58,31 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         if (showCloseButton) {
             viewHolder.close.setVisibility(View.VISIBLE);
             viewHolder.close.setOnClickListener((View v) -> {
-                int id = data.get(i).getId();
-                data.remove(i);
-                notifyItemRemoved(i);
-                Runnable runnable = () -> {
-                    //TODO send deleted news to backend
-                };
-                Thread async = new Thread(runnable);
-                async.start();
+                try {
+                    int id = data.get(i).getId();
+                    data.remove(i);
+                    notifyItemRemoved(i);
+                    Runnable runnable = () -> {
+                        OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
+                        Request request = new Request.Builder()
+                                .url(context.getResources().getString(R.string.base_api_url) + "/api/news/r/" + id)
+                                .delete()
+                                .header("Authorization", "Token " + GlobalStore.token)
+                                .build();
+                        try {
+                            Response response = client.newCall(request).execute();
+                            JSONObject res = new JSONObject(response.body().string());
+
+                        } catch (IOException | JSONException e) {
+                            e.printStackTrace();
+                        }
+                    };
+                    Thread async = new Thread(runnable);
+                    async.start();
+                } catch (IndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                    Toast.makeText(context, "Error. Please try again later", Toast.LENGTH_SHORT).show();
+                }
             });
         }
 

@@ -28,10 +28,6 @@ public class NewsViewModel extends ViewModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        News contact1 = new News("Electricity to Maradu will be cut off at midnight", "KSEB Engineer", 1);
-//        News contact2 = new News("All educational institutions including professional colleges will have a holiday tomorrow", "Ernakulam District Collector", 2);
-//        news.add(contact1);
-//        news.add(contact2);
         return news;
     }
 
