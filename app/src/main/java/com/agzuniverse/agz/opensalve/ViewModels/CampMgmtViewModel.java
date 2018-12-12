@@ -8,8 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -42,7 +40,6 @@ public class CampMgmtViewModel extends ViewModel {
                     json.getString("location"),
                     json.getString("incharge"),
                     json.getString("phone"),
-                    new URL(json.getString("photo")),
                     new ArrayList<>(
                             Arrays.asList(
                                     json.getString("supplies").split(",")
@@ -50,7 +47,7 @@ public class CampMgmtViewModel extends ViewModel {
                     ),
                     json.getInt("id")
             );
-        } catch (JSONException | MalformedURLException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
