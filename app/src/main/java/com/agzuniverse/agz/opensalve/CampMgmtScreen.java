@@ -105,7 +105,7 @@ public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog
         RecyclerView list = findViewById(R.id.camp_supplies);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager listManager = new LinearLayoutManager(this);
-        listAdapter = new SuppliesNeededAdapter(this, supplies, showClosebutton);
+        listAdapter = new SuppliesNeededAdapter(this, supplies, showClosebutton, id, true);
         list.setAdapter(listAdapter);
         list.setLayoutManager(listManager);
     }

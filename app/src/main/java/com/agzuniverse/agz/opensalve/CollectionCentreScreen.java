@@ -104,7 +104,7 @@ public class CollectionCentreScreen extends AppCompatActivity implements NewSupp
         RecyclerView list = findViewById(R.id.collection_supplies);
         list.setHasFixedSize(true);
         RecyclerView.LayoutManager listManager = new LinearLayoutManager(this);
-        listAdapter = new SuppliesNeededAdapter(this, supplies, showClosebutton);
+        listAdapter = new SuppliesNeededAdapter(this, supplies, showClosebutton, id, false);
         list.setLayoutManager(listManager);
         list.setAdapter(listAdapter);
     }

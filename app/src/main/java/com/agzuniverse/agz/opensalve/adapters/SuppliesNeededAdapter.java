@@ -10,19 +10,36 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.agzuniverse.agz.opensalve.R;
+import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class SuppliesNeededAdapter extends RecyclerView.Adapter<SuppliesNeededAdapter.SuppliesNeededViewHolder> {
 
     private LayoutInflater inflater;
     private List<String> supplies;
     private boolean showClosebutton;
+    private Context context;
+    private int id;
+    private boolean isCamp;
 
-    public SuppliesNeededAdapter(Context context, List<String> supplies, boolean showClosebutton) {
+    public SuppliesNeededAdapter(Context context, List<String> supplies, boolean showClosebutton, int id, boolean isCamp) {
         inflater = LayoutInflater.from(context);
         this.supplies = supplies;
         this.showClosebutton = showClosebutton;
+        this.context = context;
+        this.id = id;
+        this.isCamp = isCamp;
     }
 
     @NonNull
@@ -42,7 +59,36 @@ public class SuppliesNeededAdapter extends RecyclerView.Adapter<SuppliesNeededAd
                 supplies.remove(i);
                 notifyItemRemoved(i);
                 Runnable runnable = () -> {
-                    //TODO send deleted supply item to backend
+                    JSONObject json = new JSONObject();
+                    try {
+                        json.put("supply", current);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
+                    RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString());
+                    Request request;
+                    if (isCamp) {
+                        request = new Request.Builder()
+                                .url(context.getResources().getString(R.string.base_api_url) + "/api/camps/c/" + id + "/stock/delete")
+                                .header("Authorization", "Token " + GlobalStore.token)
+                                .post(requestBody)
+                                .build();
+                    } else {
+                        request = new Request.Builder()
+                                .url(context.getResources().getString(R.string.base_api_url) + "/api/collectioncentres/c/" + id + "/stock/delete")
+                                .header("Authorization", "Token " + GlobalStore.token)
+                                .post(requestBody)
+                                .build();
+                    }
+
+                    try {
+                        Response response = client.newCall(request).execute();
+                        JSONObject res = new JSONObject(response.body().string());
+
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                    }
                 };
                 Thread async = new Thread(runnable);
                 async.start();
