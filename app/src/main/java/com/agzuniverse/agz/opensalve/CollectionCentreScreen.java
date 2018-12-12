@@ -24,7 +24,17 @@ import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
 import com.agzuniverse.agz.opensalve.widgets.ConfirmDeleteCollectionDialog;
 import com.agzuniverse.agz.opensalve.widgets.NewSupplyDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class CollectionCentreScreen extends AppCompatActivity implements NewSupplyDialog.AddSupplySubmit {
 
@@ -33,6 +43,7 @@ public class CollectionCentreScreen extends AppCompatActivity implements NewSupp
     private RecyclerView.Adapter listAdapter;
     private List<String> supplies;
     private boolean showClosebutton = false;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +51,7 @@ public class CollectionCentreScreen extends AppCompatActivity implements NewSupp
         setContentView(R.layout.collection_center);
 
         Bundle extraData = getIntent().getExtras();
-        int id = extraData.getInt("id", 0);
+        id = extraData.getInt("id", 0);
 
         model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
         fetchCollectionMetadataAsync(id);
@@ -108,8 +119,28 @@ public class CollectionCentreScreen extends AppCompatActivity implements NewSupp
         Dialog d = dialog.getDialog();
         EditText t = d.findViewById(R.id.new_supply);
         String s = t.getText().toString();
+        JSONObject json = new JSONObject();
+        try {
+            json.put("supply", s);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Runnable runnable = () -> {
-            //TODO send s to the backend to add to list of supplies for this camp
+            OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json.toString());
+            Request request = new Request.Builder()
+                    .url(getResources().getString(R.string.base_api_url) + "/api/collectioncentres/c/" + id + "/stock")
+                    .header("Content-Type", "application/json")
+                    .header("Authorization", "Token " + GlobalStore.token)
+                    .post(requestBody)
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                JSONObject res = new JSONObject(response.body().string());
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
         };
         Thread async = new Thread(runnable);
         async.start();
