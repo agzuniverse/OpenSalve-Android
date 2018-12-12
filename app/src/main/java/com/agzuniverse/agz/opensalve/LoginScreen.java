@@ -34,8 +34,10 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         if (GlobalStore.isVolunteer) {
             setContentView(R.layout.logout_screen);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            String uname = prefs.getString("logged_in_as", "");
             TextView t = findViewById(R.id.username_goes_here);
-            t.setText(GlobalStore.logged_in_as);
+            t.setText(uname);
         } else setContentView(R.layout.login_screen);
     }
 
@@ -69,6 +71,7 @@ public class LoginScreen extends AppCompatActivity {
                     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginScreen.this);
                     SharedPreferences.Editor editor = preferences.edit();
                     editor.putString("token", token);
+                    editor.putString("logged_in_as", username);
                     editor.commit();
                     GlobalStore.isVolunteer = true;
                     GlobalStore.logged_in_as = username;

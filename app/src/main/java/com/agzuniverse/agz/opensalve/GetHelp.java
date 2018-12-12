@@ -155,6 +155,7 @@ public class GetHelp extends AppCompatActivity {
                                 obj.put("desc", nDesc);
                                 obj.put("location", "");
                                 obj.put("status", "");
+                                obj.put("source", "me");
                                 obj.put("need_rescue", String.valueOf(((CheckBox) findViewById(R.id.evac)).isChecked()));
                                 obj.put("need_food_water", String.valueOf(((CheckBox) findViewById(R.id.foodwater)).isChecked()));
                                 obj.put("need_medical", String.valueOf(((CheckBox) findViewById(R.id.medical)).isChecked()));
