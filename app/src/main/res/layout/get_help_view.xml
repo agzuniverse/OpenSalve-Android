@@ -63,9 +63,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:orientation="vertical"
-            android:padding="8dp"
-            android:gravity="center">
+            android:padding="8dp">
 
             <TextView
                 android:id="@+id/evac_needed"
@@ -127,6 +127,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
+            android:id="@+id/markRespondersDispatchedButton"
             style="@style/opensalve_button"
             android:onClick="markResponderDispatched"
             android:text="@string/mark_as_responded" />

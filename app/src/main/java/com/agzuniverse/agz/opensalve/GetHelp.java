@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -69,7 +70,11 @@ public class GetHelp extends AppCompatActivity {
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
-                setGetHelpData();
+                if (data != null)
+                    setGetHelpData();
+                else
+                    Toast.makeText(GetHelp.this, "Network error", Toast.LENGTH_SHORT).show();
+
             }
         };
         Runnable runnable = () -> {
@@ -90,7 +95,7 @@ public class GetHelp extends AppCompatActivity {
         t.setText(data.getDesc());
         t = findViewById(R.id.req_status_view);
         t.setText(data.getStatus());
-        if (data.getStatus().equals("Help is on the way")) {
+        if (data.getStatus().equals("Teams have responded to the request")) {
             t.setTextColor(getResources().getColor(R.color.safe));
         } else t.setTextColor(getResources().getColor(R.color.danger));
         if (!data.isEvac()) {
@@ -198,10 +203,24 @@ public class GetHelp extends AppCompatActivity {
                 TextView status = findViewById(R.id.req_status_view);
                 status.setTextColor(getResources().getColor(R.color.safe));
                 status.setText("Teams have responded to the request.");
+                Button b = findViewById(R.id.markRespondersDispatchedButton);
+                b.setVisibility(View.INVISIBLE);
+
             }
         };
         Runnable runnable = () -> {
-            //TODO send request to backend to change status
+            OkHttpClient client = new OkHttpClient.Builder().retryOnConnectionFailure(true).build();
+            Request request = new Request.Builder()
+                    .url(getResources().getString(R.string.base_api_url) + "/api/help/r/" + id + "/status")
+                    .header("Authorization", "Token " + GlobalStore.token)
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                JSONObject res = new JSONObject(response.body().string());
+
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+            }
             handler.sendEmptyMessage(0);
         };
         Toast.makeText(GetHelp.this, "Changing status...", Toast.LENGTH_LONG).show();
