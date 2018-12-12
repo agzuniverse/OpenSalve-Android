@@ -8,7 +8,6 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,7 +107,7 @@ public class LocationPicker extends AppCompatActivity implements NewCampDialog.U
                 json.put("lat", position.getLatitude());
                 json.put("lng", position.getLongitude());
                 json.put("photo", "null");
-                json.put("supplies", "");
+                json.put("supplies", "No supplies needed right now");
                 json.put("capacity", "50");
                 json.put("number_of_people", "0");
                 //TODO add image
@@ -153,8 +152,7 @@ public class LocationPicker extends AppCompatActivity implements NewCampDialog.U
                         .build();
                 try {
                     Response response = client.newCall(request).execute();
-                    Log.i("qwe", response.body().string());
-                    //TODO get ID in response
+                    //get ID in response
 //                    JSONObject extractId = new JSONObject(response.body().string());
 //                    id = extractId.getInt("id");
                 } catch (IOException e) {

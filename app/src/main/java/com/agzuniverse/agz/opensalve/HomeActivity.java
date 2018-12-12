@@ -17,7 +17,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -115,7 +114,6 @@ public class HomeActivity extends AppCompatActivity {
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String token = prefs.getString("token", "0");
-        Log.i("qwe", token);
         if (!token.equals("0")) {
             GlobalStore.isVolunteer = true;
             GlobalStore.token = token;
@@ -137,10 +135,10 @@ public class HomeActivity extends AppCompatActivity {
             b.setVisibility(View.GONE);
         }
         if (GlobalStore.newDataPresent) {
-            LocationMarker curr = new LocationMarker(GlobalStore.title, GlobalStore.snippet, GlobalStore.lat, GlobalStore.lng);
-            locations.add(curr);
+//            LocationMarker curr = new LocationMarker(GlobalStore.title, GlobalStore.snippet, GlobalStore.lat, GlobalStore.lng);
+//            locations.add(curr);
+            getMarkers();
             GlobalStore.newDataPresent = false;
-            refreshMapOverlay();
         }
     }
 

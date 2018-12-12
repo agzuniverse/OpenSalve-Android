@@ -22,7 +22,7 @@ public class ConfirmDeleteCampDialog extends DialogFragment {
         builder.setMessage(R.string.confirm_delete)
                 .setPositiveButton(R.string.okay, (dialogInterface, i) -> {
                     Runnable runnable = () -> {
-                        //TODO delete camp/collection center from backend by passing id
+                        // delete camp/collection center from backend by passing id
                         getActivity().finish();
                     };
                     Thread async = new Thread(runnable);

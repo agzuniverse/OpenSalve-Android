@@ -12,7 +12,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +21,6 @@ import com.agzuniverse.agz.opensalve.Modals.CampMetadata;
 import com.agzuniverse.agz.opensalve.Utils.GlobalStore;
 import com.agzuniverse.agz.opensalve.ViewModels.CampMgmtViewModel;
 import com.agzuniverse.agz.opensalve.adapters.SuppliesNeededAdapter;
-import com.agzuniverse.agz.opensalve.widgets.ConfirmDeleteCampDialog;
 import com.agzuniverse.agz.opensalve.widgets.NewSupplyDialog;
 
 import org.json.JSONException;
@@ -57,15 +55,15 @@ public class CampMgmtScreen extends AppCompatActivity implements NewSupplyDialog
         model = ViewModelProviders.of(this).get(CampMgmtViewModel.class);
 
         if (GlobalStore.isVolunteer) {
-            FrameLayout f = findViewById(R.id.delete_camp_button);
-            f.setVisibility(View.VISIBLE);
-            f.setOnClickListener((View v) -> {
-                DialogFragment dialog = new ConfirmDeleteCampDialog();
-                Bundle bundle = new Bundle();
-                bundle.putInt("id", id);
-                dialog.setArguments(bundle);
-                dialog.show(getSupportFragmentManager(), "ConfirmDeleteCampDialog");
-            });
+//            FrameLayout f = findViewById(R.id.delete_camp_button);
+//            f.setVisibility(View.VISIBLE);
+//            f.setOnClickListener((View v) -> {
+//                DialogFragment dialog = new ConfirmDeleteCampDialog();
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("id", id);
+//                dialog.setArguments(bundle);
+//                dialog.show(getSupportFragmentManager(), "ConfirmDeleteCampDialog");
+//            });
             LinearLayout fab = findViewById(R.id.new_supply_fab);
             fab.setVisibility(View.VISIBLE);
             showClosebutton = true;
