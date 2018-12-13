@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name">OpenSalve</string>
+
+    <string name="mapbox_api_token">pk.eyJ1IjoiYWd6dW5pdmVyc2UiLCJhIjoiY2ptNm01d3p0MW14NzNrbXVzZzNxZGVsdyJ9.fTN7Y8Af1_AWtj_YtTqn5Q</string>
+    <!--<string name="base_api_url">http://10.0.2.2:8000</string>-->
+    <string name="base_api_url">https://desolate-lowlands-99133.herokuapp.com</string>
+
+    <string name="button_placeholder">Loading…</string>
+    <string name="name_placeholder">Loading…</string>
+    <string name="camp_manager">Camp In-Charge: </string>
+    <string name="collection_manager">Centre In-Charge: </string>
+    <string name="contact">Contact: </string>
+    <string name="list_of_inhabitants">List of inhabitants</string>
+    <string name="supplies_needed">Supplies Needed: </string>
+    <string name="search_hint">Search Here</string>
+    <string name="want_help">I need help</string>
+    <string name="give_help">I want to help</string>
+    <string name="name">Name: </string>
+    <string name="secondary_person_attrib">Blood Group</string>
+    <string name="camps">Camps</string>
+    <string name="collection">Collection Centers</string>
+    <string name="requests">Help Requests</string>
+    <string name="anything_else">Anything else you want to mention: </string>
+    <string name="desc">Enter description</string>
+    <string name="check_all_that_applies">Check all that applies to you:</string>
+    <string name="submit">Submit</string>
+    <string name="add_new_supply">Enter name of resource required</string>
+
+    <string name="evac">Evacuation required</string>
+    <string name="foodwater">Food &amp; water required</string>
+    <string name="medical">Medical attention needed</string>
+    <string name="firstaid">First aid needed</string>
+    <string name="transport">Looking for transport</string>
+    <string name="other">Other</string>
+    <string name="mark_resolved">Mark request as resolved</string>
+    <string name="mark_as_responded">Responders dispatched</string>
+
+    <string name="menu_item_one">Important News</string>
+    <string name="menu_auth">Authentication</string>
+    <string name="about">About OpenSalve</string>
+    <string name="okay">Okay</string>
+    <string name="cancel">Cancel</string>
+    <string name="designation">Designation</string>
+    <string name="announcement">Enter announcement here</string>
+
+    <string-array name="camp_or_collection_spinner_options">
+        <item>Relief Camp</item>
+        <item>Collection Center</item>
+    </string-array>
+
+    <string name="add_new_loc">Add new location</string>
+    <string name="new_camp_name">Enter camp name</string>
+    <string name="new_collection_name">Enter collection center name</string>
+    <string name="new_camp_manager">Name of In-charge</string>
+    <string name="new_camp_contact">Contact</string>
+    <string name="optional_upload">Upload Image (Optional)</string>
+    <string name="confirm_location">Confirm Location</string>
+
+    <string name="confirm_delete">Are you sure you want to delete this?</string>
+
+    <string name="username">Enter username</string>
+    <string name="password">Enter password</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="logged_in_as">Logged in as:</string>
+</resources>

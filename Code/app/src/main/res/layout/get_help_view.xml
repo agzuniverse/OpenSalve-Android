@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/name_view_label"
+                    style="@style/big_word"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="@string/name" />
+
+                <TextView
+                    android:id="@+id/name_view"
+                    style="@style/big_word"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/name_placeholder" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/contact_view_label"
+                    style="@style/big_word"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="@string/contact" />
+
+                <TextView
+                    android:id="@+id/contact_view"
+                    style="@style/big_word"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/name_placeholder" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/evac_needed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/evac" />
+
+            <TextView
+                android:id="@+id/foodwater_needed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/foodwater" />
+
+            <TextView
+                android:id="@+id/medical_needed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/medical" />
+
+            <TextView
+                android:id="@+id/firstaid_needed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/firstaid" />
+
+            <TextView
+                android:id="@+id/transport_needed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/transport" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/desc_view"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:padding="8dp"
+            android:text="@string/name_placeholder"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/req_status_view"
+            style="@style/big_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="@string/name_placeholder" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/get_help_manage_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/markRespondersDispatchedButton"
+            style="@style/opensalve_button"
+            android:onClick="markResponderDispatched"
+            android:text="@string/mark_as_responded" />
+
+        <Button
+            style="@style/opensalve_button"
+            android:onClick="markRequestResolved"
+            android:text="@string/mark_resolved" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
