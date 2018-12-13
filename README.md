@@ -30,7 +30,7 @@
       License
     </td>
     <td>
-      GPL License
+      <a href="https://github.com/agzuniverse/OpenSalve-Android/blob/master/LICENSE.md">GPL License</a>
     </td>
   </tr>
   <tr>
@@ -46,9 +46,9 @@
       Authors
     </td>
     <td>
-      [Aswin G](https://github.com/agzuniverse)<br/>
-      [Subin Siby](https://github.com/subins2000)<br/>
-      [Devdutt Shenoi](https://github.com/de-sh)
+      <a href="https://github.com/agzuniverse">Aswin G</a><br/>
+      <a href="https://github.com/subins2000">Subin Siby</a><br/>
+      <a href="https://github.com/de-sh">Devdutt Shenoi
     </td>
   </tr>
   </table>
