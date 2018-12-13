@@ -6,7 +6,7 @@
       App file name
     </td>
     <td>
-      OpenSalve.apk
+      <a href="https://github.com/agzuniverse/OpenSalve-Android/raw/master/OpenSalve.apk">OpenSalve.apk</a>
     </td>
   </tr>
   <tr>
@@ -52,6 +52,9 @@
     </td>
   </tr>
   </table>
+  
+ 
+<img src="https://github.com/agzuniverse/OpenSalve-Android/raw/master/Logo/Feature_graphic.png"/>
       
 
 OpenSalve is an application that aids in live disaster management and after-disaster relief process in an area struck by a natural disaster, such as a flood or a hurricane.
