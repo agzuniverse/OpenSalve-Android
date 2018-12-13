@@ -81,6 +81,8 @@ Another important factor when a large scale disaster is taking place is the accu
 
 While the app is complete as of now, in future updates we are hoping to add a blockchain-based system to keep track of payments/donations made by the people as well as the usage of these funds by officials. This prevents corruption and increases transparency, and would encourage more people to donate money as they can see exactly where and how the money is being spent.
 
+**Link to repo with backend code: [OpenSalve-backend](https://github.com/agzuniverse/OpenSalve)**
+
 ## Demo video
 
 *Watch the demo video on YouTube:* https://youtu.be/lPh9CAzY-j4
