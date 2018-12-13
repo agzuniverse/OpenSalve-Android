@@ -1,5 +1,59 @@
 # OpenSalve
 
+<table>
+  <tr>
+    <td>
+      App file name
+    </td>
+    <td>
+      OpenSalve.apk
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Team Name
+    </td>
+    <td>
+      OpenSalve
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Short Description
+    </td>
+    <td>
+      OpenSalve is an application that aids in live disaster management and after-disaster relief process in an area struck by a natural disaster.
+    </td>
+  </tr>
+  <tr>
+    <td>
+      License
+    </td>
+    <td>
+      GPL License
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Country
+    </td>
+    <td>
+      India
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Authors
+    </td>
+    <td>
+      [Aswin G](https://github.com/agzuniverse)<br/>
+      [Subin Siby](https://github.com/subins2000)<br/>
+      [Devdutt Shenoi](https://github.com/de-sh)
+    </td>
+  </tr>
+  </table>
+      
+
 OpenSalve is an application that aids in live disaster management and after-disaster relief process in an area struck by a natural disaster, such as a flood or a hurricane.
 
 Our inspiration for developing this application comes from the Kerala floods. Kerala is our home state in southern India, and was hit by devastating floods a few months ago. Several relief-camps were set up and tens of thousands of people had to shift to these camps. Due to general lack of coordination and communication, several people lost their lives due to not being rescued in time. Many suffered from starvation and other problems due to essential resources like food, clothing and medicines not reaching them. People who were ready to donate such resources had a hard time finding collection centers where they could donate what they can.
@@ -20,7 +74,7 @@ Another important factor when a large scale disaster is taking place is the accu
 
 **Such an application can be invaluable in coordinating relief efforts for many kinds of disasters, and can very well save human lives in the future.**
 
-### Future scope
+### Future plans
 
 While the app is complete as of now, in future updates we are hoping to add a blockchain-based system to keep track of payments/donations made by the people as well as the usage of these funds by officials. This prevents corruption and increases transparency, and would encourage more people to donate money as they can see exactly where and how the money is being spent.
 
