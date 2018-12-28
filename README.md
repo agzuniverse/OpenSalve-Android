@@ -61,6 +61,8 @@ OpenSalve is an application that aids in live disaster management and after-disa
 
 Our inspiration for developing this application comes from the Kerala floods. Kerala is our home state in southern India, and was hit by devastating floods a few months ago. Several relief-camps were set up and tens of thousands of people had to shift to these camps. Due to general lack of coordination and communication, several people lost their lives due to not being rescued in time. Many suffered from starvation and other problems due to essential resources like food, clothing and medicines not reaching them. People who were ready to donate such resources had a hard time finding collection centers where they could donate what they can.
 
+<img src="https://i.postimg.cc/htkDmQH2/Android-Ratio-16-10-2x.png"/>
+
 **OpenSalve is an all-in-one application that aims to solve these problems.**
 
 The public would be able to see an interactive map of the affected areas. They can request help and pinpoint the location at which someone is trapped, for rescue, and also request for resources such as food, or ask for medical attention.
@@ -82,6 +84,11 @@ Another important factor when a large scale disaster is taking place is the accu
 While the app is complete as of now, in future updates we are hoping to add a blockchain-based system to keep track of payments/donations made by the people as well as the usage of these funds by officials. This prevents corruption and increases transparency, and would encourage more people to donate money as they can see exactly where and how the money is being spent.
 
 **Link to repo with backend code: [OpenSalve-backend](https://github.com/agzuniverse/OpenSalve)**
+
+**Please wait a few seconds after opening the app to load the data from the backend, as the free tier of Heroku has a small wake up time before it becomes active. **
+
+**Use the username "testing" and password "testing" to gain access to a sample volunteer account. (This is also mentioned in the app itself)**
+
 
 ## Demo video
 
