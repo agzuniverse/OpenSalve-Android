@@ -85,7 +85,7 @@ While the app is complete as of now, in future updates we are hoping to add a bl
 
 **Link to repo with backend code: [OpenSalve-backend](https://github.com/agzuniverse/OpenSalve)**
 
-**Please wait a few seconds after opening the app to load the data from the backend, as the free tier of Heroku has a small wake up time before it becomes active. **
+**Please wait a few seconds after opening the app to load the data from the backend, as the free tier of Heroku has a small wake up time before it becomes active.**
 
 **Use the username "testing" and password "testing" to gain access to a sample volunteer account. (This is also mentioned in the app itself)**
 
