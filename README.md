@@ -47,8 +47,6 @@
     </td>
     <td>
       <a href="https://github.com/agzuniverse">Aswin G</a><br/>
-      <a href="https://github.com/subins2000">Subin Siby</a><br/>
-      <a href="https://github.com/de-sh">Devdutt Shenoi
     </td>
   </tr>
   </table>
